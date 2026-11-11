@@ -30,8 +30,8 @@ describe('size caps', () => {
   });
 
   it('screens: 50', () => {
-    // Small screens, so that 50 of them side by side fit the 16,000 px canvas.
-    const src = (n: number) => lines(n, (i) => `screen "S${i}" size=100x100`);
+    // Desktop screens: the overview wraps them into bands, so 50 fit the canvas.
+    const src = (n: number) => lines(n, (i) => `screen "S${i}" desktop`);
     expect(codes(src(50))).not.toContain('E701');
     expect(codes(src(51))).toEqual(['E701']);
   });

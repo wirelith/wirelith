@@ -3,7 +3,7 @@
 // Layout rules (spec sections 10 and 11) and number formatting (section 12.2).
 
 import { describe, expect, it } from 'vitest';
-import { layout } from '../src/index.js';
+import { layout, render } from '../src/index.js';
 import { share } from '../src/layout.js';
 import { measure, r, truncate, wrap } from '../src/measure.js';
 import { fmt, fmt4 } from '../src/svg.js';
@@ -139,5 +139,58 @@ describe('overview (7.4)', () => {
       expect(f.v?.y, src).toBe((f.base?.y ?? 0) + (f.base?.height ?? 0) + 64);
       expect(f.next?.x, src).toBe((f.base?.x ?? 0) + (f.base?.width ?? 0) + 96);
     }
+  });
+
+  it('wraps groups into bands so the canvas stays within 16,000 px', () => {
+    const src = Array.from({ length: 50 }, (_, i) => `screen "S${i}" desktop #s${i}`).join('\n');
+    const L = layout(src);
+    expect(L.diagnostics).toEqual([]);
+    expect(L.width).toBeLessThanOrEqual(16000);
+    const f = Object.fromEntries(L.frames.map((x) => [x.id, x]));
+    // Eleven desktop frames fit in a band: 32 + 11 x 1280 + 10 x 96 + 32 = 15,104.
+    expect(f.s10?.y).toBe(f.s0?.y);
+    expect(f.s11?.x).toBe(32);
+    expect(f.s11?.y).toBe((f.s0?.y ?? 0) + 800 + 96);
+    expect(f.s44?.y).toBe(f.s49?.y);
+    expect(f.s44?.y).toBeGreaterThan(f.s43?.y ?? 0);
+  });
+
+  it('runs an arrow to another band in lanes above that band', () => {
+    const screens = Array.from(
+      { length: 13 },
+      (_, i) => `screen "S${i}" desktop #s${i}${i === 0 ? '\n  button "Go" -> #s12' : ''}`,
+    );
+    const L = layout(screens.join('\n'));
+    const f = Object.fromEntries(L.frames.map((x) => [x.id, x]));
+    // One lane above band 2 pushes it down by 12 px; band 1 has none above it.
+    expect(f.s0?.y).toBe(32 + 32);
+    expect(f.s12?.y).toBe(64 + 800 + 96 + 12);
+  });
+});
+
+describe('arrow spacing across bands (10.6)', () => {
+  /** The x of each arrow's vertical run, in drawing order. */
+  const runs = (src: string) => {
+    const svg = render(src).svg ?? '';
+    // Arrow paths only: they end in the arrowhead marker.
+    return [...svg.matchAll(/<path d="M[0-9.]+ [0-9.]+L([0-9.]+) [^"]*"[^>]*marker-end=/g)].map((m) =>
+      Number(m[1]),
+    );
+  };
+
+  it('spaces arrows in one band independently of arrows in another', () => {
+    // Band 1 holds s0..s10; band 2 holds s11 and s12. The gap right of s0 and the gap right of
+    // s11 have the same x-range but are different gaps.
+    const screens = (extra: string) =>
+      Array.from(
+        { length: 13 },
+        (_, i) =>
+          `screen "S${i}" desktop #s${i}${i === 0 ? '\n  button "A" -> #s1' : ''}${i === 11 ? extra : ''}`,
+      ).join('\n');
+    const alone = runs(screens(''));
+    const withOther = runs(screens('\n  button "B" -> #s12'));
+    // The arrow from s0 to s1 runs at the same x whether or not band 2 has an arrow too.
+    expect(alone).toEqual([1360]);
+    expect(withOther[0]).toBe(1360);
   });
 });
