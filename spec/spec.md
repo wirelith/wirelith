@@ -329,6 +329,7 @@ A renderer has two modes.
 In detail:
 
 - **Groups.** Each screen that is not a variant starts a group. A group's first row is the screen, followed by the extra frames of its linked overlays, in source order. Each of its variants adds a row below, in source order, made of the variant and the extra frames of its own linked overlays. Frames in a row are 96 px apart and rows are 64 px apart. A group is as wide as its widest row. Groups are placed left to right, 96 px apart.
+- **Bands.** Groups are placed in bands. A group that would make the overview wider than 16,000 px (section 16), counting the 32 px margin on each side, starts a new band, below the tallest group of the band before, 96 px further down. The first group of a band is never moved to a new band, so a single group wider than the canvas is still `E701`.
 - **Notes.** A frame with notes has its notes list in a 240 px column, 24 px to its right. The column counts as part of the frame for spacing.
 - **Canvas.** The overview has a 32 px margin on every side. Each frame's title is one line, set 8 px above the frame (Appendix C.9).
 - **One screen alone.** A source with one screen, no links and no linked overlays is drawn as that frame and its notes column, with no title line and no margin.
@@ -552,7 +553,7 @@ Appendix C gives the complete geometry of every component, including marks, bord
 2. It runs horizontally to the gap between frames, vertically to the height of its entry point, then horizontally into the target frame's nearest vertical edge, entering 48 px below the frame's top.
 3. Arrows that share a gap are spread across it at equal spacing, in source order: with n arrows in a gap of width w, the k-th (from 1) runs at w × k ÷ (n + 1) from the gap's left edge.
 4. A link to a variant below its base runs down the gap to the left of the variant.
-5. When the target frame is not across the gap next to the source frame, the arrow climbs its gap to a lane above all frames, runs along the lane, and drops down the gap beside the target. Lanes are 12 px apart, starting 12 px above the highest frame title, in source order.
+5. When the target frame is not across the gap next to the source frame, or is in another band, the arrow climbs or drops down its gap to a lane above the band that holds the target, runs along the lane, and drops down the gap beside the target. Lanes are 12 px apart, starting 12 px above that band's frame titles, numbered in link order for each band. The space above each band grows by 12 px for each of its lanes.
 6. Links are numbered in source order: elements' links in a depth-first walk of each screen, screens in source order, then `flow` lines.
 7. Arrows are drawn as described in Appendix C.9. Overlapping arrows beyond these rules are allowed.
 

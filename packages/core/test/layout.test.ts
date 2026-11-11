@@ -140,4 +140,30 @@ describe('overview (7.4)', () => {
       expect(f.next?.x, src).toBe((f.base?.x ?? 0) + (f.base?.width ?? 0) + 96);
     }
   });
+
+  it('wraps groups into bands so the canvas stays within 16,000 px', () => {
+    const src = Array.from({ length: 50 }, (_, i) => `screen "S${i}" desktop #s${i}`).join('\n');
+    const L = layout(src);
+    expect(L.diagnostics).toEqual([]);
+    expect(L.width).toBeLessThanOrEqual(16000);
+    const f = Object.fromEntries(L.frames.map((x) => [x.id, x]));
+    // Eleven desktop frames fit in a band: 32 + 11 x 1280 + 10 x 96 + 32 = 15,104.
+    expect(f.s10?.y).toBe(f.s0?.y);
+    expect(f.s11?.x).toBe(32);
+    expect(f.s11?.y).toBe((f.s0?.y ?? 0) + 800 + 96);
+    expect(f.s44?.y).toBe(f.s49?.y);
+    expect(f.s44?.y).toBeGreaterThan(f.s43?.y ?? 0);
+  });
+
+  it('runs an arrow to another band in lanes above that band', () => {
+    const screens = Array.from(
+      { length: 13 },
+      (_, i) => `screen "S${i}" desktop #s${i}${i === 0 ? '\n  button "Go" -> #s12' : ''}`,
+    );
+    const L = layout(screens.join('\n'));
+    const f = Object.fromEntries(L.frames.map((x) => [x.id, x]));
+    // One lane above band 2 pushes it down by 12 px; band 1 has none above it.
+    expect(f.s0?.y).toBe(32 + 32);
+    expect(f.s12?.y).toBe(64 + 800 + 96 + 12);
+  });
 });

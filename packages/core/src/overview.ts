@@ -50,6 +50,8 @@ const V_GAP = 64;
 const NOTES_GAP = 24;
 const NOTES_W = 240;
 const LANE = 12;
+/** The widest the overview may be (spec section 16); groups wrap into a new band beyond it. */
+const CANVAS = 16000;
 
 const isVariant = (s: Node) => {
   const of = s.attrs?.of;
@@ -190,32 +192,67 @@ export function buildOverview(doc: Document, theme: Theme, opts: Options): Overv
   const outer = (f: PlacedFrame) => f.w + (f.notesW > 0 ? NOTES_GAP + f.notesW : 0);
   const tall = (f: PlacedFrame) => Math.max(f.h, f.notesH);
 
-  // Place the frames. Lanes above the frames are counted on a first pass, then frames move down.
-  const place = (top: number, left: number) => {
-    let x = left;
+  // Groups go left to right in bands. A group that would make the canvas wider than allowed
+  // starts a new band below (spec section 7.4).
+  const rowWidth = (row: PlacedFrame[]) => row.reduce((w, f) => w + outer(f), 0) + H_GAP * (row.length - 1);
+  const groupWidth = (g: PlacedFrame[][]) => Math.max(...g.map(rowWidth));
+  const groupHeight = (g: PlacedFrame[][]) =>
+    g.reduce((h, row) => h + Math.max(...row.map(tall)), 0) + V_GAP * (g.length - 1);
+  const bands: PlacedFrame[][][][] = [];
+  {
+    let x = MARGIN;
     for (const g of groups) {
-      let y = top;
-      let gw = 0;
-      for (const row of g) {
-        let fx = x;
-        let rh = 0;
-        for (const f of row) {
-          f.x = r(fx);
-          f.y = r(y);
-          fx += outer(f) + H_GAP;
-          rh = Math.max(rh, tall(f));
-        }
-        gw = Math.max(gw, fx - H_GAP - x);
-        y += rh + V_GAP;
+      const w = groupWidth(g);
+      const band = bands[bands.length - 1];
+      if (!band || (band.length > 0 && x + w + MARGIN > CANVAS)) {
+        bands.push([g]);
+        x = MARGIN + w + H_GAP;
+      } else {
+        band.push(g);
+        x += w + H_GAP;
       }
-      x += gw + H_GAP;
     }
+  }
+  const bandOf = new Map<PlacedFrame, number>();
+  bands.forEach((band, b) => {
+    for (const g of band) for (const row of g) for (const f of row) bandOf.set(f, b);
+  });
+
+  /** Places every frame. `lanes[b]` is how many arrow lanes run above band b. Returns band tops. */
+  const place = (lanes: number[]): number[] => {
+    const tops: number[] = [];
+    let top = MARGIN + LANE * (lanes[0] ?? 0) + TITLE;
+    bands.forEach((band, b) => {
+      if (b > 0) top += H_GAP + LANE * (lanes[b] ?? 0);
+      tops.push(top);
+      let x = MARGIN;
+      let bandH = 0;
+      for (const g of band) {
+        let y = top;
+        for (const row of g) {
+          let fx = x;
+          let rh = 0;
+          for (const f of row) {
+            f.x = r(fx);
+            f.y = r(y);
+            fx += outer(f) + H_GAP;
+            rh = Math.max(rh, tall(f));
+          }
+          y += rh + V_GAP;
+        }
+        x += groupWidth(g) + H_GAP;
+        bandH = Math.max(bandH, groupHeight(g));
+      }
+      top += bandH;
+    });
+    return tops;
   };
 
   const frames = groups.flat(2);
   if (alone) {
-    place(0, 0);
     const f = frames[0] as PlacedFrame;
+    f.x = 0;
+    f.y = 0;
     return {
       frames,
       arrows: [],
@@ -227,13 +264,14 @@ export function buildOverview(doc: Document, theme: Theme, opts: Options): Overv
     };
   }
 
-  place(MARGIN + TITLE, MARGIN);
+  // Lanes are counted on a first pass, then the bands move apart to make room for them.
+  let tops = place([]);
   let arrows = showFlows
-    ? route(doc, all, layout, groups, baseFrame, extraFrame, outer, 0)
-    : { arrows: [], lanes: 0 };
-  if (arrows.lanes > 0) {
-    place(MARGIN + LANE * arrows.lanes + TITLE, MARGIN);
-    arrows = route(doc, all, layout, groups, baseFrame, extraFrame, outer, arrows.lanes);
+    ? route(doc, all, bands, bandOf, tops, baseFrame, extraFrame, outer)
+    : { arrows: [], lanes: [] as number[] };
+  if (arrows.lanes.some((n) => n > 0)) {
+    tops = place(arrows.lanes);
+    arrows = route(doc, all, bands, bandOf, tops, baseFrame, extraFrame, outer);
   }
   let width = 0;
   let height = 0;
@@ -272,31 +310,33 @@ interface Gap {
 function route(
   doc: Document,
   all: ReturnType<typeof walk>,
-  layout: Layout,
-  groups: PlacedFrame[][][],
+  bands: PlacedFrame[][][][],
+  bandOf: Map<PlacedFrame, number>,
+  tops: number[],
   baseFrame: Map<Node, PlacedFrame>,
   extraFrame: Map<Node, PlacedFrame>,
   outer: (f: PlacedFrame) => number,
-  laneCount: number,
-): { arrows: Arrow[]; lanes: number } {
-  // The gaps on each side of each frame.
+): { arrows: Arrow[]; lanes: number[] } {
+  // The gaps on each side of each frame, within its band.
   const leftGap = new Map<PlacedFrame, Gap>();
   const rightGap = new Map<PlacedFrame, Gap>();
-  let prevGroupRight = 0;
-  groups.forEach((g, gi) => {
-    let groupRight = 0;
-    for (const row of g) for (const f of row) groupRight = Math.max(groupRight, f.x + outer(f));
-    const nextGroupLeft = groups[gi + 1]?.[0]?.[0]?.x ?? groupRight + H_GAP;
-    for (const row of g) {
-      row.forEach((f, i) => {
-        const prev = row[i - 1];
-        const next = row[i + 1];
-        leftGap.set(f, { a: prev ? prev.x + outer(prev) : prevGroupRight, b: f.x });
-        rightGap.set(f, { a: f.x + outer(f), b: next ? next.x : nextGroupLeft });
-      });
-    }
-    prevGroupRight = groupRight;
-  });
+  for (const groups of bands) {
+    let prevGroupRight = 0;
+    groups.forEach((g, gi) => {
+      let groupRight = 0;
+      for (const row of g) for (const f of row) groupRight = Math.max(groupRight, f.x + outer(f));
+      const nextGroupLeft = groups[gi + 1]?.[0]?.[0]?.x ?? groupRight + H_GAP;
+      for (const row of g) {
+        row.forEach((f, i) => {
+          const prev = row[i - 1];
+          const next = row[i + 1];
+          leftGap.set(f, { a: prev ? prev.x + outer(prev) : prevGroupRight, b: f.x });
+          rightGap.set(f, { a: f.x + outer(f), b: next ? next.x : nextGroupLeft });
+        });
+      }
+      prevGroupRight = groupRight;
+    });
+  }
 
   // Every link, in order: element links in a depth-first walk of each screen, then flows.
   interface Plan {
@@ -360,7 +400,7 @@ function route(
     }
     const gs = (dir === 'right' ? rightGap.get(S) : leftGap.get(S)) as Gap;
     const gt = (dir === 'right' || overlap ? leftGap.get(T) : rightGap.get(T)) as Gap;
-    const same = key(gs) === key(gt);
+    const same = key(gs) === key(gt) && bandOf.get(S) === bandOf.get(T);
     const slotS = (usage.get(key(gs)) ?? 0) + 1;
     usage.set(key(gs), slotS);
     let slotT = slotS;
@@ -371,8 +411,8 @@ function route(
     return { p, dir, overlap, gs, gt, same, slotS, slotT };
   });
 
-  let lanes = 0;
-  const top = Math.min(...groups.flat(2).map((f) => f.y)) - TITLE;
+  // Lanes run above the band that holds the arrow's target, numbered per band in link order.
+  const lanes: number[] = bands.map(() => 0);
   const arrows: Arrow[] = routes.map((rt) => {
     const { p, dir, overlap, gs, gt, same } = rt;
     const S = p.from;
@@ -392,8 +432,9 @@ function route(
     if (same) {
       points = [start, [xs, start[1]], [xs, entryY], [entryX, entryY]];
     } else {
-      lanes++;
-      const laneY = laneCount > 0 ? r(top - LANE * lanes) : r(top - LANE * lanes);
+      const b = bandOf.get(T) ?? 0;
+      lanes[b] = (lanes[b] ?? 0) + 1;
+      const laneY = r((tops[b] ?? 0) - TITLE - LANE * (lanes[b] ?? 0));
       const xt = xIn(gt, rt.slotT);
       points = [start, [xs, start[1]], [xs, laneY], [xt, laneY], [xt, entryY], [entryX, entryY]];
     }
@@ -404,7 +445,6 @@ function route(
     if (p.label !== undefined) arrow.label = p.label;
     return arrow;
   });
-  void layout;
   return { arrows, lanes };
 }
 
