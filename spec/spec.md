@@ -42,14 +42,14 @@ In markdown, a source lives in a fenced code block whose language is `wirelith`.
 
 ## 3. Lexical rules
 
-- **Encoding.** UTF-8. Line endings are LF or CRLF. A byte-order mark is ignored. A library that accepts a string instead of bytes replaces any lone surrogate with U+FFFD before parsing.
+- **Encoding.** UTF-8. Line endings are LF or CRLF; a lone CR also ends a line. A byte-order mark is ignored. A library that accepts a string instead of bytes replaces any lone surrogate with U+FFFD before parsing.
 - **Characters that are not allowed.** A control character (U+0000 to U+001F other than LF and CR, and U+007F) anywhere in a source is an error (`E106`), except a tab in indentation, which is `E102`. So are U+FFFE and U+FFFF. None of these can appear in an XML document, so rejecting them keeps every source safe to render.
 - **Spaces.** Only U+0020 separates parts. Trailing spaces on a line are ignored.
 - **Indentation.** Exactly two spaces per level. A tab in indentation is an error (`E102`). A line indented by an odd number of spaces, or more than one level deeper than its parent, is an error (`E101`). Blank lines and comment lines do not count when working out a line's parent.
 - **Blank lines** are ignored.
 - **Comments** start with `//` and run to the end of the line. A comment is a whole line, or follows an element after at least one space. `//` inside a string or a list is text.
 - **Strings** are in double quotes: `"Sign in"`. Escapes are `\"`, `\\` and `\n`. Any other escape, such as `\t`, is an error (`E106`). A string cannot span lines; a string with no closing quote is `E104`. Where a component draws a single line of text, a `\n` in its label is drawn as a space.
-- **Bare words** are made of letters, digits, `-`, `_`, `.`, `:`, `%` and `/`. They are used for names, flags and simple values.
+- **Bare words** are made of the ASCII letters `A` to `Z` and `a` to `z`, the digits `0` to `9`, and `-`, `_`, `.`, `:`, `%` and `/`. They are used for names, flags and simple values. Any other text, including letters outside ASCII, goes in double quotes.
 - **Numbers.** A bare word that matches `-?[0-9]+(\.[0-9]+)?` is a number. Anything else, such as `50%`, `16:6` or `390x844`, is a string.
 - **Lists** are in square brackets, with items separated by commas: `[Home, Projects, "Help, docs"]`. An item is a string, or bare text: any characters other than `,`, `[`, `]`, `"` and a line break, with spaces trimmed from both ends and kept as written inside. Bare text may start with `#`. `[]` is an empty list. An empty item (`[a,,b]`), or anything other than spaces between a quoted item and the next comma or bracket (`["a" b]`), is an error (`E106`). A list with no closing bracket is `E104`.
 - **Ids** start with `#`, then a letter, then letters, digits, `-` or `_`: `#home`.
@@ -475,7 +475,7 @@ screen "Specimen"
     text "Card content"
 ```
 
-The specimen has no links and no notes. Its diagnostics are those of the theme alone.
+The specimen has no links and no notes, so it is drawn as one screen alone (section 7.4), with its title in the SVG's `title`. Its diagnostics are those of the theme alone.
 
 ## 10. Layout
 
@@ -506,9 +506,10 @@ Layout runs top-down for widths, then bottom-up for heights.
    3. The room left, after gaps, is shared equally among children with `grow`, `width=fill`, and `spacer` elements with no `size`.
    4. If there is no room left and the children overflow, every child without a fixed width is scaled down by the same factor, to no less than its minimum width (10.4). This is repeated: a child that reaches its minimum keeps it, and the factor is worked out again for the others, until everything fits or every such child is at its minimum. Any remaining overflow is clipped at the container, with `W601`.
    5. Text that ends up narrower than its one-line width wraps (section 11), and its height grows with the number of lines.
+   6. **`wrap`.** A `row` with the `wrap` flag first splits its children into lines: children are taken in order, at their fixed or intrinsic width, and a child that would make the line wider than the content width starts a new line. Each line is then laid out as above, and lines are stacked with the row's gap between them.
 4. **Heights.** A leaf's height comes from the component metrics (10.5 and Appendix C), and for text from the number of wrapped lines. A vertical container's height is the sum of its children's heights, plus gaps and padding. A horizontal container's height is its tallest child's, plus padding. An element with a fixed `height` has that height; content that doesn't fit is clipped, with `W601`. A percentage `height` is of the parent's content height when the parent has a fixed height or is a screen's body; otherwise it is ignored, with `W205`.
    - **Free room in vertical containers.** A screen's body column (section 10.3, step 8) is at least as tall as the room the device leaves for it, so a `spacer` or a child with `grow` in it can take the room left over. Any other vertical container has room left over only when it has a fixed `height`.
-5. **Cross-axis alignment** follows `align`. `stretch` is the default in vertical containers, and `center` in horizontal ones.
+5. **Cross-axis alignment** follows `align`. `stretch` is the default in vertical containers, and `center` in horizontal ones. In a horizontal container, `stretch` makes every container child (and every `divider` and `sidebar`, whatever the alignment) as tall as the row; leaves keep their own height and sit at the top.
 6. **Main-axis placement** follows `justify` when no child grows.
 7. **`grid`.** The column width is (content width − gaps) ÷ `cols`, shared as in section 10.1. A child with `span=N` takes N columns and the gaps between them. Children fill rows left to right, and a child that doesn't fit starts a new row. Each row is as tall as its tallest child, and every child in the row is stretched to that height.
 8. **`sidebar`, `header`, `footer`.** A screen first sets aside its `header` (top, full width), `footer` (bottom, full width) and `sidebar` (left, or right, between the header and the footer) children, in that order. Its other children, in source order, are its **body**: a column, with the screen's padding, in the area that remains. The frame is as tall as the device, or as tall as its content needs if that is more, and the footer sits at the bottom of the frame. A `sidebar` inside a `row` is an ordinary child of that row with a fixed width (its `width`, or 240 px), stretched to the row's height.
@@ -516,7 +517,7 @@ Layout runs top-down for widths, then bottom-up for heights.
 
 ### 10.4 Intrinsic and minimum widths
 
-- **Text** (`h1` to `h3`, `text`, `label`, `link`, `badge`): the measured width of its label on one line (section 11).
+- **Text** (`h1` to `h3`, `text`, `label`, `link`, `badge`): the measured width of its label on one line (section 11). A `text` with no label (placeholder lines) is 240 px wide, with a minimum of 96 px.
 - **`button`:** the label width plus 8u, plus 6u if it has an icon. A button with an icon and no label is as wide as it is tall.
 - **Field controls** (`input`, `textarea`, `select`): 240 px. Minimum 96 px.
 - **`checkbox`, `radio` option, `toggle`:** the mark's width plus 2u plus the label width.
@@ -588,7 +589,7 @@ The only other element is the `wl:source` element inside `metadata` (section 12.
 - **`title`** is the screen's title when the output shows one screen (with or without overlay frames), `Theme: <name>` for a specimen, and otherwise "*N* screens", where N counts every `screen`, variants included. **`desc`** is one sentence: `Screens: <titles, separated by ", ">. <L> links.` (`1 link.` when there is one), for example `Screens: Sign in, Home. 1 link.`
 - Each screen is a `g` with `class="wl-screen"`, an id, and its own `title`.
 - Each element is a `g` with `class="wl-<component>"`. State flags add classes, for example `wl-button wl-primary wl-disabled`.
-- **Ids** are `<idPrefix>-<source id>` for elements that have an id in the source, and `<idPrefix>-n<index>` otherwise, where the index is the element's position in a depth-first, pre-order walk of the syntax tree, from 0. The walk covers the screens, in source order, and everything under them, screens included; themes and `flow` lines are not counted. An extra frame for an overlay is a `g` with the id `<overlay's id>-frame`.
+- **Ids** are `<idPrefix>-<source id>` for elements that have an id in the source, and `<idPrefix>-n<index>` otherwise, where the index is the element's position in a depth-first, pre-order walk of the syntax tree, from 0. The walk covers the screens, in source order, and everything under them, screens included; themes and `flow` lines are not counted. An extra frame for an overlay is a `g` with the id `<idPrefix>-<overlay's id>-frame`. Elements drawn again inside an extra frame put the frame's name before their own, as `<idPrefix>-<overlay's id>-frame-<element's id>`, so that every id in the document is unique. The notes list beside a frame is a `g` with the id `<frame's id>-notes`.
 - Text is drawn as `text` elements, never as outlines. `font-family` is exactly `Inter, sans-serif`, `'Source Serif 4', serif` or `'JetBrains Mono', monospace`.
 - **Numbers** are written with at most one decimal place and no trailing zero: `12`, `12.5`, `-3`. Every position is already a multiple of 0.5 (section 10.1). `-0` is written `0`. There are three exceptions: opacities are written as given in Appendix C; an icon's scale and stroke width are written with up to four decimal places (Appendix C.1); and an icon's drawing is copied exactly as it is in `icons.json`.
 - Attribute order within an element (Appendix D), number formatting and element order (source order, overlays last, notes after those, arrows after those) are fixed, so that outputs can be compared byte for byte after the normalisation the conformance suite defines.
@@ -760,7 +761,7 @@ A validator returns a list of diagnostics. Each has a `code`, a `severity` (`err
 - An **error** means the source cannot be drawn as written. A renderer given a source with errors draws nothing from it and shows the diagnostics.
 - A **warning** means the source was drawn, but probably not as the author meant.
 - Codes are stable. A code is never reused for a different meaning, so tools and agents may key on them. Message wording may improve between versions.
-- **Positions.** `line` and `column` point at the start of the part the diagnostic is about. A diagnostic about the whole source (the source-size cap) is at line 1, column 1. A diagnostic about a theme the host supplied is at the `theme` line when the source has one, and otherwise at line 1, column 1.
+- **Positions.** `line` and `column` are counted from 1, and columns count Unicode code points. A syntax error (`E101` to `E106`, `E201`) points at the start of the part that is wrong. A diagnostic about what an element means (`E203`, `E204`, `E301`, `E401`, `E402`, `W202`, `W205`, `W301`, `W302`, `W403`, `W601`, `W602`) points at the start of the element's line: its component name. Problems of one code on one element are reported as one diagnostic whose message lists them all. A diagnostic about the whole source (the source-size cap) is at line 1, column 1. A diagnostic about a theme the host supplied is at the `theme` line when the source has one, and otherwise at line 1, column 1.
 - **Order.** Diagnostics are sorted by line, then column, then code. The same code is not reported twice at the same position.
 - **Recovery.** A validator reports every problem it can find, not just the first. A line with an error is skipped, together with its children. The size caps are checked first; if one is exceeded, only that `E701` is reported.
 - The conformance suite compares `code`, `severity`, `line` and `column`, never the message.
@@ -1198,6 +1199,7 @@ This appendix completes section 10.5. With it, the layout and the drawing of eve
 - **Single-line text in a box** is centred vertically: its line box (one line height tall) is centred in the box, and the baseline follows from section 11.
 - **Icons** are a `g` with `transform="translate(x y) scale(k)"`, where k = size ÷ 24, `fill="none"`, `stroke` = the icon's colour, `stroke-width` = S ÷ k, `stroke-linecap="round"` and `stroke-linejoin="round"`. Its children are the icon's drawing from `icons.json`, with `fill="currentColor"` replaced by the icon's colour. The scale and the stroke width are written with up to four decimal places, rounded half up. An unknown icon is drawn as a `rect` from (4, 4) to (20, 20) in icon units.
 - **Placeholder bar.** A `rect` 8 px tall with `rx` 4, `fill` = `border` and `fill-opacity="0.35"`.
+- **Leaves drawn at their own width.** `badge`, `avatar`, `icon`, `checkbox`, `radio` and `toggle` keep their intrinsic width in a container that stretches its children, and sit at the start of the row of space they are given.
 - **Decorative shapes** (dividers, bars, marks, outlines) carry no text and are inside groups that carry `aria-hidden="true"` where section 12.4 requires it.
 
 ### C.2 Screens and regions
@@ -1295,7 +1297,7 @@ This appendix completes section 10.5. With it, the layout and the drawing of eve
 | `list` (with `item` children) | The items, stacked with no gap and no markers. `ordered` has no effect. |
 | `item` | 9u tall, padding 3u left and right. An optional 16 px icon and a 2u gap, then the label (15, weight 400). `active`: a `rect` behind it with `rx` = R, fill `bg`, and weight 600. `badge="…"`: a badge (below) at the right, inside the padding. |
 | `card` | An outlined box with fill `surface`. Padding 4u. With a title: the title (15, weight 600, line height 22), then a gap of `md`. Then the children as a column: gap `md`, align `stretch`. |
-| `table` | An optional caption (15, weight 600, line height 22) and a 2u gap, then an outlined box with fill `surface`, whose contents are clipped to it (a `clipPath`). The header row is 10u tall with fill `bg`; each further row is 10u tall, with a `line` between rows in `border`. Columns share the width equally. Cells have 3u padding left and right; header text is 14, weight 600; cell text is 14, weight 400; both truncate. A `selected` row has fill `bg` and a `rect` 3 px wide at its left edge in `primary`. Placeholder rows (`rows=N`) put a placeholder bar 60% of the cell's inner width in each cell. Intrinsic width: 120 per column; minimum: 64 per column. |
+| `table` | An optional caption (15, weight 600, line height 22) and a 2u gap, then an outlined box with fill `surface`, whose contents are clipped to it (a `clipPath`). The header row is 10u tall with fill `bg`; each further row is 10u tall, with a `line` between rows in `border`. Columns share the width equally. Cells have 3u padding left and right; header text is 14, weight 600; cell text is 14, weight 400; both truncate. A `selected` row has fill `bg` and a `rect` 3 px wide at its left edge in `primary`. Placeholder rows (`rows=N`, or 3 when a table has neither child rows nor `rows`) put a placeholder bar 60% of the cell's inner width in each cell. Intrinsic width: 120 per column; minimum: 64 per column. |
 | `image` | An outlined box with fill `bg`, and two `line`s from corner to corner in `border`, width S. The description is centred on one line (13, weight 400, `muted`), truncated to the box width minus 4u, on a `rect` of fill `bg` that is 2u wider than the text and 18 px tall. |
 | `icon` | 16, 20 or 24 px (`sm`, default, `lg`), in `text` |
 | `badge` | 20 px tall, padding 2u left and right, `rx` 10. Text: 13, weight 500, centred. Default: fill `bg`, stroke `border`, text `text`. `primary`, `success`, `danger`: fill in that colour, no stroke, text `on-primary`. |

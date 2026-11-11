@@ -11,14 +11,14 @@
     "prepare": "node scripts/install-hooks.mjs",
     "lint": "biome check . && node scripts/hygiene/lint-actions.mjs",
     "format": "biome format --write .",
-    "typecheck": "tsc -b",
+    "typecheck": "tsc -b && tsc -p packages/core/tsconfig.test.json",
     "test": "vitest run",
     "build": "pnpm -r --filter ./packages/** run build",
     "size": "node scripts/check-core-size.mjs",
     "check-licenses": "node scripts/check-licenses.mjs",
     "hygiene": "node scripts/hygiene/check-holder.mjs --tree && node scripts/hygiene/denylist.mjs --tree",
     "changeset": "changeset",
-    "check-spec-data": "node spec/generators/font-metrics.mjs --check && node spec/generators/icons.mjs --check"
+    "check-spec-data": "node spec/generators/font-metrics.mjs --check && node spec/generators/icons.mjs --check && node packages/core/scripts/gen-data.mjs --check"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.3",
