@@ -1,0 +1,37 @@
+{
+  "name": "@wirelith/core",
+  "version": "0.1.0",
+  "description": "Parser, validator and SVG renderer for Wirelith, a plain-text language for low-fidelity wireframes.",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wirelith/wirelith.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/wirelith/wirelith#readme",
+  "bugs": "https://github.com/wirelith/wirelith/issues",
+  "keywords": [
+    "wirelith",
+    "wireframe",
+    "svg"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "scripts": {
+    "build": "tsc -b"
+  }
+}

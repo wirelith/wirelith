@@ -1,0 +1,31 @@
+{
+  "name": "wirelith-monorepo",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "pnpm@11.28.9",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "prepare": "node scripts/install-hooks.mjs",
+    "lint": "biome check . && node scripts/hygiene/lint-actions.mjs",
+    "format": "biome format --write .",
+    "typecheck": "tsc -b",
+    "test": "vitest run",
+    "build": "pnpm -r --filter ./packages/** run build",
+    "size": "node scripts/check-core-size.mjs",
+    "licenses": "node scripts/check-licenses.mjs",
+    "hygiene": "node scripts/hygiene/check-holder.mjs --tree && node scripts/hygiene/denylist.mjs --tree",
+    "changeset": "changeset"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.3",
+    "@changesets/cli": "3.0.3",
+    "@types/node": "22.20.5",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2",
+    "vitest": "5.0.5",
+    "yaml": "2.9.1"
+  }
+}
