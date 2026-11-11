@@ -1,0 +1,7 @@
+screen "States" desktop
+  empty "No projects yet"
+    button "New project" primary
+  loading "Loading projects"
+  loading
+  error "Something went wrong"
+    button "Try again"

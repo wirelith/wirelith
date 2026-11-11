@@ -1,0 +1,7 @@
+screen "Lists" phone
+  list [Apples, Pears, Plums]
+  list [First, Second] ordered
+  list
+    item "Inbox" icon=inbox badge="12" active
+    item "Archive" icon=archive
+    item "Plain"

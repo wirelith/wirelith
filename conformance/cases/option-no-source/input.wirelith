@@ -1,0 +1,8 @@
+screen "First" phone #a
+  button "Next" primary -> #b
+  button "Help" -> #m
+  modal "Help" #m
+    text "Some help"
+  note "Goes to the second screen" for=#a
+screen "Second" phone #b
+  text "Second screen"

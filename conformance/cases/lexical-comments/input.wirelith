@@ -1,0 +1,9 @@
+// A comment line
+wirelith 0.1
+// Another one
+
+screen "Comments" phone // after a screen
+  // indented comment
+  text "Text" // after an element
+    // a deeper comment does not change indentation
+  button "Go"

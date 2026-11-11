@@ -1,0 +1,15 @@
+screen "Theme sample" phone
+  header
+    h3 "Brand"
+  input "Email" placeholder="you@example.com"
+  row
+    button "Save" primary
+    button "Delete" danger
+    button "Cancel"
+  row
+    badge "Live" success
+    badge "Late" danger
+    checkbox "Remember me" checked
+    toggle "Alerts" on
+  card "Card"
+    text "Muted text" muted

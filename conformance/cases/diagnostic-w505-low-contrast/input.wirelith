@@ -1,0 +1,3 @@
+theme "x"
+  color.text #eeeeee
+screen "A"

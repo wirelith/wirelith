@@ -1,0 +1,11 @@
+{
+  "themes": {
+    "brand": {
+      "extends": "ink",
+      "tokens": {
+        "radius": 0,
+        "color.primary": "#ffcc00"
+      }
+    }
+  }
+}

@@ -9,7 +9,8 @@
       "!**/*.md",
       "!spec/data",
       "!spec/generators/lucide-metadata.json",
-      "!packages/core/src/data"
+      "!packages/core/src/data",
+      "!conformance/cases"
     ]
   },
   "formatter": {

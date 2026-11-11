@@ -1,0 +1,191 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "s0",
+      "label": "S0",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "button",
+          "label": "To the last",
+          "flags": [
+            "primary"
+          ],
+          "link": {
+            "to": "s12"
+          },
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "s1",
+      "label": "S1",
+      "flags": [
+        "desktop"
+      ],
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "s2",
+      "label": "S2",
+      "flags": [
+        "desktop"
+      ],
+      "loc": {
+        "line": 4,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "s3",
+      "label": "S3",
+      "flags": [
+        "desktop"
+      ],
+      "loc": {
+        "line": 5,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "s4",
+      "label": "S4",
+      "flags": [
+        "desktop"
+      ],
+      "loc": {
+        "line": 6,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "s5",
+      "label": "S5",
+      "flags": [
+        "desktop"
+      ],
+      "loc": {
+        "line": 7,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "s6",
+      "label": "S6",
+      "flags": [
+        "desktop"
+      ],
+      "loc": {
+        "line": 8,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "s7",
+      "label": "S7",
+      "flags": [
+        "desktop"
+      ],
+      "loc": {
+        "line": 9,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "s8",
+      "label": "S8",
+      "flags": [
+        "desktop"
+      ],
+      "loc": {
+        "line": 10,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "s9",
+      "label": "S9",
+      "flags": [
+        "desktop"
+      ],
+      "loc": {
+        "line": 11,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "s10",
+      "label": "S10",
+      "flags": [
+        "desktop"
+      ],
+      "loc": {
+        "line": 12,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "s11",
+      "label": "S11",
+      "flags": [
+        "desktop"
+      ],
+      "loc": {
+        "line": 13,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "s12",
+      "label": "S12",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "button",
+          "label": "Back to the first",
+          "link": {
+            "to": "s0"
+          },
+          "loc": {
+            "line": 15,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 14,
+        "column": 1
+      }
+    }
+  ]
+}

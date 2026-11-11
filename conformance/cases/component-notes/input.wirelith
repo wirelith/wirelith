@@ -1,0 +1,7 @@
+screen "Notes" phone #a
+  button "Save" primary #save
+  note "Disabled until the form is valid" for=#save
+  note "This screen is shown after signing in"
+  note "A note about an element in a dialog that is never opened" for=#help
+  modal "Help" #help
+    text "Help text"

@@ -1,0 +1,37 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "a",
+      "label": "A",
+      "children": [
+        {
+          "type": "button",
+          "label": "x",
+          "link": {
+            "to": "a"
+          },
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "b",
+      "label": "B",
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    }
+  ]
+}

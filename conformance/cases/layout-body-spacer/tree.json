@@ -1,0 +1,45 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Spacer",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "h1",
+          "label": "Top",
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "spacer",
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "At the bottom",
+          "flags": [
+            "primary"
+          ],
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

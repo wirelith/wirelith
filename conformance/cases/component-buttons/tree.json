@@ -1,0 +1,158 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Buttons",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "button",
+              "label": "Secondary",
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Primary",
+              "flags": [
+                "primary"
+              ],
+              "loc": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Danger",
+              "flags": [
+                "danger"
+              ],
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Disabled",
+              "flags": [
+                "disabled"
+              ],
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Disabled primary",
+              "flags": [
+                "primary",
+                "disabled"
+              ],
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "button",
+              "label": "Small",
+              "flags": [
+                "sm"
+              ],
+              "loc": {
+                "line": 9,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Large",
+              "flags": [
+                "lg",
+                "primary"
+              ],
+              "loc": {
+                "line": 10,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "With icon",
+              "attrs": {
+                "icon": "download"
+              },
+              "loc": {
+                "line": 11,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "attrs": {
+                "icon": "menu"
+              },
+              "loc": {
+                "line": 12,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "flags": [
+                "lg"
+              ],
+              "attrs": {
+                "icon": "plus"
+              },
+              "loc": {
+                "line": 13,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 8,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "Full width",
+          "flags": [
+            "primary"
+          ],
+          "loc": {
+            "line": 14,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

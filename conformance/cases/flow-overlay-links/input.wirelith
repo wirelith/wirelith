@@ -1,0 +1,10 @@
+screen "Projects" desktop #projects
+  button "New" primary -> #new
+  button "Help" -> #help
+  modal "New project" #new
+    input "Name"
+    button "Create" primary -> #detail
+  modal "Help" #help open
+    text "Tips"
+screen "Project" desktop #detail
+  h1 "Project"

@@ -1,0 +1,344 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "signin",
+      "label": "Sign in",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "h1",
+          "label": "Welcome back",
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Email",
+          "attrs": {
+            "type": "email",
+            "placeholder": "you@example.com"
+          },
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Password",
+          "attrs": {
+            "type": "password"
+          },
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        },
+        {
+          "type": "row",
+          "attrs": {
+            "justify": "between"
+          },
+          "children": [
+            {
+              "type": "checkbox",
+              "label": "Remember me",
+              "loc": {
+                "line": 8,
+                "column": 5
+              }
+            },
+            {
+              "type": "link",
+              "label": "Forgot password?",
+              "link": {
+                "to": "reset"
+              },
+              "loc": {
+                "line": 9,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 7,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "Sign in",
+          "flags": [
+            "primary"
+          ],
+          "link": {
+            "to": "home"
+          },
+          "loc": {
+            "line": 10,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "label": "New here?",
+          "flags": [
+            "muted"
+          ],
+          "attrs": {
+            "align": "center"
+          },
+          "loc": {
+            "line": 11,
+            "column": 3
+          }
+        },
+        {
+          "type": "link",
+          "label": "Create an account",
+          "link": {
+            "to": "signup"
+          },
+          "loc": {
+            "line": 12,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "signin-error",
+      "label": "Sign in",
+      "attrs": {
+        "of": {
+          "ref": "signin"
+        },
+        "state": "Wrong password"
+      },
+      "children": [
+        {
+          "type": "h1",
+          "label": "Welcome back",
+          "loc": {
+            "line": 15,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Email",
+          "attrs": {
+            "type": "email",
+            "value": "sam@example.com"
+          },
+          "loc": {
+            "line": 16,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Password",
+          "attrs": {
+            "type": "password",
+            "error": "That password doesn't match"
+          },
+          "loc": {
+            "line": 17,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "Sign in",
+          "flags": [
+            "primary"
+          ],
+          "loc": {
+            "line": 18,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 14,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "reset",
+      "label": "Reset password",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "h1",
+          "label": "Reset your password",
+          "loc": {
+            "line": 21,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "label": "We'll email you a link.",
+          "loc": {
+            "line": 22,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Email",
+          "attrs": {
+            "type": "email"
+          },
+          "loc": {
+            "line": 23,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "Send link",
+          "flags": [
+            "primary"
+          ],
+          "link": {
+            "to": "signin",
+            "label": "Back to sign in"
+          },
+          "loc": {
+            "line": 24,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 20,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "signup",
+      "label": "Create account",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "h1",
+          "label": "Create your account",
+          "loc": {
+            "line": 27,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Name",
+          "loc": {
+            "line": 28,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Email",
+          "attrs": {
+            "type": "email"
+          },
+          "loc": {
+            "line": 29,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Password",
+          "attrs": {
+            "type": "password"
+          },
+          "loc": {
+            "line": 30,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "Create account",
+          "flags": [
+            "primary"
+          ],
+          "link": {
+            "to": "home"
+          },
+          "loc": {
+            "line": 31,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 26,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "home",
+      "label": "Home",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "h1",
+          "label": "Hello, Sam",
+          "loc": {
+            "line": 34,
+            "column": 3
+          }
+        },
+        {
+          "type": "empty",
+          "label": "Nothing here yet",
+          "loc": {
+            "line": 35,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 33,
+        "column": 1
+      }
+    }
+  ],
+  "flows": [
+    {
+      "from": "signup",
+      "to": "signin",
+      "label": "If the email is already registered",
+      "loc": {
+        "line": 37,
+        "column": 1
+      }
+    }
+  ]
+}

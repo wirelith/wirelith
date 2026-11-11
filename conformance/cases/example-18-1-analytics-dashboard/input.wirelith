@@ -1,0 +1,32 @@
+wirelith 0.1
+
+screen "Juniper Analytics" desktop #dashboard
+  sidebar
+    h3 "Juniper"
+    nav [Overview, Reports, Audiences, Settings] active="Overview" vertical
+  header
+    h2 "Overview"
+    spacer
+    select [Last 7 days, Last 30 days, This year] value="Last 30 days"
+    avatar "Sam Rivera"
+  grid cols=4
+    card "Visitors"
+      h2 "48,210"
+      badge "+12%" success
+    card "Sign-ups"
+      h2 "1,304"
+      badge "+4%" success
+    card "Conversion"
+      h2 "2.7%"
+      badge "-0.3%" danger
+    card "Revenue"
+      h2 "$92,400"
+      badge "+9%" success
+  row
+    card "Visitors over time" grow
+      image "Line chart, 30 days" ratio=16:6
+    card "Top pages" width=360
+      table [Page, Views]
+        row [/pricing, "12,402"]
+        row [/docs, "9,870"]
+        row [/blog, "7,115"]

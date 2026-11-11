@@ -1,0 +1,54 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Quotes \"and\" a backslash \\ and a\nline break",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "select",
+          "label": "Pick",
+          "items": [
+            "Help, docs",
+            "#1042",
+            "plain text",
+            "[bracket]"
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "label": "Comment markers // inside a string are text",
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            "a/b",
+            "50%",
+            "c:d",
+            "x_y.z"
+          ],
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

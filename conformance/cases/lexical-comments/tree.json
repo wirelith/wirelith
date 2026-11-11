@@ -1,0 +1,35 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Comments",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "text",
+          "label": "Text",
+          "loc": {
+            "line": 7,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "Go",
+          "loc": {
+            "line": 9,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 5,
+        "column": 1
+      }
+    }
+  ]
+}

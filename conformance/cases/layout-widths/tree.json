@@ -1,0 +1,114 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Widths",
+      "attrs": {
+        "size": "800x400"
+      },
+      "children": [
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "button",
+              "label": "Fixed",
+              "attrs": {
+                "width": 120
+              },
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            },
+            {
+              "type": "input",
+              "flags": [
+                "grow"
+              ],
+              "attrs": {
+                "placeholder": "Grows"
+              },
+              "loc": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Fill",
+              "attrs": {
+                "width": "fill"
+              },
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "card",
+              "label": "Half",
+              "attrs": {
+                "width": "50%"
+              },
+              "children": [
+                {
+                  "type": "text",
+                  "label": "50%",
+                  "loc": {
+                    "line": 8,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "label": "Rest",
+              "flags": [
+                "grow"
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "label": "grow",
+                  "loc": {
+                    "line": 10,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 9,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

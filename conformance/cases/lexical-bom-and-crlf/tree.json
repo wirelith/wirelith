@@ -1,0 +1,35 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Windows",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "text",
+          "label": "CRLF line endings",
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "OK",
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

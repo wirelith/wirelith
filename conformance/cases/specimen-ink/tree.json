@@ -1,0 +1,12 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "theme": {
+    "name": "ink",
+    "loc": {
+      "line": 1,
+      "column": 1
+    }
+  },
+  "screens": []
+}

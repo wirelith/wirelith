@@ -1,0 +1,44 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Shrink",
+      "attrs": {
+        "size": "400x400"
+      },
+      "children": [
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "text",
+              "label": "A long sentence that has to wrap when its row shrinks",
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            },
+            {
+              "type": "text",
+              "label": "Another sentence that shares the same row",
+              "loc": {
+                "line": 4,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

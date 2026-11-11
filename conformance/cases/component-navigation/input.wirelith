@@ -1,0 +1,9 @@
+screen "Navigation" desktop
+  nav [Overview, Reports, Settings] active="Reports"
+  nav vertical
+    item "Inbox" icon=inbox active
+    item "Sent" icon=send badge="3"
+  tabs [Profile, Billing, Team] active="Billing"
+    text "Billing content"
+  tabs [One, Two]
+  breadcrumbs [Home, Settings, Billing]

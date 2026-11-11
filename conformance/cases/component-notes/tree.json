@@ -1,0 +1,85 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "a",
+      "label": "Notes",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "button",
+          "id": "save",
+          "label": "Save",
+          "flags": [
+            "primary"
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "note",
+          "label": "Disabled until the form is valid",
+          "attrs": {
+            "for": {
+              "ref": "save"
+            }
+          },
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "note",
+          "label": "This screen is shown after signing in",
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "note",
+          "label": "A note about an element in a dialog that is never opened",
+          "attrs": {
+            "for": {
+              "ref": "help"
+            }
+          },
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        },
+        {
+          "type": "modal",
+          "id": "help",
+          "label": "Help",
+          "children": [
+            {
+              "type": "text",
+              "label": "Help text",
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

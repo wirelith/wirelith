@@ -1,0 +1,42 @@
+wirelith 0.1
+
+screen "Pagecraft: Launch plan" desktop #editor
+  header
+    button icon=arrow-left
+    h3 "Launch plan"
+    badge "Saved"
+    spacer
+    avatar "Ada Park" sm
+    avatar "Luis Ortega" sm
+    button "Share" primary -> #share
+  sidebar width=240
+    label "Outline" muted
+    list
+      item "Goals" active
+      item "Timeline"
+      item "Risks"
+  sidebar right width=300
+    h3 "Comments"
+    card
+      row
+        avatar "Luis Ortega" sm
+        label "Luis Ortega"
+      text "Can we move the date up a week?"
+      input placeholder="Reply"
+  row
+    button icon=bold sm
+    button icon=italic sm
+    button icon=list sm
+    button icon=link sm
+    divider
+    select [Paragraph, Heading 1, Heading 2] value="Paragraph"
+  h1 "Launch plan"
+  text lines=4
+  h2 "Goals"
+  text lines=3
+  modal "Share this document" #share
+    input "Invite by email" type=email
+    radio "Access" [Can view, Can comment, Can edit] value="Can comment"
+    row justify=end
+      button "Cancel"
+      button "Send invite" primary

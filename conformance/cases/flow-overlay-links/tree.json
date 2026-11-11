@@ -1,0 +1,122 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "projects",
+      "label": "Projects",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "button",
+          "label": "New",
+          "flags": [
+            "primary"
+          ],
+          "link": {
+            "to": "new"
+          },
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "Help",
+          "link": {
+            "to": "help"
+          },
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "modal",
+          "id": "new",
+          "label": "New project",
+          "children": [
+            {
+              "type": "input",
+              "label": "Name",
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Create",
+              "flags": [
+                "primary"
+              ],
+              "link": {
+                "to": "detail"
+              },
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "modal",
+          "id": "help",
+          "label": "Help",
+          "flags": [
+            "open"
+          ],
+          "children": [
+            {
+              "type": "text",
+              "label": "Tips",
+              "loc": {
+                "line": 8,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 7,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "detail",
+      "label": "Project",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "h1",
+          "label": "Project",
+          "loc": {
+            "line": 10,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 9,
+        "column": 1
+      }
+    }
+  ]
+}

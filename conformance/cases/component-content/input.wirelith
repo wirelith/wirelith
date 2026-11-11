@@ -1,0 +1,23 @@
+screen "Content" desktop
+  card "Card title"
+    text "Card body"
+  card
+    text "Untitled card"
+  row
+    image "Wide photo" ratio=16:9 width=320
+    image "Square" ratio=1:1 width=120
+    image "Default"
+    image "Fixed" width=100 height=60
+  row
+    icon "star" sm
+    icon "bell"
+    icon "settings" lg
+    badge "Default"
+    badge "Primary" primary
+    badge "Success" success
+    badge "Danger" danger
+  row
+    avatar "Sam Rivera" sm
+    avatar "Mei"
+    avatar "luis ortega garcia" lg
+    avatar "Élodie Ünal"

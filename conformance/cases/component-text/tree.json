@@ -1,0 +1,126 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Text",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "h1",
+          "label": "Heading one",
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "h2",
+          "label": "Heading two",
+          "attrs": {
+            "align": "center"
+          },
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "h3",
+          "label": "Heading three",
+          "attrs": {
+            "align": "end"
+          },
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "label": "A paragraph that is long enough to wrap onto more than one line on a phone screen, so that wrapping is tested.",
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "label": "Muted and centred",
+          "flags": [
+            "muted"
+          ],
+          "attrs": {
+            "align": "center"
+          },
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "attrs": {
+            "lines": 2
+          },
+          "loc": {
+            "line": 7,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "loc": {
+            "line": 8,
+            "column": 3
+          }
+        },
+        {
+          "type": "label",
+          "label": "A label",
+          "loc": {
+            "line": 9,
+            "column": 3
+          }
+        },
+        {
+          "type": "label",
+          "label": "A muted label",
+          "flags": [
+            "muted"
+          ],
+          "loc": {
+            "line": 10,
+            "column": 3
+          }
+        },
+        {
+          "type": "link",
+          "label": "A link",
+          "loc": {
+            "line": 11,
+            "column": 3
+          }
+        },
+        {
+          "type": "link",
+          "label": "A disabled link",
+          "flags": [
+            "disabled"
+          ],
+          "loc": {
+            "line": 12,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

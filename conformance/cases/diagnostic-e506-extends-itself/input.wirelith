@@ -1,0 +1,2 @@
+theme "x" extends=x
+screen "A"

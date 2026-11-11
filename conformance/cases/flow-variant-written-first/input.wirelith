@@ -1,0 +1,4 @@
+screen "Inbox" #inbox-empty of=#inbox state="Empty"
+  empty "No messages"
+screen "Inbox" desktop #inbox
+  list [One, Two]

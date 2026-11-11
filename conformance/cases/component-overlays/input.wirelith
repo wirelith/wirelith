@@ -1,0 +1,13 @@
+screen "Overlays" desktop #main
+  button "Open dialog" -> #dialog
+  button "Open drawer" -> #side "Opens the drawer"
+  button "Open bottom sheet" -> #sheet
+  modal "Dialog" #dialog width=400
+    text "Modal content"
+    button "Done" primary
+  drawer "Side panel" #side
+    text "Drawer content"
+  drawer "Left menu" left open
+    nav [Home, Settings] vertical
+  drawer "Sheet" bottom #sheet
+    text "Bottom sheet"

@@ -1,0 +1,277 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "recipes",
+      "label": "Kettle: Recipes",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "header",
+          "children": [
+            {
+              "type": "button",
+              "attrs": {
+                "icon": "menu"
+              },
+              "link": {
+                "to": "menu"
+              },
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            },
+            {
+              "type": "h3",
+              "label": "Recipes",
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            },
+            {
+              "type": "spacer",
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "attrs": {
+                "icon": "search"
+              },
+              "loc": {
+                "line": 8,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "list",
+          "children": [
+            {
+              "type": "item",
+              "label": "Lemon pasta",
+              "link": {
+                "to": "recipe"
+              },
+              "loc": {
+                "line": 10,
+                "column": 5
+              }
+            },
+            {
+              "type": "item",
+              "label": "Tomato soup",
+              "loc": {
+                "line": 11,
+                "column": 5
+              }
+            },
+            {
+              "type": "item",
+              "label": "Flatbread",
+              "loc": {
+                "line": 12,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 9,
+            "column": 3
+          }
+        },
+        {
+          "type": "footer",
+          "children": [
+            {
+              "type": "nav",
+              "items": [
+                "Recipes",
+                "Plan",
+                "Shopping",
+                "Profile"
+              ],
+              "attrs": {
+                "active": "Recipes"
+              },
+              "loc": {
+                "line": 14,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 13,
+            "column": 3
+          }
+        },
+        {
+          "type": "drawer",
+          "id": "menu",
+          "label": "Menu",
+          "flags": [
+            "left"
+          ],
+          "children": [
+            {
+              "type": "avatar",
+              "label": "Sam Rivera",
+              "flags": [
+                "lg"
+              ],
+              "loc": {
+                "line": 16,
+                "column": 5
+              }
+            },
+            {
+              "type": "nav",
+              "items": [
+                "Recipes",
+                "Favourites",
+                "Settings",
+                "Help"
+              ],
+              "flags": [
+                "vertical"
+              ],
+              "attrs": {
+                "active": "Recipes"
+              },
+              "loc": {
+                "line": 17,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 15,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "recipe",
+      "label": "Kettle: Lemon pasta",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "header",
+          "children": [
+            {
+              "type": "button",
+              "attrs": {
+                "icon": "arrow-left"
+              },
+              "link": {
+                "to": "recipes"
+              },
+              "loc": {
+                "line": 21,
+                "column": 5
+              }
+            },
+            {
+              "type": "h3",
+              "label": "Lemon pasta",
+              "loc": {
+                "line": 22,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 20,
+            "column": 3
+          }
+        },
+        {
+          "type": "image",
+          "label": "Photo of the dish",
+          "attrs": {
+            "ratio": "4:3"
+          },
+          "loc": {
+            "line": 23,
+            "column": 3
+          }
+        },
+        {
+          "type": "tabs",
+          "items": [
+            "Ingredients",
+            "Steps"
+          ],
+          "attrs": {
+            "active": "Ingredients"
+          },
+          "children": [
+            {
+              "type": "list",
+              "items": [
+                "200 g spaghetti",
+                "1 lemon",
+                "2 tbsp olive oil",
+                "Parmesan"
+              ],
+              "loc": {
+                "line": 25,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 24,
+            "column": 3
+          }
+        },
+        {
+          "type": "footer",
+          "children": [
+            {
+              "type": "button",
+              "label": "Add to plan",
+              "flags": [
+                "primary",
+                "grow"
+              ],
+              "loc": {
+                "line": 27,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 26,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 19,
+        "column": 1
+      }
+    }
+  ]
+}

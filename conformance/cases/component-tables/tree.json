@@ -1,0 +1,95 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Tables",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "table",
+          "label": "Orders",
+          "items": [
+            "Order",
+            "Customer",
+            "Total"
+          ],
+          "children": [
+            {
+              "type": "table-row",
+              "items": [
+                "#1001",
+                "Mei Tanaka",
+                "$12.00"
+              ],
+              "flags": [
+                "selected"
+              ],
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            },
+            {
+              "type": "table-row",
+              "items": [
+                "#1002",
+                "Omar Haddad",
+                "$8.50"
+              ],
+              "loc": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            {
+              "type": "table-row",
+              "items": [
+                "#1003"
+              ],
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "table",
+          "items": [
+            "Name",
+            "Owner"
+          ],
+          "attrs": {
+            "rows": 2
+          },
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        },
+        {
+          "type": "table",
+          "items": [
+            "Default"
+          ],
+          "loc": {
+            "line": 7,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

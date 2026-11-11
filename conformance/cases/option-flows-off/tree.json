@@ -1,0 +1,99 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "a",
+      "label": "First",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "button",
+          "label": "Next",
+          "flags": [
+            "primary"
+          ],
+          "link": {
+            "to": "b"
+          },
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "Help",
+          "link": {
+            "to": "m"
+          },
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "modal",
+          "id": "m",
+          "label": "Help",
+          "children": [
+            {
+              "type": "text",
+              "label": "Some help",
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "note",
+          "label": "Goes to the second screen",
+          "attrs": {
+            "for": {
+              "ref": "a"
+            }
+          },
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "b",
+      "label": "Second",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "text",
+          "label": "Second screen",
+          "loc": {
+            "line": 8,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 7,
+        "column": 1
+      }
+    }
+  ]
+}

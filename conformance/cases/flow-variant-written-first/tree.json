@@ -1,0 +1,56 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "inbox-empty",
+      "label": "Inbox",
+      "attrs": {
+        "of": {
+          "ref": "inbox"
+        },
+        "state": "Empty"
+      },
+      "children": [
+        {
+          "type": "empty",
+          "label": "No messages",
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "inbox",
+      "label": "Inbox",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "list",
+          "items": [
+            "One",
+            "Two"
+          ],
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    }
+  ]
+}

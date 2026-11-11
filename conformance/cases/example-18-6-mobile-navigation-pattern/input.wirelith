@@ -1,0 +1,27 @@
+wirelith 0.1
+
+screen "Kettle: Recipes" phone #recipes
+  header
+    button icon=menu -> #menu
+    h3 "Recipes"
+    spacer
+    button icon=search
+  list
+    item "Lemon pasta" -> #recipe
+    item "Tomato soup"
+    item "Flatbread"
+  footer
+    nav [Recipes, Plan, Shopping, Profile] active="Recipes"
+  drawer "Menu" left #menu
+    avatar "Sam Rivera" lg
+    nav [Recipes, Favourites, Settings, Help] active="Recipes" vertical
+
+screen "Kettle: Lemon pasta" phone #recipe
+  header
+    button icon=arrow-left -> #recipes
+    h3 "Lemon pasta"
+  image "Photo of the dish" ratio=4:3
+  tabs [Ingredients, Steps] active="Ingredients"
+    list [200 g spaghetti, 1 lemon, 2 tbsp olive oil, Parmesan]
+  footer
+    button "Add to plan" primary grow

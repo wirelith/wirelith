@@ -1,0 +1,4 @@
+screen "Tall" size=400x300
+  text lines=40
+  footer
+    label "Footer"

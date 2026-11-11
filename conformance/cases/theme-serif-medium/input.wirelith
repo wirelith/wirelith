@@ -1,0 +1,7 @@
+theme "letter"
+  font.body serif
+  font.heading serif
+screen "Serif" phone
+  label "A label at weight 500"
+  badge "Badge"
+  text "Body text in serif."

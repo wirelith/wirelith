@@ -1,0 +1,14 @@
+screen "Buttons" desktop
+  row
+    button "Secondary"
+    button "Primary" primary
+    button "Danger" danger
+    button "Disabled" disabled
+    button "Disabled primary" primary disabled
+  row
+    button "Small" sm
+    button "Large" lg primary
+    button "With icon" icon=download
+    button icon=menu
+    button icon=plus lg
+  button "Full width" primary

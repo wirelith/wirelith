@@ -1,0 +1,2 @@
+screen "A"
+  button "x" colour=red huge

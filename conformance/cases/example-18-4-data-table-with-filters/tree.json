@@ -1,0 +1,365 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "orders",
+      "label": "Orders",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "header",
+          "children": [
+            {
+              "type": "h2",
+              "label": "Orders",
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            },
+            {
+              "type": "spacer",
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Export",
+              "attrs": {
+                "icon": "download"
+              },
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "New order",
+              "flags": [
+                "primary"
+              ],
+              "link": {
+                "to": "new-order"
+              },
+              "loc": {
+                "line": 8,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "input",
+              "flags": [
+                "grow"
+              ],
+              "attrs": {
+                "placeholder": "Search orders",
+                "type": "search"
+              },
+              "loc": {
+                "line": 10,
+                "column": 5
+              }
+            },
+            {
+              "type": "select",
+              "items": [
+                "Any status",
+                "Paid",
+                "Pending",
+                "Refunded"
+              ],
+              "attrs": {
+                "value": "Any status"
+              },
+              "loc": {
+                "line": 11,
+                "column": 5
+              }
+            },
+            {
+              "type": "select",
+              "items": [
+                "Any date",
+                "Today",
+                "This week",
+                "This month"
+              ],
+              "attrs": {
+                "value": "This week"
+              },
+              "loc": {
+                "line": 12,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Clear filters",
+              "loc": {
+                "line": 13,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 9,
+            "column": 3
+          }
+        },
+        {
+          "type": "table",
+          "items": [
+            "Order",
+            "Customer",
+            "Status",
+            "Total",
+            "Placed"
+          ],
+          "children": [
+            {
+              "type": "table-row",
+              "items": [
+                "#1042",
+                "Ada Park",
+                "Paid",
+                "$128.00",
+                "2 hours ago"
+              ],
+              "flags": [
+                "selected"
+              ],
+              "loc": {
+                "line": 15,
+                "column": 5
+              }
+            },
+            {
+              "type": "table-row",
+              "items": [
+                "#1041",
+                "Luis Ortega",
+                "Pending",
+                "$64.50",
+                "5 hours ago"
+              ],
+              "loc": {
+                "line": 16,
+                "column": 5
+              }
+            },
+            {
+              "type": "table-row",
+              "items": [
+                "#1040",
+                "Mei Tanaka",
+                "Refunded",
+                "$210.00",
+                "Yesterday"
+              ],
+              "loc": {
+                "line": 17,
+                "column": 5
+              }
+            },
+            {
+              "type": "table-row",
+              "items": [
+                "#1039",
+                "Omar Haddad",
+                "Paid",
+                "$19.99",
+                "Yesterday"
+              ],
+              "loc": {
+                "line": 18,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 14,
+            "column": 3
+          }
+        },
+        {
+          "type": "row",
+          "attrs": {
+            "justify": "between"
+          },
+          "children": [
+            {
+              "type": "text",
+              "label": "Showing 1 to 4 of 212",
+              "flags": [
+                "muted"
+              ],
+              "loc": {
+                "line": 20,
+                "column": 5
+              }
+            },
+            {
+              "type": "row",
+              "children": [
+                {
+                  "type": "button",
+                  "label": "Previous",
+                  "flags": [
+                    "disabled"
+                  ],
+                  "loc": {
+                    "line": 22,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "button",
+                  "label": "Next",
+                  "loc": {
+                    "line": 23,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 21,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 19,
+            "column": 3
+          }
+        },
+        {
+          "type": "drawer",
+          "id": "new-order",
+          "label": "New order",
+          "children": [
+            {
+              "type": "input",
+              "label": "Customer",
+              "loc": {
+                "line": 25,
+                "column": 5
+              }
+            },
+            {
+              "type": "select",
+              "label": "Product",
+              "items": [
+                "Starter",
+                "Team",
+                "Enterprise"
+              ],
+              "loc": {
+                "line": 26,
+                "column": 5
+              }
+            },
+            {
+              "type": "input",
+              "label": "Quantity",
+              "attrs": {
+                "type": "number",
+                "value": "1"
+              },
+              "loc": {
+                "line": 27,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Create order",
+              "flags": [
+                "primary"
+              ],
+              "loc": {
+                "line": 28,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 24,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "orders-empty",
+      "label": "Orders",
+      "attrs": {
+        "of": {
+          "ref": "orders"
+        },
+        "state": "No results"
+      },
+      "children": [
+        {
+          "type": "header",
+          "children": [
+            {
+              "type": "h2",
+              "label": "Orders",
+              "loc": {
+                "line": 32,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 31,
+            "column": 3
+          }
+        },
+        {
+          "type": "empty",
+          "label": "No orders match these filters",
+          "children": [
+            {
+              "type": "button",
+              "label": "Clear filters",
+              "loc": {
+                "line": 34,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 33,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 30,
+        "column": 1
+      }
+    }
+  ]
+}

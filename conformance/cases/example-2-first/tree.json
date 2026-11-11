@@ -1,0 +1,102 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "signin",
+      "label": "Sign in",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "h1",
+          "label": "Welcome back",
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Email",
+          "attrs": {
+            "placeholder": "you@example.com"
+          },
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Password",
+          "attrs": {
+            "type": "password"
+          },
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "Sign in",
+          "flags": [
+            "primary"
+          ],
+          "link": {
+            "to": "home"
+          },
+          "loc": {
+            "line": 7,
+            "column": 3
+          }
+        },
+        {
+          "type": "link",
+          "label": "Forgot your password?",
+          "loc": {
+            "line": 8,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "home",
+      "label": "Home",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "h1",
+          "label": "Hello, Sam",
+          "loc": {
+            "line": 11,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "label": "You have 3 new messages.",
+          "loc": {
+            "line": 12,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 10,
+        "column": 1
+      }
+    }
+  ]
+}

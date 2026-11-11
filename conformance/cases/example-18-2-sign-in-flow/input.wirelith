@@ -1,0 +1,37 @@
+wirelith 0.1
+
+screen "Sign in" phone #signin
+  h1 "Welcome back"
+  input "Email" type=email placeholder="you@example.com"
+  input "Password" type=password
+  row justify=between
+    checkbox "Remember me"
+    link "Forgot password?" -> #reset
+  button "Sign in" primary -> #home
+  text "New here?" muted align=center
+  link "Create an account" -> #signup
+
+screen "Sign in" #signin-error of=#signin state="Wrong password"
+  h1 "Welcome back"
+  input "Email" type=email value="sam@example.com"
+  input "Password" type=password error="That password doesn't match"
+  button "Sign in" primary
+
+screen "Reset password" phone #reset
+  h1 "Reset your password"
+  text "We'll email you a link."
+  input "Email" type=email
+  button "Send link" primary -> #signin "Back to sign in"
+
+screen "Create account" phone #signup
+  h1 "Create your account"
+  input "Name"
+  input "Email" type=email
+  input "Password" type=password
+  button "Create account" primary -> #home
+
+screen "Home" phone #home
+  h1 "Hello, Sam"
+  empty "Nothing here yet"
+
+flow #signup -> #signin "If the email is already registered"

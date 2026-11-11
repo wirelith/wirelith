@@ -1,0 +1,4 @@
+screen "List" desktop #list
+  button "Show empty" -> #list-empty
+screen "List" #list-empty of=#list state="Empty"
+  empty "Nothing here"

@@ -490,7 +490,8 @@ export class Layout {
         const rv = n.attrs?.ratio;
         const m = typeof rv === 'string' ? /^([0-9]+(\.[0-9]+)?):([0-9]+(\.[0-9]+)?)$/.exec(rv) : null;
         if (m && Number(m[1]) > 0 && Number(m[3]) > 0) ratio = Number(m[1]) / Number(m[3]);
-        out = this.laid(n, x, y, w, r(w / ratio));
+        // A fixed height is the image's height (section 10.4), not a limit its content overflows.
+        out = this.laid(n, x, y, w, fixedH ?? r(w / ratio));
         break;
       }
       case 'spacer': {

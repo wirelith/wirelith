@@ -1,0 +1,7 @@
+screen "Tables" desktop
+  table "Orders" [Order, Customer, Total]
+    row ["#1001", Mei Tanaka, "$12.00"] selected
+    row ["#1002", Omar Haddad, "$8.50"]
+    row ["#1003"]
+  table [Name, Owner] rows=2
+  table [Default]

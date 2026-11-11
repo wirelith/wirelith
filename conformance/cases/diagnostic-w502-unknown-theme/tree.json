@@ -1,0 +1,21 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "theme": {
+    "name": "fernway",
+    "loc": {
+      "line": 1,
+      "column": 1
+    }
+  },
+  "screens": [
+    {
+      "type": "screen",
+      "label": "A",
+      "loc": {
+        "line": 2,
+        "column": 1
+      }
+    }
+  ]
+}

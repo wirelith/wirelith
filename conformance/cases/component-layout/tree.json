@@ -1,0 +1,184 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Layout",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "row",
+          "attrs": {
+            "gap": "sm",
+            "pad": "xs",
+            "align": "start",
+            "justify": "end"
+          },
+          "children": [
+            {
+              "type": "button",
+              "label": "One",
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Two",
+              "loc": {
+                "line": 4,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "column",
+          "attrs": {
+            "gap": "lg",
+            "pad": "md",
+            "align": "center"
+          },
+          "children": [
+            {
+              "type": "label",
+              "label": "Centred",
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            },
+            {
+              "type": "badge",
+              "label": "Badge",
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        },
+        {
+          "type": "grid",
+          "attrs": {
+            "cols": 3,
+            "gap": "xs"
+          },
+          "children": [
+            {
+              "type": "card",
+              "label": "A",
+              "loc": {
+                "line": 9,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "label": "B",
+              "attrs": {
+                "span": 2
+              },
+              "loc": {
+                "line": 10,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "label": "C",
+              "loc": {
+                "line": 11,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 8,
+            "column": 3
+          }
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "text",
+              "label": "Left",
+              "loc": {
+                "line": 13,
+                "column": 5
+              }
+            },
+            {
+              "type": "spacer",
+              "loc": {
+                "line": 14,
+                "column": 5
+              }
+            },
+            {
+              "type": "divider",
+              "loc": {
+                "line": 15,
+                "column": 5
+              }
+            },
+            {
+              "type": "text",
+              "label": "Right",
+              "loc": {
+                "line": 16,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 12,
+            "column": 3
+          }
+        },
+        {
+          "type": "divider",
+          "loc": {
+            "line": 17,
+            "column": 3
+          }
+        },
+        {
+          "type": "spacer",
+          "attrs": {
+            "size": 40
+          },
+          "loc": {
+            "line": 18,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "label": "After",
+          "loc": {
+            "line": 19,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

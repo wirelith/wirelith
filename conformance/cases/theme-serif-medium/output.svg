@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" role="img" aria-labelledby="wl-title wl-desc" xml:space="preserve"><title id="wl-title">Serif</title><desc id="wl-desc">Screens: Serif. 0 links.</desc><metadata><wl:source xmlns:wl="urn:wirelith:source" version="0.1">theme "letter"
+  font.body serif
+  font.heading serif
+screen "Serif" phone
+  label "A label at weight 500"
+  badge "Badge"
+  text "Body text in serif."
+</wl:source></metadata><defs><clipPath id="wl-n0-clip"><rect x="0" y="0" width="390" height="844" rx="6"/></clipPath></defs><rect x="0" y="0" width="390" height="844" fill="#f4f5f7"/><g id="wl-n0" class="wl-screen" transform="translate(0 0)"><title>Serif</title><rect x="0" y="0" width="390" height="844" rx="6" fill="#ffffff"/><g clip-path="url(#wl-n0-clip)"><g id="wl-n1" class="wl-label"><text x="16" y="32" font-family="'Source Serif 4', serif" font-size="13" font-weight="500" fill="#22262b">A label at weight 500</text></g><g id="wl-n2" class="wl-badge"><rect x="16" y="50" width="51.5" height="20" rx="10" fill="#f4f5f7" stroke="#9aa1ab" stroke-width="1.5"/><text x="24" y="67" font-family="'Source Serif 4', serif" font-size="13" font-weight="500" fill="#22262b">Badge</text></g><g id="wl-n3" class="wl-text"><text x="16" y="105" font-family="'Source Serif 4', serif" font-size="15" font-weight="400" fill="#22262b">Body text in serif.</text></g></g><rect x="0" y="0" width="390" height="844" rx="6" fill="none" stroke="#9aa1ab" stroke-width="1.5"/></g></svg>

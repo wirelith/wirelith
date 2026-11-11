@@ -1,0 +1,4 @@
+screen "A" #a
+  modal "M" #m
+screen "B" #b
+  button "x" -> #m
