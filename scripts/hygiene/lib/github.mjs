@@ -5,7 +5,8 @@
 
 import { readFileSync } from 'node:fs';
 
-const API = 'https://api.github.com';
+/** The REST API root. GitHub Actions sets GITHUB_API_URL; tests point it at a local stub. */
+export const API = process.env.GITHUB_API_URL ?? 'https://api.github.com';
 
 /**
  * @param {string} path

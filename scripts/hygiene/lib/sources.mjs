@@ -122,7 +122,6 @@ export function rangeCommits(base, head) {
  */
 export async function pullRequestDocs(pr, token) {
   const repo = pr.base.repo.full_name;
-  const headRepo = pr.head.repo?.full_name ?? repo;
   /** @type {Doc[]} */
   const docs = [
     { label: 'PR title', text: pr.title ?? '' },
@@ -141,8 +140,10 @@ export async function pullRequestDocs(pr, token) {
       const joined = joinAdded(addedLines(f.patch));
       docs.push({ label: path, text: joined.text, path, lineAt: joined.lineAt });
     } else {
-      // No patch: the file is binary or the diff is too large. Read the file itself, as data.
-      const res = await ghGet(`/repos/${headRepo}/contents/${encodePath(path)}?ref=${pr.head.sha}`, {
+      // No patch: the file is binary, a pure rename, or its diff is too large. Read the whole
+      // file, as data. It is read through this repository, which serves a pull request's head
+      // commit even when it comes from a fork, so this repository's token is enough.
+      const res = await ghGet(`/repos/${repo}/contents/${encodePath(path)}?ref=${pr.head.sha}`, {
         token,
         accept: 'application/vnd.github.raw+json',
       });
