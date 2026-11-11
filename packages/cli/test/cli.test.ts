@@ -113,6 +113,18 @@ describe('render', () => {
     expect(existsSync(join(dir, 'doc-1.svg'))).toBe(false);
   });
 
+  it('refuses to let two sources overwrite the same output, and writes nothing', async () => {
+    file('a/foo.wirelith', SIGN_IN);
+    file('b/foo.wirelith', 'screen "Other"\n');
+    const r = await cli(['render', 'a/foo.wirelith', 'b/foo.wirelith', '-o', 'out']);
+    expect(r.code).toBe(2);
+    expect(r.stderr).toContain('would both be written to');
+    expect(existsSync(join(dir, 'out'))).toBe(false);
+    // Without --out, each goes next to its own input, so there is no clash.
+    expect((await cli(['render', 'a/foo.wirelith', 'b/foo.wirelith'])).code).toBe(0);
+    expect(existsSync(join(dir, 'a/foo.svg')) && existsSync(join(dir, 'b/foo.svg'))).toBe(true);
+  });
+
   it('refuses a single output file for several sources', async () => {
     file('a.wirelith', SIGN_IN);
     file('b.wirelith', SIGN_IN);

@@ -237,6 +237,19 @@ async function renderCommand(inputs: string[], flags: RenderFlags, io: Io): Prom
     if (many && flags.out && extname(flags.out) !== '' && !existsSync(resolve(io.cwd, flags.out))) {
       throw new UsageError(`there are ${sources.length} sources; --out must be a folder`);
     }
+    // Work out every output first, so that two sources can never overwrite each other.
+    const destinations = new Map<string, string>();
+    for (const s of sources) {
+      const path = outputPath(s, flags, many, ext, io);
+      if (path === undefined) continue;
+      const other = destinations.get(path);
+      if (other !== undefined) {
+        throw new UsageError(
+          `${other} and ${s.label} would both be written to ${relative(io.cwd, path) || path}; rename one, or render them separately`,
+        );
+      }
+      destinations.set(path, s.label);
+    }
     let failed = 0;
     for (const s of sources) {
       let result: ReturnType<typeof render>;
