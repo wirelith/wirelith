@@ -97,11 +97,16 @@ function sortKeys(v) {
 const essential = (/** @type {any[]} */ ds) =>
   ds.map((d) => ({ code: d.code, severity: d.severity, line: d.line, column: d.column }));
 
-const only = args.only ? new Set(args.only.split(',')) : undefined;
-const names = readdirSync(casesDir, { withFileTypes: true })
-  .filter((d) => d.isDirectory() && (!only || only.has(d.name)))
+const all = readdirSync(casesDir, { withFileTypes: true })
+  .filter((d) => d.isDirectory())
   .map((d) => d.name)
   .sort();
+const only = args.only ? args.only.split(',').filter((n) => n !== '') : undefined;
+const unknown = only?.filter((n) => !all.includes(n)) ?? [];
+// A misspelt or stale case name must not look like a pass.
+if (unknown.length > 0) usage(`no such case: ${unknown.join(', ')}`);
+const names = only ? all.filter((n) => only.includes(n)) : all;
+if (names.length === 0) usage(`no cases to run in ${casesDir}`);
 
 /** @type {{ case: string, kind: string, pass: boolean, detail?: string | undefined }[]} */
 const results = [];

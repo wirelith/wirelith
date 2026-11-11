@@ -4,7 +4,8 @@ import { spawnSync } from 'node:child_process';
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { pathToFileURL } from 'node:url';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { normaliseSvg } from '../runner/normalise.mjs';
 
 describe('normaliseSvg', () => {
@@ -28,7 +29,42 @@ describe('normaliseSvg', () => {
 describe('run.mjs', () => {
   const run = (/** @type {string[]} */ args) =>
     spawnSync(process.execPath, ['conformance/runner/run.mjs', ...args], { encoding: 'utf8' });
-  const adapter = 'node conformance/adapters/core.mjs';
+
+  // An adapter over core's source, bundled for this test, so it needs no prior build.
+  let adapter = '';
+  let bundleDir = '';
+  beforeAll(async () => {
+    const { build } = await import('esbuild');
+    bundleDir = mkdtempSync(join(tmpdir(), 'wl-adapter-'));
+    const core = join(bundleDir, 'core.mjs');
+    await build({
+      entryPoints: ['packages/core/src/index.ts'],
+      bundle: true,
+      format: 'esm',
+      platform: 'neutral',
+      outfile: core,
+      logLevel: 'silent',
+    });
+    const script = join(bundleDir, 'adapter.mjs');
+    writeFileSync(
+      script,
+      [
+        "import { readFileSync } from 'node:fs';",
+        `import { parse, render, validate } from ${JSON.stringify(pathToFileURL(core).href)};`,
+        "const source = readFileSync(0, 'utf8');",
+        'const options = process.env.WIRELITH_OPTIONS ? JSON.parse(process.env.WIRELITH_OPTIONS) : {};',
+        'const kind = process.argv[2];',
+        "if (kind === 'tree') process.stdout.write(JSON.stringify(parse(source).tree));",
+        "else if (kind === 'diagnostics') process.stdout.write(JSON.stringify(validate(source, options)));",
+        "else process.stdout.write(render(source, options).svg ?? '');",
+        '',
+      ].join('\n'),
+    );
+    adapter = `node ${JSON.stringify(script)}`;
+  });
+  afterAll(() => {
+    if (bundleDir) rmSync(bundleDir, { recursive: true, force: true });
+  });
 
   it('fails an implementation that gets things wrong, and says where', () => {
     const dir = mkdtempSync(join(tmpdir(), 'wl-conf-'));
@@ -52,6 +88,12 @@ describe('run.mjs', () => {
 
   it('needs at least one command', () => {
     expect(run([]).status).toBe(2);
+  });
+
+  it('refuses unknown case names rather than passing an empty run', () => {
+    const r = run(['--diagnostics', 'true', '--only', 'example-2-first,no-such-case']);
+    expect(r.status).toBe(2);
+    expect(r.stderr).toContain('no such case: no-such-case');
   });
 
   it('passes core on a sample of cases', () => {
