@@ -48,13 +48,13 @@ export function utf8Length(s: string): number {
   return n;
 }
 
-const BARE = /^[A-Za-z0-9\-_.:%/]$/;
-const NUMBER = /^-?[0-9]+(\.[0-9]+)?$/;
+export const BARE = /^[A-Za-z0-9\-_.:%/]$/;
+export const NUMBER = /^-?[0-9]+(\.[0-9]+)?$/;
 const ID_START = /^[A-Za-z]$/;
 const ID_REST = /^[A-Za-z0-9_-]$/;
 const VERSION = /^[0-9]+\.[0-9]+$/;
 
-type Token =
+export type Token =
   | { kind: 'word'; text: string; col: number }
   | { kind: 'string'; text: string; col: number }
   | { kind: 'list'; items: string[]; col: number }
@@ -62,7 +62,7 @@ type Token =
   | { kind: 'arrow'; col: number }
   | { kind: 'attr'; key: string; value: Value; col: number };
 
-class LineError extends Error {
+export class LineError extends Error {
   constructor(
     readonly code: string,
     readonly col: number,
@@ -72,8 +72,11 @@ class LineError extends Error {
   }
 }
 
-/** Splits the content of one line (as code points, from `start`) into tokens. */
-function tokenize(cp: string[], start: number, line: number): Token[] {
+/**
+ * Splits the content of one line (as code points, from `start`) into tokens. When `info` is
+ * given, a trailing comment's text is put in `info.comment`.
+ */
+export function tokenize(cp: string[], start: number, line: number, info?: { comment?: string }): Token[] {
   const tokens: Token[] = [];
   let i = start;
   const col = () => i + 1;
@@ -226,7 +229,10 @@ function tokenize(cp: string[], start: number, line: number): Token[] {
       continue;
     }
     // A trailing comment: "//" after at least one space.
-    if (at(i) === '/' && at(i + 1) === '/' && i > start && at(i - 1) === ' ') break;
+    if (at(i) === '/' && at(i + 1) === '/' && i > start && at(i - 1) === ' ') {
+      if (info) info.comment = cp.slice(i).join('').trimEnd();
+      break;
+    }
     const c = col();
     const ch = at(i);
     if (ch === '"') {

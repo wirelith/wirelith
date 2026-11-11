@@ -1,0 +1,38 @@
+{
+  "name": "@wirelith/png",
+  "version": "0.1.0",
+  "description": "PNG output for Wirelith: rasterises Wirelith SVG with the bundled fonts, and carries the source in the PNG.",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wirelith/wirelith.git",
+    "directory": "packages/png"
+  },
+  "homepage": "https://github.com/wirelith/wirelith#readme",
+  "bugs": "https://github.com/wirelith/wirelith/issues",
+  "keywords": [
+    "wirelith",
+    "wireframe",
+    "png"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "fonts"
+  ],
+  "scripts": {
+    "build": "node scripts/copy-fonts.mjs && tsc -b"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "2.6.2"
+  }
+}

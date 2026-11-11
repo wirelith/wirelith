@@ -1,0 +1,43 @@
+{
+  "name": "@wirelith/cli",
+  "version": "0.1.0",
+  "description": "The Wirelith command-line tool: render wireframes to SVG and PNG, check, format and extract sources.",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wirelith/wirelith.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/wirelith/wirelith#readme",
+  "bugs": "https://github.com/wirelith/wirelith/issues",
+  "keywords": [
+    "wirelith",
+    "wireframe",
+    "svg",
+    "png",
+    "cli"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "wirelith": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "default": "./dist/main.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@wirelith/core": "workspace:*",
+    "@wirelith/png": "workspace:*"
+  }
+}

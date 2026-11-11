@@ -24,6 +24,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./ai-spec": {
+      "types": "./dist/ai-spec.d.ts",
+      "default": "./dist/ai-spec.js"
     }
   },
   "files": [
