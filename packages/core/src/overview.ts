@@ -114,7 +114,7 @@ export function buildOverview(doc: Document, theme: Theme, opts: Options): Overv
     alone = true;
   } else {
     const byId = new Map(doc.screens.filter((s) => s.id).map((s) => [s.id as string, s]));
-    const groupOf = new Map<Node, PlacedFrame[][]>();
+    const rowOf = new Map<Node, PlacedFrame[]>();
     for (const s of doc.screens) {
       const open = overlaysOf(s).filter((o) => has(o, 'open'));
       const base = decorate(layout.frame(s, keyOf(s), open));
@@ -126,17 +126,27 @@ export function buildOverview(doc: Document, theme: Theme, opts: Options): Overv
         extraFrame.set(o, ef);
         row.push(ef);
       }
+      rowOf.set(s, row);
+    }
+    const baseOf = (s: Node) => {
       const of = s.attrs?.of;
-      const baseScreen =
-        isVariant(s) && typeof of === 'object' && !Array.isArray(of) ? byId.get(of.ref) : undefined;
-      const g = baseScreen ? groupOf.get(baseScreen) : undefined;
-      if (g) {
-        g.push(row);
-      } else {
-        const ng = [row];
-        groups.push(ng);
-        groupOf.set(s, ng);
-      }
+      return isVariant(s) && typeof of === 'object' && !Array.isArray(of) ? byId.get(of.ref) : undefined;
+    };
+    // Every screen that is not a variant starts a group, in source order. Then each variant
+    // joins its base's group, in source order, wherever it is written.
+    const groupOf = new Map<Node, PlacedFrame[][]>();
+    for (const s of doc.screens) {
+      if (baseOf(s)) continue;
+      const g = [rowOf.get(s) as PlacedFrame[]];
+      groups.push(g);
+      groupOf.set(s, g);
+    }
+    for (const s of doc.screens) {
+      const b = baseOf(s);
+      if (!b) continue;
+      const g = groupOf.get(b);
+      if (g) g.push(rowOf.get(s) as PlacedFrame[]);
+      else groups.push([rowOf.get(s) as PlacedFrame[]]);
     }
     const frameCount = groups.reduce((n, g) => n + g.reduce((m, rw) => m + rw.length, 0), 0);
     const anyLink = all.some((w) => w.node.link) || (doc.flows?.length ?? 0) > 0;

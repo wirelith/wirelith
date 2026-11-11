@@ -125,3 +125,19 @@ describe('boxes (10.3)', () => {
     expect(e.b?.width).toBeGreaterThan(0);
   });
 });
+
+describe('overview (7.4)', () => {
+  const frames = (src: string) => Object.fromEntries(layout(src).frames.map((f) => [f.id, f]));
+
+  it('stacks a variant below its base, whichever is written first', () => {
+    for (const src of [
+      'screen "Base" #base\nscreen "Base" #v of=#base state="Empty"\nscreen "Next" #next\n',
+      'screen "Base" #v of=#base state="Empty"\nscreen "Base" #base\nscreen "Next" #next\n',
+    ]) {
+      const f = frames(src);
+      expect(f.v?.x, src).toBe(f.base?.x);
+      expect(f.v?.y, src).toBe((f.base?.y ?? 0) + (f.base?.height ?? 0) + 64);
+      expect(f.next?.x, src).toBe((f.base?.x ?? 0) + (f.base?.width ?? 0) + 96);
+    }
+  });
+});
