@@ -1,0 +1,43 @@
+# SPDX-License-Identifier: MIT
+
+# Scans new and edited issues, discussions and comments against the private denylist, and,
+# every hour, recent pull request reviews and review comments. It never comments, and its log
+# and result never say whether anything matched. On a match it opens a draft security
+# advisory, which only maintainers can see.
+
+name: Scan posts
+
+on:
+  issues:
+    types: [opened, edited]
+  issue_comment:
+    types: [created, edited]
+  discussion:
+    types: [created, edited]
+  discussion_comment:
+    types: [created, edited]
+  # Workflows triggered by reviews on pull requests from forks get no secrets, so reviews and
+  # review comments are swept on a schedule instead.
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+      - run: node scripts/hygiene/scan-posts.mjs
+        env:
+          WIRELITH_DENYLIST: ${{ secrets.WIRELITH_DENYLIST }}
+          WIRELITH_TRIAGE_TOKEN: ${{ secrets.WIRELITH_TRIAGE_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}

@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: MIT
+
+packages:
+  - packages/*
+
+# Do not install any package version published less than 14 days ago.
+minimumReleaseAge: 20160
+
+# Exact versions only.
+savePrefix: ""
+
+# No dependency may run install scripts. esbuild works without its install script.
+allowBuilds:
+  esbuild: false

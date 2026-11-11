@@ -1,0 +1,6 @@
+#!/bin/sh
+# SPDX-License-Identifier: MIT
+
+# Rejects a commit whose author or committer email is not a GitHub noreply address, or whose
+# message has no Signed-off-by line from its author.
+exec node scripts/hygiene/commit-msg.mjs "$1"

@@ -1,0 +1,6 @@
+#!/bin/sh
+# SPDX-License-Identifier: MIT
+
+# Checks everything a push would publish: commit identities and sign-offs, the copyright
+# holder's name, and (when WIRELITH_DENYLIST_FILE is set) the private denylist.
+exec node scripts/hygiene/prepush.mjs

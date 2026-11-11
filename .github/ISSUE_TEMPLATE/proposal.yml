@@ -1,0 +1,33 @@
+# SPDX-License-Identifier: MIT
+
+name: Language proposal
+description: Suggest a change to the Wirelith language. Accepted ideas become an RFC.
+labels: [proposal]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Changes to the language go through an RFC; see rfcs/README.md. Use this form to check an idea first. Everything here is public, forever.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What you want to draw
+      description: Describe the screen or flow, and show how you would write it today. Use made-up products and people.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: How you would like to write it.
+    validations:
+      required: true
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Before you submit
+      options:
+        - label: This contains no private or internal information, and uses made-up products and people only.
+          required: true
+        - label: This would be useful in any app that renders Wirelith, not just one.
+          required: true

@@ -1,0 +1,43 @@
+# SPDX-License-Identifier: MIT
+
+name: Bug report
+description: Something renders, parses or validates wrongly, or a tool misbehaves.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Everything you write here is public, forever. Use made-up products and people in any source you share.
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: The smallest Wirelith source that shows the problem.
+      render: wirelith
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened
+      description: Include diagnostics or error output.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Package and version
+      placeholder: "@wirelith/core 0.1.0"
+  - type: checkboxes
+    id: public
+    attributes:
+      label: Before you submit
+      options:
+        - label: This contains no private or internal information, and uses made-up products and people only.
+          required: true

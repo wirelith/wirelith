@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: MIT
+
+name: Other
+description: A question, an idea for the tools, or anything else.
+body:
+  - type: markdown
+    attributes:
+      value: Everything you write here is public, forever.
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+    validations:
+      required: true
+  - type: checkboxes
+    id: public
+    attributes:
+      label: Before you submit
+      options:
+        - label: This contains no private or internal information, and uses made-up products and people only.
+          required: true
