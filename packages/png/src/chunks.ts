@@ -60,7 +60,7 @@ export function addText(png: Uint8Array, keyword: string, text: string): Uint8Ar
     throw new Error('a PNG keyword is 1 to 79 printable ASCII characters');
   const all = chunks(png);
   const ihdr = all[0];
-  if (!ihdr || ihdr.type !== 'IHDR') throw new Error('a PNG starts with IHDR');
+  if (ihdr?.type !== 'IHDR') throw new Error('a PNG starts with IHDR');
   const body = new Uint8Array([...encoder.encode(keyword), 0, 0, 0, 0, 0, ...encoder.encode(text)]);
   const chunk = new Uint8Array(12 + body.length);
   const view = new DataView(chunk.buffer);

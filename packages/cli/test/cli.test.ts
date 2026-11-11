@@ -17,7 +17,8 @@ beforeEach(() => {
   dir = mkdtempSync(join(tmpdir(), 'wl-cli-'));
 });
 afterEach(() => {
-  rmSync(dir, { recursive: true, force: true });
+  // Windows can briefly hold a folder after a child process that used it has exited.
+  rmSync(dir, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
 });
 
 /** Runs the CLI in the temporary folder, capturing its output. */
@@ -218,7 +219,10 @@ describe('--watch', () => {
       writeFileSync(join(dir, 'w.wirelith'), 'screen "After"\n');
       expect(await until(() => svg().includes('After'))).toBe(true);
     } finally {
+      // Wait for the process to end before the folder is removed.
+      const exited = new Promise((r) => child.once('exit', r));
       child.kill();
+      await exited;
     }
   }, 20000);
 });

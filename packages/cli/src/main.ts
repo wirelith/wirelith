@@ -327,7 +327,11 @@ async function fmtCommand(
       io.stderr('<stdin>: cannot format a source with errors; run wirelith check\n');
       return 1;
     }
-    if (flags.check) return out === source ? 0 : (io.stderr('<stdin> is not formatted\n'), 1);
+    if (flags.check) {
+      if (out === source) return 0;
+      io.stderr('<stdin> is not formatted\n');
+      return 1;
+    }
     io.stdout(out);
     return 0;
   }
@@ -434,22 +438,34 @@ export async function main(argv: string[], io: Io): Promise<number> {
           'id-prefix': { type: 'string' },
           watch: { type: 'boolean' },
         });
-        if (a.values.help) return (io.stdout(HELP), 0);
+        if (a.values.help) {
+          io.stdout(HELP);
+          return 0;
+        }
         return await renderCommand(a.positionals, a.values as RenderFlags, io);
       }
       case 'check': {
         const a = parse({ theme: { type: 'string' }, strict: { type: 'boolean' } });
-        if (a.values.help) return (io.stdout(HELP), 0);
+        if (a.values.help) {
+          io.stdout(HELP);
+          return 0;
+        }
         return await checkCommand(a.positionals, a.values as { theme?: string; strict?: boolean }, io);
       }
       case 'fmt': {
         const a = parse({ write: { type: 'boolean' }, check: { type: 'boolean' } });
-        if (a.values.help) return (io.stdout(HELP), 0);
+        if (a.values.help) {
+          io.stdout(HELP);
+          return 0;
+        }
         return await fmtCommand(a.positionals, a.values as { write?: boolean; check?: boolean }, io);
       }
       case 'extract': {
         const a = parse({});
-        if (a.values.help) return (io.stdout(HELP), 0);
+        if (a.values.help) {
+          io.stdout(HELP);
+          return 0;
+        }
         return await extractCommand(a.positionals, io);
       }
       case 'prompt':
