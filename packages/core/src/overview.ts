@@ -302,7 +302,9 @@ export function countLinks(doc: Document): number {
   return n;
 }
 
+/** A gap between frames: an x-range within one band. */
 interface Gap {
+  band: number;
   a: number;
   b: number;
 }
@@ -320,7 +322,7 @@ function route(
   // The gaps on each side of each frame, within its band.
   const leftGap = new Map<PlacedFrame, Gap>();
   const rightGap = new Map<PlacedFrame, Gap>();
-  for (const groups of bands) {
+  bands.forEach((groups, band) => {
     let prevGroupRight = 0;
     groups.forEach((g, gi) => {
       let groupRight = 0;
@@ -330,13 +332,13 @@ function route(
         row.forEach((f, i) => {
           const prev = row[i - 1];
           const next = row[i + 1];
-          leftGap.set(f, { a: prev ? prev.x + outer(prev) : prevGroupRight, b: f.x });
-          rightGap.set(f, { a: f.x + outer(f), b: next ? next.x : nextGroupLeft });
+          leftGap.set(f, { band, a: prev ? prev.x + outer(prev) : prevGroupRight, b: f.x });
+          rightGap.set(f, { band, a: f.x + outer(f), b: next ? next.x : nextGroupLeft });
         });
       }
       prevGroupRight = groupRight;
     });
-  }
+  });
 
   // Every link, in order: element links in a depth-first walk of each screen, then flows.
   interface Plan {
@@ -385,7 +387,8 @@ function route(
   }
 
   // First pass: which gaps each arrow uses.
-  const key = (g: Gap) => `${g.a}:${g.b}`;
+  // Gaps in different bands are different gaps, even where their x-ranges line up.
+  const key = (g: Gap) => `${g.band}:${g.a}:${g.b}`;
   const usage = new Map<string, number>();
   const routes = plans.map((p) => {
     const S = p.from;
@@ -400,7 +403,7 @@ function route(
     }
     const gs = (dir === 'right' ? rightGap.get(S) : leftGap.get(S)) as Gap;
     const gt = (dir === 'right' || overlap ? leftGap.get(T) : rightGap.get(T)) as Gap;
-    const same = key(gs) === key(gt) && bandOf.get(S) === bandOf.get(T);
+    const same = key(gs) === key(gt);
     const slotS = (usage.get(key(gs)) ?? 0) + 1;
     usage.set(key(gs), slotS);
     let slotT = slotS;

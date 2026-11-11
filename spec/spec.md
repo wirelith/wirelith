@@ -551,7 +551,7 @@ Appendix C gives the complete geometry of every component, including marks, bord
 
 1. An arrow leaves the middle of its source element's right edge. If the target frame is to the left, it leaves the left edge.
 2. It runs horizontally to the gap between frames, vertically to the height of its entry point, then horizontally into the target frame's nearest vertical edge, entering 48 px below the frame's top.
-3. Arrows that share a gap are spread across it at equal spacing, in source order: with n arrows in a gap of width w, the k-th (from 1) runs at w × k ÷ (n + 1) from the gap's left edge.
+3. Arrows that share a gap are spread across it at equal spacing, in source order: with n arrows in a gap of width w, the k-th (from 1) runs at w × k ÷ (n + 1) from the gap's left edge. A gap belongs to one band: gaps in different bands are different gaps, even where they line up.
 4. A link to a variant below its base runs down the gap to the left of the variant.
 5. When the target frame is not across the gap next to the source frame, or is in another band, the arrow climbs or drops down its gap to a lane above the band that holds the target, runs along the lane, and drops down the gap beside the target. Lanes are 12 px apart, starting 12 px above that band's frame titles, numbered in link order for each band. The space above each band grows by 12 px for each of its lanes.
 6. Links are numbered in source order: elements' links in a depth-first walk of each screen, screens in source order, then `flow` lines.
