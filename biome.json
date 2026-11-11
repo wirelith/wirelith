@@ -2,7 +2,14 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
   "files": {
-    "includes": ["**", "!pnpm-lock.yaml", "!**/dist", "!**/*.md"]
+    "includes": [
+      "**",
+      "!pnpm-lock.yaml",
+      "!**/dist",
+      "!**/*.md",
+      "!spec/data",
+      "!spec/generators/lucide-metadata.json"
+    ]
   },
   "formatter": {
     "indentStyle": "space",

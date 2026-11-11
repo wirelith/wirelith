@@ -13,3 +13,36 @@ Third-party material
 CODE_OF_CONDUCT.md is adapted from the Contributor Covenant, version 2.1,
 licensed under the Creative Commons Attribution 4.0 International License
 (CC BY 4.0). See CODE_OF_CONDUCT.md for its attribution.
+
+Fonts
+-----
+
+The PNG renderers bundle these fonts, unmodified, so that output does not
+depend on the fonts installed on a machine. Each is licensed under the SIL Open
+Font License, version 1.1 (OFL-1.1). The license texts are in third-party/fonts.
+
+Inter 4.1
+  Copyright (c) 2016 The Inter Project Authors (https://github.com/rsms/inter)
+  License: third-party/fonts/inter/LICENSE.txt
+
+Source Serif 4, version 4.005
+  Copyright 2014 - 2023 Adobe (http://www.adobe.com/), with Reserved Font
+  Name 'Source'. All Rights Reserved. Source is a trademark of Adobe in the
+  United States and/or other countries.
+  License: third-party/fonts/source-serif-4/LICENSE.md
+
+JetBrains Mono 2.304
+  Copyright 2020 The JetBrains Mono Project Authors
+  (https://github.com/JetBrains/JetBrainsMono)
+  License: third-party/fonts/jetbrains-mono/OFL.txt
+
+The font-metrics tables in spec/data/fonts are measurements taken from these
+font files.
+
+Icons
+-----
+
+The icon shapes in spec/data/icons.json are a subset of Lucide 1.62.0, under the
+ISC License; the icons Lucide derives from the Feather project are also under
+the MIT License. The full license text is in third-party/lucide/LICENSE.
+  Copyright (c) 2026 Lucide Icons and Contributors
