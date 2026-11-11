@@ -30,7 +30,7 @@ screen "Home" phone #home
 
 | Path | What it is |
 | --- | --- |
-| `spec/` | The language specification (in progress) |
+| `spec/` | The language specification, version 0.1 (draft), with its font-metrics and icon data |
 | `packages/core` | `@wirelith/core`: parser, validator and SVG renderer (in progress) |
 | `rfcs/` | Proposals to change the language |
 

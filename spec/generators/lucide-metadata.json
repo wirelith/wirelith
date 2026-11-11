@@ -1,0 +1,2806 @@
+{
+  "repository": "lucide-icons/lucide",
+  "commit": "03f11e2d6adc319ea21e9a1d5820a99cd3767257",
+  "icons": {
+    "accessibility": {
+      "categories": [
+        "accessibility",
+        "medical"
+      ],
+      "aliases": []
+    },
+    "activity": {
+      "categories": [
+        "account",
+        "medical",
+        "multimedia",
+        "science",
+        "social"
+      ],
+      "aliases": []
+    },
+    "alarm-clock": {
+      "categories": [
+        "devices",
+        "notifications",
+        "time"
+      ],
+      "aliases": []
+    },
+    "app-window": {
+      "categories": [
+        "design",
+        "development",
+        "files",
+        "layout"
+      ],
+      "aliases": []
+    },
+    "archive": {
+      "categories": [
+        "files",
+        "mail"
+      ],
+      "aliases": []
+    },
+    "arrow-down": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "arrow-down-left": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "arrow-down-up": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "arrow-down-wide-narrow": {
+      "categories": [
+        "arrows",
+        "layout",
+        "text"
+      ],
+      "aliases": [
+        "sort-desc"
+      ]
+    },
+    "arrow-left": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "arrow-left-right": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "arrow-right": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "arrow-up": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "arrow-up-down": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "arrow-up-narrow-wide": {
+      "categories": [
+        "arrows",
+        "layout",
+        "text"
+      ],
+      "aliases": [
+        "sort-asc"
+      ]
+    },
+    "arrow-up-right": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "at-sign": {
+      "categories": [
+        "account",
+        "text"
+      ],
+      "aliases": []
+    },
+    "award": {
+      "categories": [
+        "account",
+        "gaming",
+        "sports"
+      ],
+      "aliases": []
+    },
+    "badge-check": {
+      "categories": [
+        "social"
+      ],
+      "aliases": [
+        "verified"
+      ]
+    },
+    "ban": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "banknote": {
+      "categories": [
+        "finance"
+      ],
+      "aliases": []
+    },
+    "battery": {
+      "categories": [
+        "connectivity",
+        "devices"
+      ],
+      "aliases": []
+    },
+    "battery-charging": {
+      "categories": [
+        "connectivity",
+        "devices"
+      ],
+      "aliases": []
+    },
+    "bell": {
+      "categories": [
+        "account",
+        "notifications"
+      ],
+      "aliases": []
+    },
+    "bell-off": {
+      "categories": [
+        "notifications"
+      ],
+      "aliases": []
+    },
+    "bell-ring": {
+      "categories": [
+        "notifications"
+      ],
+      "aliases": []
+    },
+    "bike": {
+      "categories": [
+        "transportation"
+      ],
+      "aliases": []
+    },
+    "blocks": {
+      "categories": [
+        "development",
+        "layout",
+        "shapes"
+      ],
+      "aliases": []
+    },
+    "bluetooth": {
+      "categories": [
+        "connectivity",
+        "devices"
+      ],
+      "aliases": []
+    },
+    "bold": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "book": {
+      "categories": [
+        "development",
+        "gaming",
+        "text"
+      ],
+      "aliases": []
+    },
+    "book-open": {
+      "categories": [
+        "development",
+        "gaming",
+        "text"
+      ],
+      "aliases": []
+    },
+    "bookmark": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "box": {
+      "categories": [
+        "development",
+        "gaming",
+        "math",
+        "shapes"
+      ],
+      "aliases": []
+    },
+    "boxes": {
+      "categories": [
+        "development",
+        "gaming",
+        "shapes"
+      ],
+      "aliases": []
+    },
+    "braces": {
+      "categories": [
+        "development",
+        "files"
+      ],
+      "aliases": [
+        "curly-braces"
+      ]
+    },
+    "briefcase": {
+      "categories": [
+        "transportation"
+      ],
+      "aliases": []
+    },
+    "bug": {
+      "categories": [
+        "animals",
+        "development"
+      ],
+      "aliases": []
+    },
+    "building": {
+      "categories": [
+        "account",
+        "buildings"
+      ],
+      "aliases": []
+    },
+    "building-complex": {
+      "categories": [
+        "account",
+        "buildings"
+      ],
+      "aliases": [
+        "building-2"
+      ]
+    },
+    "bus": {
+      "categories": [
+        "transportation"
+      ],
+      "aliases": []
+    },
+    "calculator": {
+      "categories": [
+        "devices",
+        "math"
+      ],
+      "aliases": []
+    },
+    "calendar": {
+      "categories": [
+        "time"
+      ],
+      "aliases": []
+    },
+    "calendar-check": {
+      "categories": [
+        "time"
+      ],
+      "aliases": []
+    },
+    "calendar-clock": {
+      "categories": [
+        "time"
+      ],
+      "aliases": []
+    },
+    "calendar-days": {
+      "categories": [
+        "time"
+      ],
+      "aliases": []
+    },
+    "calendar-plus": {
+      "categories": [
+        "time"
+      ],
+      "aliases": []
+    },
+    "calendar-x": {
+      "categories": [
+        "time"
+      ],
+      "aliases": []
+    },
+    "camera": {
+      "categories": [
+        "communication",
+        "devices",
+        "photography"
+      ],
+      "aliases": []
+    },
+    "car": {
+      "categories": [
+        "transportation"
+      ],
+      "aliases": []
+    },
+    "cast": {
+      "categories": [
+        "connectivity",
+        "devices"
+      ],
+      "aliases": []
+    },
+    "chart-area": {
+      "categories": [
+        "charts"
+      ],
+      "aliases": [
+        "area-chart"
+      ]
+    },
+    "chart-bar": {
+      "categories": [
+        "charts"
+      ],
+      "aliases": [
+        "bar-chart-horizontal"
+      ]
+    },
+    "chart-column": {
+      "categories": [
+        "charts"
+      ],
+      "aliases": [
+        "bar-chart-3"
+      ]
+    },
+    "chart-line": {
+      "categories": [
+        "charts"
+      ],
+      "aliases": [
+        "line-chart"
+      ]
+    },
+    "chart-pie": {
+      "categories": [
+        "charts",
+        "files"
+      ],
+      "aliases": [
+        "pie-chart"
+      ]
+    },
+    "check": {
+      "categories": [
+        "notifications"
+      ],
+      "aliases": []
+    },
+    "check-check": {
+      "categories": [
+        "notifications"
+      ],
+      "aliases": []
+    },
+    "chevron-down": {
+      "categories": [
+        "arrows",
+        "gaming"
+      ],
+      "aliases": []
+    },
+    "chevron-left": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "chevron-right": {
+      "categories": [
+        "arrows",
+        "development",
+        "math"
+      ],
+      "aliases": []
+    },
+    "chevron-up": {
+      "categories": [
+        "arrows",
+        "gaming",
+        "math"
+      ],
+      "aliases": []
+    },
+    "chevrons-down": {
+      "categories": [
+        "arrows",
+        "gaming"
+      ],
+      "aliases": []
+    },
+    "chevrons-left": {
+      "categories": [
+        "arrows",
+        "gaming"
+      ],
+      "aliases": []
+    },
+    "chevrons-right": {
+      "categories": [
+        "arrows",
+        "gaming"
+      ],
+      "aliases": []
+    },
+    "chevrons-up": {
+      "categories": [
+        "arrows",
+        "gaming"
+      ],
+      "aliases": []
+    },
+    "chevrons-up-down": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "circle": {
+      "categories": [
+        "shapes"
+      ],
+      "aliases": []
+    },
+    "circle-alert": {
+      "categories": [
+        "notifications"
+      ],
+      "aliases": [
+        "alert-circle"
+      ]
+    },
+    "circle-check": {
+      "categories": [
+        "notifications"
+      ],
+      "aliases": [
+        "check-circle-2"
+      ]
+    },
+    "circle-dot": {
+      "categories": [
+        "development",
+        "shapes"
+      ],
+      "aliases": []
+    },
+    "circle-minus": {
+      "categories": [
+        "math"
+      ],
+      "aliases": [
+        "minus-circle"
+      ]
+    },
+    "circle-plus": {
+      "categories": [
+        "cursors",
+        "development",
+        "gaming",
+        "math"
+      ],
+      "aliases": [
+        "plus-circle"
+      ]
+    },
+    "circle-question-mark": {
+      "categories": [
+        "accessibility",
+        "notifications",
+        "text"
+      ],
+      "aliases": [
+        "circle-help",
+        "help-circle"
+      ]
+    },
+    "circle-stop": {
+      "categories": [
+        "multimedia"
+      ],
+      "aliases": [
+        "stop-circle"
+      ]
+    },
+    "circle-user": {
+      "categories": [
+        "account"
+      ],
+      "aliases": [
+        "user-circle"
+      ]
+    },
+    "circle-x": {
+      "categories": [
+        "development",
+        "math"
+      ],
+      "aliases": [
+        "x-circle"
+      ]
+    },
+    "clipboard": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "clipboard-check": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "clipboard-list": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "clock": {
+      "categories": [
+        "time"
+      ],
+      "aliases": []
+    },
+    "cloud": {
+      "categories": [
+        "weather"
+      ],
+      "aliases": []
+    },
+    "cloud-download": {
+      "categories": [
+        "arrows",
+        "files"
+      ],
+      "aliases": [
+        "download-cloud"
+      ]
+    },
+    "cloud-off": {
+      "categories": [
+        "connectivity",
+        "weather"
+      ],
+      "aliases": []
+    },
+    "cloud-rain": {
+      "categories": [
+        "weather"
+      ],
+      "aliases": []
+    },
+    "cloud-sun": {
+      "categories": [
+        "weather"
+      ],
+      "aliases": []
+    },
+    "cloud-upload": {
+      "categories": [
+        "arrows",
+        "files"
+      ],
+      "aliases": [
+        "upload-cloud"
+      ]
+    },
+    "code": {
+      "categories": [
+        "development",
+        "text"
+      ],
+      "aliases": []
+    },
+    "code-xml": {
+      "categories": [
+        "development",
+        "text"
+      ],
+      "aliases": [
+        "code-2"
+      ]
+    },
+    "coffee": {
+      "categories": [
+        "food-beverage"
+      ],
+      "aliases": []
+    },
+    "coins": {
+      "categories": [
+        "gaming"
+      ],
+      "aliases": []
+    },
+    "columns-2": {
+      "categories": [
+        "design",
+        "layout",
+        "text"
+      ],
+      "aliases": [
+        "columns"
+      ]
+    },
+    "compass": {
+      "categories": [
+        "navigation",
+        "travel"
+      ],
+      "aliases": []
+    },
+    "component": {
+      "categories": [
+        "design",
+        "development"
+      ],
+      "aliases": []
+    },
+    "contact": {
+      "categories": [
+        "account",
+        "communication",
+        "connectivity",
+        "social"
+      ],
+      "aliases": []
+    },
+    "copy": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "corner-down-left": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "corner-up-left": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "corner-up-right": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "cpu": {
+      "categories": [
+        "devices"
+      ],
+      "aliases": []
+    },
+    "credit-card": {
+      "categories": [
+        "account",
+        "finance"
+      ],
+      "aliases": []
+    },
+    "crop": {
+      "categories": [
+        "design",
+        "photography"
+      ],
+      "aliases": []
+    },
+    "crown": {
+      "categories": [
+        "gaming"
+      ],
+      "aliases": []
+    },
+    "database": {
+      "categories": [
+        "development",
+        "devices"
+      ],
+      "aliases": []
+    },
+    "dollar-sign": {
+      "categories": [
+        "finance"
+      ],
+      "aliases": []
+    },
+    "download": {
+      "categories": [
+        "arrows",
+        "files"
+      ],
+      "aliases": []
+    },
+    "droplet": {
+      "categories": [
+        "gaming",
+        "weather"
+      ],
+      "aliases": []
+    },
+    "dumbbell": {
+      "categories": [
+        "navigation",
+        "sports"
+      ],
+      "aliases": []
+    },
+    "eighth-notes": {
+      "categories": [
+        "files",
+        "multimedia"
+      ],
+      "aliases": [
+        "music"
+      ]
+    },
+    "ellipsis": {
+      "categories": [
+        "development",
+        "layout"
+      ],
+      "aliases": [
+        "more-horizontal"
+      ]
+    },
+    "ellipsis-vertical": {
+      "categories": [
+        "layout"
+      ],
+      "aliases": [
+        "more-vertical"
+      ]
+    },
+    "eraser": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "euro": {
+      "categories": [
+        "finance"
+      ],
+      "aliases": []
+    },
+    "expand": {
+      "categories": [
+        "arrows",
+        "text"
+      ],
+      "aliases": []
+    },
+    "external-link": {
+      "categories": [
+        "arrows",
+        "social",
+        "text"
+      ],
+      "aliases": []
+    },
+    "eye": {
+      "categories": [
+        "accessibility",
+        "design",
+        "photography",
+        "security"
+      ],
+      "aliases": []
+    },
+    "eye-off": {
+      "categories": [
+        "accessibility",
+        "design",
+        "photography",
+        "security"
+      ],
+      "aliases": []
+    },
+    "face-neutral": {
+      "categories": [
+        "emoji"
+      ],
+      "aliases": [
+        "meh"
+      ]
+    },
+    "face-slightly-frowning": {
+      "categories": [
+        "account",
+        "emoji"
+      ],
+      "aliases": [
+        "frown"
+      ]
+    },
+    "face-slightly-smiling": {
+      "categories": [
+        "account",
+        "emoji"
+      ],
+      "aliases": [
+        "smile"
+      ]
+    },
+    "fast-forward": {
+      "categories": [
+        "arrows",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "file": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "file-archive": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "file-check": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "file-code": {
+      "categories": [
+        "development",
+        "files"
+      ],
+      "aliases": []
+    },
+    "file-headphone": {
+      "categories": [
+        "files"
+      ],
+      "aliases": [
+        "file-audio",
+        "file-audio-2"
+      ]
+    },
+    "file-image": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "file-minus": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "file-play": {
+      "categories": [
+        "files"
+      ],
+      "aliases": [
+        "file-video"
+      ]
+    },
+    "file-plus": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "file-search": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "file-spreadsheet": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "file-text": {
+      "categories": [
+        "files",
+        "text"
+      ],
+      "aliases": []
+    },
+    "file-x": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "files": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "film": {
+      "categories": [
+        "multimedia",
+        "photography"
+      ],
+      "aliases": []
+    },
+    "fingerprint-pattern": {
+      "categories": [
+        "account",
+        "devices",
+        "medical",
+        "security"
+      ],
+      "aliases": [
+        "fingerprint"
+      ]
+    },
+    "flag": {
+      "categories": [
+        "account",
+        "social"
+      ],
+      "aliases": []
+    },
+    "flame": {
+      "categories": [
+        "gaming",
+        "social",
+        "weather"
+      ],
+      "aliases": []
+    },
+    "folder": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "folder-open": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "folder-plus": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "folders": {
+      "categories": [
+        "files"
+      ],
+      "aliases": []
+    },
+    "forward": {
+      "categories": [
+        "mail"
+      ],
+      "aliases": []
+    },
+    "frame": {
+      "categories": [
+        "design",
+        "photography"
+      ],
+      "aliases": []
+    },
+    "funnel": {
+      "categories": [
+        "layout"
+      ],
+      "aliases": [
+        "filter"
+      ]
+    },
+    "gamepad-2": {
+      "categories": [
+        "devices",
+        "gaming"
+      ],
+      "aliases": []
+    },
+    "gauge": {
+      "categories": [
+        "science",
+        "sports",
+        "transportation"
+      ],
+      "aliases": []
+    },
+    "gift": {
+      "categories": [
+        "account",
+        "gaming"
+      ],
+      "aliases": []
+    },
+    "git-branch": {
+      "categories": [
+        "development"
+      ],
+      "aliases": []
+    },
+    "git-commit-horizontal": {
+      "categories": [
+        "development",
+        "navigation"
+      ],
+      "aliases": [
+        "git-commit"
+      ]
+    },
+    "git-merge": {
+      "categories": [
+        "development"
+      ],
+      "aliases": []
+    },
+    "git-pull-request": {
+      "categories": [
+        "development"
+      ],
+      "aliases": []
+    },
+    "globe": {
+      "categories": [
+        "navigation"
+      ],
+      "aliases": []
+    },
+    "graduation-cap": {
+      "categories": [
+        "buildings"
+      ],
+      "aliases": []
+    },
+    "grid-3x3": {
+      "categories": [
+        "design",
+        "layout",
+        "text"
+      ],
+      "aliases": [
+        "grid",
+        "grid-3-x-3"
+      ]
+    },
+    "grip-horizontal": {
+      "categories": [
+        "layout"
+      ],
+      "aliases": []
+    },
+    "grip-vertical": {
+      "categories": [
+        "layout"
+      ],
+      "aliases": []
+    },
+    "hand": {
+      "categories": [
+        "accessibility",
+        "cursors"
+      ],
+      "aliases": []
+    },
+    "hard-drive": {
+      "categories": [
+        "development",
+        "devices"
+      ],
+      "aliases": []
+    },
+    "hash": {
+      "categories": [
+        "social",
+        "text"
+      ],
+      "aliases": []
+    },
+    "heading": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "heading-1": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "heading-2": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "heading-3": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "headphones": {
+      "categories": [
+        "connectivity",
+        "devices",
+        "files",
+        "gaming",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "headset": {
+      "categories": [
+        "connectivity",
+        "devices",
+        "files",
+        "gaming",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "heart": {
+      "categories": [
+        "emoji",
+        "gaming",
+        "medical",
+        "multimedia",
+        "shapes",
+        "social"
+      ],
+      "aliases": []
+    },
+    "heart-pulse": {
+      "categories": [
+        "medical"
+      ],
+      "aliases": []
+    },
+    "highlighter": {
+      "categories": [
+        "design",
+        "text"
+      ],
+      "aliases": []
+    },
+    "hourglass": {
+      "categories": [
+        "gaming",
+        "time"
+      ],
+      "aliases": []
+    },
+    "house": {
+      "categories": [
+        "buildings",
+        "home",
+        "navigation"
+      ],
+      "aliases": [
+        "home"
+      ]
+    },
+    "id-card": {
+      "categories": [
+        "account",
+        "security"
+      ],
+      "aliases": []
+    },
+    "image": {
+      "categories": [
+        "files",
+        "multimedia",
+        "photography",
+        "text"
+      ],
+      "aliases": []
+    },
+    "images": {
+      "categories": [
+        "files",
+        "multimedia",
+        "photography",
+        "text"
+      ],
+      "aliases": []
+    },
+    "inbox": {
+      "categories": [
+        "account",
+        "mail"
+      ],
+      "aliases": []
+    },
+    "info": {
+      "categories": [
+        "accessibility",
+        "notifications"
+      ],
+      "aliases": []
+    },
+    "italic": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "kanban": {
+      "categories": [
+        "charts",
+        "design",
+        "development"
+      ],
+      "aliases": []
+    },
+    "key": {
+      "categories": [
+        "account",
+        "security"
+      ],
+      "aliases": []
+    },
+    "key-round": {
+      "categories": [
+        "account",
+        "security"
+      ],
+      "aliases": []
+    },
+    "keyboard": {
+      "categories": [
+        "development",
+        "devices",
+        "text"
+      ],
+      "aliases": []
+    },
+    "landmark": {
+      "categories": [
+        "buildings",
+        "finance",
+        "navigation"
+      ],
+      "aliases": []
+    },
+    "languages": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "laptop": {
+      "categories": [
+        "devices"
+      ],
+      "aliases": []
+    },
+    "layers": {
+      "categories": [
+        "design",
+        "layout"
+      ],
+      "aliases": [
+        "layers-3"
+      ]
+    },
+    "layout-dashboard": {
+      "categories": [
+        "design",
+        "layout"
+      ],
+      "aliases": []
+    },
+    "layout-grid": {
+      "categories": [
+        "design",
+        "layout"
+      ],
+      "aliases": []
+    },
+    "layout-list": {
+      "categories": [
+        "design",
+        "layout",
+        "photography",
+        "text"
+      ],
+      "aliases": []
+    },
+    "layout-template": {
+      "categories": [
+        "layout"
+      ],
+      "aliases": []
+    },
+    "leaf": {
+      "categories": [
+        "nature",
+        "seasons",
+        "sustainability"
+      ],
+      "aliases": []
+    },
+    "life-buoy": {
+      "categories": [
+        "accessibility",
+        "medical"
+      ],
+      "aliases": []
+    },
+    "lightbulb": {
+      "categories": [
+        "photography"
+      ],
+      "aliases": []
+    },
+    "link": {
+      "categories": [
+        "account",
+        "text"
+      ],
+      "aliases": []
+    },
+    "link-2": {
+      "categories": [
+        "account",
+        "text"
+      ],
+      "aliases": []
+    },
+    "list": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "list-checks": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "list-filter": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "list-ordered": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "list-todo": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "loader": {
+      "categories": [
+        "cursors",
+        "design",
+        "layout",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "loader-circle": {
+      "categories": [
+        "cursors",
+        "layout",
+        "multimedia"
+      ],
+      "aliases": [
+        "loader-2"
+      ]
+    },
+    "locate": {
+      "categories": [
+        "navigation"
+      ],
+      "aliases": []
+    },
+    "lock": {
+      "categories": [
+        "security"
+      ],
+      "aliases": []
+    },
+    "lock-open": {
+      "categories": [
+        "security"
+      ],
+      "aliases": [
+        "unlock"
+      ]
+    },
+    "log-in": {
+      "categories": [
+        "account",
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "log-out": {
+      "categories": [
+        "account",
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "mail": {
+      "categories": [
+        "account",
+        "mail",
+        "text"
+      ],
+      "aliases": []
+    },
+    "mail-open": {
+      "categories": [
+        "mail"
+      ],
+      "aliases": []
+    },
+    "map": {
+      "categories": [
+        "navigation",
+        "text"
+      ],
+      "aliases": []
+    },
+    "map-pin": {
+      "categories": [
+        "account",
+        "navigation",
+        "travel"
+      ],
+      "aliases": []
+    },
+    "maximize": {
+      "categories": [
+        "design",
+        "layout"
+      ],
+      "aliases": []
+    },
+    "maximize-2": {
+      "categories": [
+        "arrows",
+        "design",
+        "layout"
+      ],
+      "aliases": []
+    },
+    "megaphone": {
+      "categories": [
+        "multimedia",
+        "notifications"
+      ],
+      "aliases": []
+    },
+    "menu": {
+      "categories": [
+        "account",
+        "layout"
+      ],
+      "aliases": []
+    },
+    "message-circle": {
+      "categories": [
+        "social"
+      ],
+      "aliases": []
+    },
+    "message-square": {
+      "categories": [
+        "social"
+      ],
+      "aliases": []
+    },
+    "messages-square": {
+      "categories": [
+        "social"
+      ],
+      "aliases": []
+    },
+    "mic": {
+      "categories": [
+        "communication",
+        "connectivity",
+        "devices",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "mic-off": {
+      "categories": [
+        "communication",
+        "connectivity",
+        "devices",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "minimize": {
+      "categories": [
+        "design",
+        "layout"
+      ],
+      "aliases": []
+    },
+    "minimize-2": {
+      "categories": [
+        "arrows",
+        "design",
+        "layout"
+      ],
+      "aliases": []
+    },
+    "minus": {
+      "categories": [
+        "development",
+        "math",
+        "text",
+        "tools"
+      ],
+      "aliases": []
+    },
+    "monitor": {
+      "categories": [
+        "connectivity",
+        "devices"
+      ],
+      "aliases": []
+    },
+    "moon": {
+      "categories": [
+        "accessibility"
+      ],
+      "aliases": []
+    },
+    "mountain": {
+      "categories": [
+        "gaming",
+        "nature"
+      ],
+      "aliases": []
+    },
+    "mouse": {
+      "categories": [
+        "devices"
+      ],
+      "aliases": []
+    },
+    "mouse-pointer": {
+      "categories": [
+        "arrows",
+        "cursors"
+      ],
+      "aliases": []
+    },
+    "mouse-pointer-click": {
+      "categories": [
+        "arrows",
+        "cursors"
+      ],
+      "aliases": []
+    },
+    "move": {
+      "categories": [
+        "arrows",
+        "cursors"
+      ],
+      "aliases": []
+    },
+    "move-horizontal": {
+      "categories": [
+        "arrows",
+        "cursors"
+      ],
+      "aliases": []
+    },
+    "move-vertical": {
+      "categories": [
+        "arrows",
+        "cursors"
+      ],
+      "aliases": []
+    },
+    "navigation": {
+      "categories": [
+        "navigation"
+      ],
+      "aliases": []
+    },
+    "network": {
+      "categories": [
+        "development"
+      ],
+      "aliases": []
+    },
+    "newspaper": {
+      "categories": [
+        "communication",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "notebook": {
+      "categories": [
+        "communication",
+        "design",
+        "social",
+        "text"
+      ],
+      "aliases": []
+    },
+    "octagon-alert": {
+      "categories": [
+        "notifications",
+        "shapes"
+      ],
+      "aliases": [
+        "alert-octagon"
+      ]
+    },
+    "package": {
+      "categories": [
+        "development",
+        "files"
+      ],
+      "aliases": []
+    },
+    "package-check": {
+      "categories": [
+        "development"
+      ],
+      "aliases": []
+    },
+    "paintbrush": {
+      "categories": [
+        "design",
+        "home",
+        "photography",
+        "text",
+        "tools"
+      ],
+      "aliases": []
+    },
+    "palette": {
+      "categories": [
+        "design",
+        "photography",
+        "text"
+      ],
+      "aliases": []
+    },
+    "panel-bottom": {
+      "categories": [
+        "layout"
+      ],
+      "aliases": []
+    },
+    "panel-left": {
+      "categories": [
+        "layout"
+      ],
+      "aliases": [
+        "sidebar"
+      ]
+    },
+    "panel-right": {
+      "categories": [
+        "layout"
+      ],
+      "aliases": []
+    },
+    "panel-top": {
+      "categories": [
+        "design",
+        "development",
+        "layout"
+      ],
+      "aliases": []
+    },
+    "paperclip": {
+      "categories": [
+        "design",
+        "files",
+        "mail",
+        "text"
+      ],
+      "aliases": []
+    },
+    "pause": {
+      "categories": [
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "pen": {
+      "categories": [
+        "design",
+        "text",
+        "tools"
+      ],
+      "aliases": [
+        "edit-2"
+      ]
+    },
+    "pencil": {
+      "categories": [
+        "cursors",
+        "design",
+        "text",
+        "tools"
+      ],
+      "aliases": []
+    },
+    "percent": {
+      "categories": [
+        "development",
+        "finance",
+        "math",
+        "shopping"
+      ],
+      "aliases": []
+    },
+    "phone": {
+      "categories": [
+        "communication",
+        "connectivity",
+        "devices",
+        "text"
+      ],
+      "aliases": []
+    },
+    "phone-call": {
+      "categories": [
+        "communication",
+        "connectivity",
+        "devices"
+      ],
+      "aliases": []
+    },
+    "piggy-bank": {
+      "categories": [
+        "finance"
+      ],
+      "aliases": []
+    },
+    "pilcrow": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "pill": {
+      "categories": [
+        "medical"
+      ],
+      "aliases": []
+    },
+    "pin": {
+      "categories": [
+        "account",
+        "navigation"
+      ],
+      "aliases": []
+    },
+    "pipette": {
+      "categories": [
+        "design",
+        "science",
+        "text"
+      ],
+      "aliases": []
+    },
+    "plane": {
+      "categories": [
+        "navigation",
+        "transportation",
+        "travel"
+      ],
+      "aliases": []
+    },
+    "play": {
+      "categories": [
+        "arrows",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "plug": {
+      "categories": [
+        "development",
+        "devices"
+      ],
+      "aliases": []
+    },
+    "plus": {
+      "categories": [
+        "cursors",
+        "development",
+        "gaming",
+        "math",
+        "text",
+        "tools"
+      ],
+      "aliases": []
+    },
+    "pointer": {
+      "categories": [
+        "cursors"
+      ],
+      "aliases": []
+    },
+    "pound-sterling": {
+      "categories": [
+        "finance"
+      ],
+      "aliases": []
+    },
+    "power": {
+      "categories": [
+        "connectivity"
+      ],
+      "aliases": []
+    },
+    "printer": {
+      "categories": [
+        "devices"
+      ],
+      "aliases": []
+    },
+    "puzzle": {
+      "categories": [
+        "development",
+        "gaming"
+      ],
+      "aliases": []
+    },
+    "qr-code": {
+      "categories": [
+        "development",
+        "social"
+      ],
+      "aliases": []
+    },
+    "quote": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "receipt": {
+      "categories": [
+        "finance",
+        "travel"
+      ],
+      "aliases": []
+    },
+    "redo": {
+      "categories": [
+        "arrows",
+        "text"
+      ],
+      "aliases": []
+    },
+    "redo-2": {
+      "categories": [
+        "arrows",
+        "text"
+      ],
+      "aliases": []
+    },
+    "refresh-ccw": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "refresh-cw": {
+      "categories": [
+        "arrows"
+      ],
+      "aliases": []
+    },
+    "repeat": {
+      "categories": [
+        "arrows",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "reply": {
+      "categories": [
+        "mail"
+      ],
+      "aliases": []
+    },
+    "reply-all": {
+      "categories": [
+        "mail"
+      ],
+      "aliases": []
+    },
+    "rewind": {
+      "categories": [
+        "arrows",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "rocket": {
+      "categories": [
+        "development",
+        "gaming"
+      ],
+      "aliases": []
+    },
+    "rotate-ccw": {
+      "categories": [
+        "arrows",
+        "design",
+        "photography"
+      ],
+      "aliases": []
+    },
+    "rotate-ccw-clock": {
+      "categories": [
+        "arrows",
+        "time"
+      ],
+      "aliases": [
+        "history"
+      ]
+    },
+    "rotate-cw": {
+      "categories": [
+        "arrows",
+        "design",
+        "photography"
+      ],
+      "aliases": []
+    },
+    "route": {
+      "categories": [
+        "navigation"
+      ],
+      "aliases": []
+    },
+    "rows-2": {
+      "categories": [
+        "design",
+        "layout",
+        "text"
+      ],
+      "aliases": [
+        "rows"
+      ]
+    },
+    "rss": {
+      "categories": [
+        "development",
+        "social"
+      ],
+      "aliases": []
+    },
+    "ruler": {
+      "categories": [
+        "design",
+        "layout",
+        "tools"
+      ],
+      "aliases": []
+    },
+    "save": {
+      "categories": [
+        "files",
+        "text"
+      ],
+      "aliases": []
+    },
+    "scale": {
+      "categories": [
+        "finance",
+        "navigation",
+        "science"
+      ],
+      "aliases": []
+    },
+    "scan": {
+      "categories": [
+        "devices",
+        "gaming",
+        "security",
+        "shopping",
+        "social"
+      ],
+      "aliases": []
+    },
+    "scan-face": {
+      "categories": [
+        "account",
+        "devices",
+        "security",
+        "social"
+      ],
+      "aliases": []
+    },
+    "scan-line": {
+      "categories": [
+        "devices",
+        "shopping"
+      ],
+      "aliases": []
+    },
+    "scissors": {
+      "categories": [
+        "design",
+        "text",
+        "tools"
+      ],
+      "aliases": []
+    },
+    "search": {
+      "categories": [
+        "social",
+        "text"
+      ],
+      "aliases": []
+    },
+    "send": {
+      "categories": [
+        "communication",
+        "connectivity",
+        "mail"
+      ],
+      "aliases": []
+    },
+    "server": {
+      "categories": [
+        "development",
+        "devices"
+      ],
+      "aliases": []
+    },
+    "settings": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "settings-2": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "shapes": {
+      "categories": [
+        "gaming",
+        "shapes"
+      ],
+      "aliases": []
+    },
+    "share": {
+      "categories": [
+        "account",
+        "social"
+      ],
+      "aliases": []
+    },
+    "share-2": {
+      "categories": [
+        "account",
+        "social"
+      ],
+      "aliases": []
+    },
+    "shield": {
+      "categories": [
+        "account",
+        "development",
+        "gaming",
+        "security",
+        "shapes"
+      ],
+      "aliases": []
+    },
+    "shield-alert": {
+      "categories": [
+        "account",
+        "development",
+        "gaming",
+        "notifications",
+        "security"
+      ],
+      "aliases": []
+    },
+    "shield-check": {
+      "categories": [
+        "account",
+        "development",
+        "gaming",
+        "security"
+      ],
+      "aliases": []
+    },
+    "ship": {
+      "categories": [
+        "navigation",
+        "transportation",
+        "travel"
+      ],
+      "aliases": []
+    },
+    "shirt": {
+      "categories": [
+        "shopping"
+      ],
+      "aliases": []
+    },
+    "shopping-bag": {
+      "categories": [
+        "shopping"
+      ],
+      "aliases": []
+    },
+    "shopping-basket": {
+      "categories": [
+        "shopping"
+      ],
+      "aliases": []
+    },
+    "shopping-cart": {
+      "categories": [
+        "shopping"
+      ],
+      "aliases": []
+    },
+    "shrink": {
+      "categories": [
+        "arrows",
+        "layout"
+      ],
+      "aliases": []
+    },
+    "shuffle": {
+      "categories": [
+        "arrows",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "signal": {
+      "categories": [
+        "connectivity"
+      ],
+      "aliases": []
+    },
+    "skip-back": {
+      "categories": [
+        "arrows",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "skip-forward": {
+      "categories": [
+        "arrows",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "sliders-horizontal": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "sliders-vertical": {
+      "categories": [
+        "account"
+      ],
+      "aliases": [
+        "sliders"
+      ]
+    },
+    "smartphone": {
+      "categories": [
+        "connectivity",
+        "devices"
+      ],
+      "aliases": []
+    },
+    "snowflake": {
+      "categories": [
+        "seasons",
+        "weather"
+      ],
+      "aliases": []
+    },
+    "sparkles": {
+      "categories": [
+        "cursors",
+        "gaming",
+        "multimedia",
+        "weather"
+      ],
+      "aliases": [
+        "stars"
+      ]
+    },
+    "sprout": {
+      "categories": [
+        "gaming",
+        "nature",
+        "sustainability"
+      ],
+      "aliases": []
+    },
+    "square": {
+      "categories": [
+        "multimedia",
+        "shapes"
+      ],
+      "aliases": []
+    },
+    "square-check": {
+      "categories": [
+        "notifications"
+      ],
+      "aliases": [
+        "check-square-2"
+      ]
+    },
+    "square-pen": {
+      "categories": [
+        "text"
+      ],
+      "aliases": [
+        "edit",
+        "pen-box",
+        "pen-square"
+      ]
+    },
+    "square-x": {
+      "categories": [
+        "math",
+        "notifications"
+      ],
+      "aliases": [
+        "x-square"
+      ]
+    },
+    "star": {
+      "categories": [
+        "account",
+        "emoji",
+        "gaming",
+        "multimedia",
+        "shapes",
+        "social",
+        "weather"
+      ],
+      "aliases": []
+    },
+    "stethoscope": {
+      "categories": [
+        "medical",
+        "science"
+      ],
+      "aliases": []
+    },
+    "sticky-note": {
+      "categories": [
+        "social",
+        "text"
+      ],
+      "aliases": []
+    },
+    "store": {
+      "categories": [
+        "buildings",
+        "navigation",
+        "shopping"
+      ],
+      "aliases": []
+    },
+    "strikethrough": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "sun": {
+      "categories": [
+        "accessibility",
+        "seasons",
+        "sustainability",
+        "weather"
+      ],
+      "aliases": []
+    },
+    "table": {
+      "categories": [
+        "files",
+        "text"
+      ],
+      "aliases": []
+    },
+    "table-2": {
+      "categories": [
+        "files",
+        "text"
+      ],
+      "aliases": []
+    },
+    "tablet": {
+      "categories": [
+        "devices"
+      ],
+      "aliases": []
+    },
+    "tag": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "tags": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "target": {
+      "categories": [
+        "gaming"
+      ],
+      "aliases": []
+    },
+    "terminal": {
+      "categories": [
+        "development"
+      ],
+      "aliases": []
+    },
+    "text-align-center": {
+      "categories": [
+        "text"
+      ],
+      "aliases": [
+        "align-center"
+      ]
+    },
+    "text-align-end": {
+      "categories": [
+        "text"
+      ],
+      "aliases": [
+        "align-right"
+      ]
+    },
+    "text-align-justify": {
+      "categories": [
+        "text"
+      ],
+      "aliases": [
+        "align-justify"
+      ]
+    },
+    "text-align-start": {
+      "categories": [
+        "text"
+      ],
+      "aliases": [
+        "align-left",
+        "text"
+      ]
+    },
+    "thermometer": {
+      "categories": [
+        "weather"
+      ],
+      "aliases": []
+    },
+    "thumbs-down": {
+      "categories": [
+        "account",
+        "emoji",
+        "social"
+      ],
+      "aliases": []
+    },
+    "thumbs-up": {
+      "categories": [
+        "account",
+        "emoji",
+        "social"
+      ],
+      "aliases": []
+    },
+    "ticket": {
+      "categories": [
+        "account",
+        "transportation"
+      ],
+      "aliases": []
+    },
+    "timer": {
+      "categories": [
+        "time"
+      ],
+      "aliases": []
+    },
+    "toggle-left": {
+      "categories": [
+        "account",
+        "development",
+        "layout"
+      ],
+      "aliases": []
+    },
+    "toggle-right": {
+      "categories": [
+        "account",
+        "development",
+        "layout"
+      ],
+      "aliases": []
+    },
+    "train-front": {
+      "categories": [
+        "transportation"
+      ],
+      "aliases": []
+    },
+    "trash": {
+      "categories": [
+        "files",
+        "mail"
+      ],
+      "aliases": [
+        "trash-2"
+      ]
+    },
+    "trending-down": {
+      "categories": [
+        "arrows",
+        "charts"
+      ],
+      "aliases": []
+    },
+    "trending-up": {
+      "categories": [
+        "arrows",
+        "charts"
+      ],
+      "aliases": []
+    },
+    "triangle-alert": {
+      "categories": [
+        "development",
+        "notifications",
+        "shapes"
+      ],
+      "aliases": [
+        "alert-triangle"
+      ]
+    },
+    "trophy": {
+      "categories": [
+        "gaming",
+        "sports"
+      ],
+      "aliases": []
+    },
+    "truck": {
+      "categories": [
+        "transportation"
+      ],
+      "aliases": []
+    },
+    "type": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "umbrella": {
+      "categories": [
+        "weather"
+      ],
+      "aliases": []
+    },
+    "underline": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "undo": {
+      "categories": [
+        "arrows",
+        "text"
+      ],
+      "aliases": []
+    },
+    "undo-2": {
+      "categories": [
+        "arrows",
+        "text"
+      ],
+      "aliases": []
+    },
+    "unlink": {
+      "categories": [
+        "text"
+      ],
+      "aliases": []
+    },
+    "upload": {
+      "categories": [
+        "arrows",
+        "files"
+      ],
+      "aliases": []
+    },
+    "usb": {
+      "categories": [
+        "devices",
+        "home",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "user": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "user-check": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "user-cog": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "user-minus": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "user-plus": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "user-round": {
+      "categories": [
+        "account"
+      ],
+      "aliases": [
+        "user-2"
+      ]
+    },
+    "user-x": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "users": {
+      "categories": [
+        "account"
+      ],
+      "aliases": []
+    },
+    "utensils": {
+      "categories": [
+        "food-beverage",
+        "navigation",
+        "travel"
+      ],
+      "aliases": [
+        "fork-knife"
+      ]
+    },
+    "video": {
+      "categories": [
+        "communication",
+        "connectivity",
+        "devices",
+        "photography"
+      ],
+      "aliases": []
+    },
+    "volume": {
+      "categories": [
+        "communication",
+        "connectivity",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "volume-1": {
+      "categories": [
+        "communication",
+        "connectivity",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "volume-2": {
+      "categories": [
+        "communication",
+        "connectivity",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "volume-x": {
+      "categories": [
+        "communication",
+        "connectivity",
+        "multimedia"
+      ],
+      "aliases": []
+    },
+    "wallet": {
+      "categories": [
+        "account",
+        "finance"
+      ],
+      "aliases": []
+    },
+    "wand-sparkles": {
+      "categories": [
+        "cursors",
+        "design",
+        "gaming",
+        "photography"
+      ],
+      "aliases": [
+        "wand-2"
+      ]
+    },
+    "watch": {
+      "categories": [
+        "time"
+      ],
+      "aliases": []
+    },
+    "wifi": {
+      "categories": [
+        "connectivity",
+        "devices"
+      ],
+      "aliases": []
+    },
+    "wifi-off": {
+      "categories": [
+        "connectivity",
+        "devices"
+      ],
+      "aliases": []
+    },
+    "wind": {
+      "categories": [
+        "sustainability",
+        "weather"
+      ],
+      "aliases": []
+    },
+    "workflow": {
+      "categories": [
+        "development"
+      ],
+      "aliases": []
+    },
+    "x": {
+      "categories": [
+        "math",
+        "notifications"
+      ],
+      "aliases": []
+    },
+    "zap": {
+      "categories": [
+        "connectivity",
+        "devices",
+        "photography",
+        "weather"
+      ],
+      "aliases": []
+    },
+    "zoom-in": {
+      "categories": [
+        "accessibility",
+        "design",
+        "layout",
+        "photography",
+        "text"
+      ],
+      "aliases": []
+    },
+    "zoom-out": {
+      "categories": [
+        "accessibility",
+        "design",
+        "layout",
+        "photography",
+        "text"
+      ],
+      "aliases": []
+    }
+  }
+}

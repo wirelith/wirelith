@@ -1,0 +1,75 @@
+{
+  "comment": "Pinned inputs for the generators in spec/generators. Each generator checks these hashes before it reads a file.",
+  "fonts": {
+    "sans": {
+      "family": "Inter",
+      "version": "4.1",
+      "release": "https://github.com/rsms/inter/releases/tag/v4.1",
+      "archive": "Inter-4.1.zip",
+      "archiveSha256": "9883fdd4a49d4fb66bd8177ba6625ef9a64aa45899767dde3d36aa425756b11e",
+      "license": "OFL-1.1",
+      "dir": "third-party/fonts/inter",
+      "weights": {
+        "400": "Inter-Regular.ttf",
+        "500": "Inter-Medium.ttf",
+        "600": "Inter-SemiBold.ttf",
+        "700": "Inter-Bold.ttf"
+      }
+    },
+    "serif": {
+      "family": "Source Serif 4",
+      "version": "4.005",
+      "release": "https://github.com/adobe-fonts/source-serif/releases/tag/4.005R",
+      "archive": "source-serif-4.005_Desktop.zip",
+      "archiveSha256": "549fdb8f9a682bd06944298621404969f6de77c2e422ff3b8244a1dcd6a0c425",
+      "license": "OFL-1.1",
+      "dir": "third-party/fonts/source-serif-4",
+      "weights": {
+        "400": "SourceSerif4-Regular.ttf",
+        "500": "SourceSerif4-Regular.ttf",
+        "600": "SourceSerif4-Semibold.ttf",
+        "700": "SourceSerif4-Bold.ttf"
+      }
+    },
+    "mono": {
+      "family": "JetBrains Mono",
+      "version": "2.304",
+      "release": "https://github.com/JetBrains/JetBrainsMono/releases/tag/v2.304",
+      "archive": "JetBrainsMono-2.304.zip",
+      "archiveSha256": "6f6376c6ed2960ea8a963cd7387ec9d76e3f629125bc33d1fdcd7eb7012f7bbf",
+      "license": "OFL-1.1",
+      "dir": "third-party/fonts/jetbrains-mono",
+      "weights": {
+        "400": "JetBrainsMono-Regular.ttf",
+        "500": "JetBrainsMono-Medium.ttf",
+        "600": "JetBrainsMono-SemiBold.ttf",
+        "700": "JetBrainsMono-Bold.ttf"
+      }
+    }
+  },
+  "icons": {
+    "set": "Lucide",
+    "package": "lucide-static",
+    "version": "1.62.0",
+    "license": "ISC",
+    "repository": "lucide-icons/lucide",
+    "commit": "03f11e2d6adc319ea21e9a1d5820a99cd3767257",
+    "release": "https://github.com/lucide-icons/lucide/releases/tag/1.62.0"
+  },
+  "files": {
+    "third-party/fonts/inter/Inter-Bold.ttf": "288316099b1e0a47a4716d159098005eef7c0066921f34e3200393dbdb01947f",
+    "third-party/fonts/inter/Inter-Medium.ttf": "97ad806f526e41546d46365bb3a393145f75b7b1568913db74549ad8b8dba872",
+    "third-party/fonts/inter/Inter-Regular.ttf": "40d692fce188e4471e2b3cba937be967878f631ad3ebbbdcd587687c7ebe0c82",
+    "third-party/fonts/inter/Inter-SemiBold.ttf": "78a843fade9d4612a5567302fb595b56976eb5fcebf4fea5a5912d638bafcde3",
+    "third-party/fonts/inter/LICENSE.txt": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a",
+    "third-party/fonts/jetbrains-mono/JetBrainsMono-Bold.ttf": "5590990c82e097397517f275f430af4546e1c45cff408bde4255dad142479dcb",
+    "third-party/fonts/jetbrains-mono/JetBrainsMono-Medium.ttf": "31c92d01a8a08528b718a43addf0ad3df0af2ca4b7b3290a452f70f358e14d3d",
+    "third-party/fonts/jetbrains-mono/JetBrainsMono-Regular.ttf": "a0bf60ef0f83c5ed4d7a75d45838548b1f6873372dfac88f71804491898d138f",
+    "third-party/fonts/jetbrains-mono/JetBrainsMono-SemiBold.ttf": "1b3bfa1ed5665a4ce3f9feb68d2d4e40e70bf8b4b7d9a3edd418f321b4e166a0",
+    "third-party/fonts/jetbrains-mono/OFL.txt": "30f0c136e3c88e422d0791acd97238870f9054a9729bc34cf2ff0d4ed8cac4ad",
+    "third-party/fonts/source-serif-4/LICENSE.md": "75784a295293a8992f5a8d99210566e0064a012e6dab6731305e3787f15896c7",
+    "third-party/fonts/source-serif-4/SourceSerif4-Bold.ttf": "7cf4f4e1ad74f45058d5bc61716b82560442fbdcd9d3654d2dea96bf6c683d86",
+    "third-party/fonts/source-serif-4/SourceSerif4-Regular.ttf": "e5a4ee6a3d87bb9024796be390c6771e2a0eb1883dae25effaf57ca01668e24b",
+    "third-party/fonts/source-serif-4/SourceSerif4-Semibold.ttf": "36db62940cb5728b12b1802476dc7fcf4c6c519a7bdd476ba23a4e555fc4655f"
+  }
+}

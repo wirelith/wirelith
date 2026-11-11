@@ -33,6 +33,7 @@ jobs:
       - run: npm install --global pnpm@${{ env.PNPM_VERSION }}
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint
+      - run: pnpm run check-spec-data
       - run: node scripts/check-spdx.mjs
 
   typecheck:
