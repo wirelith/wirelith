@@ -12,7 +12,8 @@
 // that an open draft already reports is not reported again.
 //
 // It needs WIRELITH_DENYLIST (the list) and WIRELITH_TRIAGE_TOKEN (a fine-grained token that
-// can read and write repository security advisories). Every run first checks that the token
+// can read and write repository security advisories, and nothing else). The scheduled sweep
+// also needs GITHUB_TOKEN, the workflow's own token, with read access to pull requests. Every run first checks that the token
 // works, whether or not anything matched, so a broken setup fails every run, and a failure
 // never reveals a match.
 
@@ -56,9 +57,10 @@ async function openDraftAdvisory(repo, token, description) {
 }
 
 /**
- * Pull request reviews and review comments created or updated recently.
+ * Pull request reviews and review comments created or updated recently. These are read with
+ * the workflow's own read-only token, not the triage token, which can touch only advisories.
  * @param {string} repo
- * @param {string} token
+ * @param {string} token the workflow's GITHUB_TOKEN
  * @returns {Promise<import('./lib/events.mjs').Post[]>}
  */
 async function recentReviewPosts(repo, token) {
@@ -89,6 +91,7 @@ function notConfigured(why) {
 async function main() {
   const list = loadDenylist(() => '', { WIRELITH_DENYLIST: process.env.WIRELITH_DENYLIST });
   const token = process.env.WIRELITH_TRIAGE_TOKEN;
+  const readToken = process.env.GITHUB_TOKEN;
   const repo = process.env.GITHUB_REPOSITORY;
   if (!list || list.size === 0) notConfigured('no denylist');
   if (!token || !repo) notConfigured('no triage token');
@@ -102,7 +105,19 @@ async function main() {
   }
 
   const scheduled = ['schedule', 'workflow_dispatch'].includes(process.env.GITHUB_EVENT_NAME ?? '');
-  const posts = scheduled ? await recentReviewPosts(repo, token) : [eventTexts(readEvent())];
+  /** @type {(import('./lib/events.mjs').Post | null)[]} */
+  let posts = [];
+  if (scheduled) {
+    // Listing reviews doesn't depend on any match, so a failure here can fail the run openly.
+    if (!readToken) notConfigured('no workflow token');
+    try {
+      posts = await recentReviewPosts(repo, readToken);
+    } catch {
+      notConfigured('the workflow token cannot list pull request reviews');
+    }
+  } else {
+    posts = [eventTexts(readEvent())];
+  }
 
   for (const post of posts) {
     if (!post || !list) continue;

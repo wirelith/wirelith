@@ -68,30 +68,43 @@ afterEach(async () => {
 });
 
 /**
- * Starts a stub API. `advisories` is the status for listing drafts; `create` for opening one.
- * @param {{ advisories: number, create: number }} statuses
+ * Starts a stub of the GitHub API that enforces the real permission split: advisory endpoints
+ * accept only the triage token, and pull request endpoints accept only the workflow token.
+ * `advisories` is the status for listing drafts; `create` for opening one. `reviews` and
+ * `comments` are what the sweep finds.
+ * @param {{ advisories: number, create: number, reviews?: any[], comments?: any[] }} opts
  * @returns {Promise<{ url: string, created: string[] }>}
  */
-async function stub(statuses) {
+async function stub(opts) {
   /** @type {string[]} */
   const created = [];
+  const recent = new Date().toISOString();
   server = createServer((req, res) => {
     let body = '';
     req.on('data', (c) => {
       body += c;
     });
     req.on('end', () => {
-      if (req.method === 'GET' && req.url?.startsWith('/repos/o/r/security-advisories')) {
-        res.writeHead(statuses.advisories, { 'content-type': 'application/json' });
-        res.end('[]');
-      } else if (req.method === 'POST' && req.url === '/repos/o/r/security-advisories') {
+      const auth = req.headers.authorization ?? '';
+      const path = (req.url ?? '').split('?')[0] ?? '';
+      /** @param {number} status @param {unknown} json */
+      const send = (status, json) => {
+        res.writeHead(status, { 'content-type': 'application/json' });
+        res.end(JSON.stringify(json));
+      };
+      if (path === '/repos/o/r/security-advisories') {
+        if (auth !== 'Bearer triage-token') return send(403, {});
+        if (req.method === 'GET') return send(opts.advisories, []);
         created.push(body);
-        res.writeHead(statuses.create, { 'content-type': 'application/json' });
-        res.end('{}');
-      } else {
-        res.writeHead(404);
-        res.end();
+        return send(opts.create, {});
       }
+      if (path.startsWith('/repos/o/r/pulls')) {
+        if (auth !== 'Bearer workflow-token') return send(403, {});
+        if (path === '/repos/o/r/pulls/comments') return send(200, opts.comments ?? []);
+        if (path === '/repos/o/r/pulls') return send(200, [{ number: 1, updated_at: recent }]);
+        if (path === '/repos/o/r/pulls/1/reviews') return send(200, opts.reviews ?? []);
+      }
+      return send(404, {});
     });
   });
   await new Promise((r) => server?.listen(0, '127.0.0.1', () => r(undefined)));
@@ -101,17 +114,21 @@ async function stub(statuses) {
 }
 
 /**
- * Runs the scanner on an issue event.
+ * Runs the scanner: on an issue event with this body, or, when `body` is null, as the
+ * scheduled sweep.
  * @param {string} api
- * @param {string} body
+ * @param {string | null} body
+ * @param {Record<string, string>} [extraEnv]
  * @returns {Promise<{ status: number | null, out: string }>}
  */
-function scan(api, body) {
+function scan(api, body, extraEnv = {}) {
   dir = mkdtempSync(join(tmpdir(), 'wl-scan-'));
   const event = join(dir, 'event.json');
   writeFileSync(
     event,
-    JSON.stringify({ issue: { html_url: 'https://example.test/i/1', title: 'Hello', body } }),
+    JSON.stringify(
+      body === null ? {} : { issue: { html_url: 'https://example.test/i/1', title: 'Hello', body } },
+    ),
   );
   return new Promise((done) => {
     const child = spawn(process.execPath, [resolve('scripts/hygiene/scan-posts.mjs')], {
@@ -119,10 +136,12 @@ function scan(api, body) {
         PATH: process.env.PATH ?? '',
         GITHUB_API_URL: api,
         GITHUB_REPOSITORY: 'o/r',
-        GITHUB_EVENT_NAME: 'issues',
+        GITHUB_EVENT_NAME: body === null ? 'schedule' : 'issues',
         GITHUB_EVENT_PATH: event,
+        GITHUB_TOKEN: 'workflow-token',
         WIRELITH_DENYLIST: TERM,
-        WIRELITH_TRIAGE_TOKEN: 'test-token',
+        WIRELITH_TRIAGE_TOKEN: 'triage-token',
+        ...extraEnv,
       },
     });
     let out = '';
@@ -160,6 +179,31 @@ describe('scan-posts end to end', () => {
     const matched = await scan(api.url, `a post about ${TERM}`);
     expect(clean.status).toBe(2);
     expect(matched).toEqual(clean);
+    expect(api.created).toHaveLength(0);
+  });
+
+  it('sweeps reviews with the workflow token and reports matches with the triage token', async () => {
+    const api = await stub({
+      advisories: 200,
+      create: 201,
+      comments: [{ html_url: 'https://example.test/c/1', body: `inline note on ${TERM}` }],
+      reviews: [
+        { html_url: 'https://example.test/r/1', body: 'fine' },
+        { html_url: 'https://example.test/r/2', body: `review mentions ${TERM}` },
+      ],
+    });
+    const r = await scan(api.url, null);
+    expect(r).toEqual({ status: 0, out: 'scan: complete.\n' });
+    expect(api.created).toHaveLength(2);
+    expect(api.created.join('\n')).toContain('https://example.test/c/1');
+    expect(api.created.join('\n')).toContain('https://example.test/r/2');
+    expect(api.created.join('\n').toLowerCase()).not.toContain(TERM);
+  });
+
+  it('fails the sweep openly when the workflow token is missing', async () => {
+    const api = await stub({ advisories: 200, create: 201 });
+    const r = await scan(api.url, null, { GITHUB_TOKEN: '' });
+    expect(r.status).toBe(2);
     expect(api.created).toHaveLength(0);
   });
 });

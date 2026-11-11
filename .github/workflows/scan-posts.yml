@@ -24,6 +24,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   scan:
@@ -39,3 +40,4 @@ jobs:
         env:
           WIRELITH_DENYLIST: ${{ secrets.WIRELITH_DENYLIST }}
           WIRELITH_TRIAGE_TOKEN: ${{ secrets.WIRELITH_TRIAGE_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
