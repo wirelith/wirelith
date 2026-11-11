@@ -1,0 +1,30 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "A",
+      "children": [
+        {
+          "type": "tabs",
+          "items": [
+            "One",
+            "Two"
+          ],
+          "attrs": {
+            "active": "Three"
+          },
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

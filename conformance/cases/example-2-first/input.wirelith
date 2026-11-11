@@ -1,0 +1,12 @@
+wirelith 0.1
+
+screen "Sign in" phone #signin
+  h1 "Welcome back"
+  input "Email" placeholder="you@example.com"
+  input "Password" type=password
+  button "Sign in" primary -> #home
+  link "Forgot your password?"
+
+screen "Home" phone #home
+  h1 "Hello, Sam"
+  text "You have 3 new messages."

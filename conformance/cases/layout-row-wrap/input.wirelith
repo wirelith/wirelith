@@ -1,0 +1,14 @@
+screen "Wrap" size=420x400
+  row wrap gap=sm
+    badge "Item 1"
+    badge "Item 2"
+    badge "Item 3"
+    badge "Item 4"
+    badge "Item 5"
+    badge "Item 6"
+    badge "Item 7"
+    badge "Item 8"
+    badge "Item 9"
+    badge "Item 10"
+    badge "Item 11"
+    badge "Item 12"

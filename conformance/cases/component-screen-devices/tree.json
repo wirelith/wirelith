@@ -1,0 +1,94 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "p",
+      "label": "Phone",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "text",
+          "label": "Phone",
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "t",
+      "label": "Tablet",
+      "flags": [
+        "tablet"
+      ],
+      "children": [
+        {
+          "type": "text",
+          "label": "Tablet",
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "d",
+      "label": "Desktop",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "text",
+          "label": "Desktop",
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 5,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "c",
+      "label": "Custom",
+      "attrs": {
+        "size": "600x400"
+      },
+      "children": [
+        {
+          "type": "text",
+          "label": "Custom",
+          "loc": {
+            "line": 8,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 7,
+        "column": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "States",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "empty",
+          "label": "No projects yet",
+          "children": [
+            {
+              "type": "button",
+              "label": "New project",
+              "flags": [
+                "primary"
+              ],
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "loading",
+          "label": "Loading projects",
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "loading",
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        },
+        {
+          "type": "error",
+          "label": "Something went wrong",
+          "children": [
+            {
+              "type": "button",
+              "label": "Try again",
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

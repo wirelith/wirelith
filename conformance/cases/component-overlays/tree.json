@@ -1,0 +1,156 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "main",
+      "label": "Overlays",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "button",
+          "label": "Open dialog",
+          "link": {
+            "to": "dialog"
+          },
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "Open drawer",
+          "link": {
+            "to": "side",
+            "label": "Opens the drawer"
+          },
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "Open bottom sheet",
+          "link": {
+            "to": "sheet"
+          },
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "modal",
+          "id": "dialog",
+          "label": "Dialog",
+          "attrs": {
+            "width": 400
+          },
+          "children": [
+            {
+              "type": "text",
+              "label": "Modal content",
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Done",
+              "flags": [
+                "primary"
+              ],
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        },
+        {
+          "type": "drawer",
+          "id": "side",
+          "label": "Side panel",
+          "children": [
+            {
+              "type": "text",
+              "label": "Drawer content",
+              "loc": {
+                "line": 9,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 8,
+            "column": 3
+          }
+        },
+        {
+          "type": "drawer",
+          "label": "Left menu",
+          "flags": [
+            "left",
+            "open"
+          ],
+          "children": [
+            {
+              "type": "nav",
+              "items": [
+                "Home",
+                "Settings"
+              ],
+              "flags": [
+                "vertical"
+              ],
+              "loc": {
+                "line": 11,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 10,
+            "column": 3
+          }
+        },
+        {
+          "type": "drawer",
+          "id": "sheet",
+          "label": "Sheet",
+          "flags": [
+            "bottom"
+          ],
+          "children": [
+            {
+              "type": "text",
+              "label": "Bottom sheet",
+              "loc": {
+                "line": 13,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 12,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

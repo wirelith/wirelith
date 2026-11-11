@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="1180" viewBox="0 0 820 1180" role="img" aria-labelledby="wl-title wl-desc" xml:space="preserve"><title id="wl-title">Theme sample</title><desc id="wl-desc">Screens: Theme sample. 0 links.</desc><metadata><wl:source xmlns:wl="urn:wirelith:source" version="0.1">theme "harbour" extends=ink
+  color.primary #8AB4F8
+  radius 12
+  space 5
+  stroke 2
+  font.heading serif
+  font.body mono
+screen "Theme sample" tablet
+  header
+    h3 "Brand"
+  input "Email" placeholder="you@example.com"
+  row
+    button "Save" primary
+    button "Delete" danger
+    button "Cancel"
+  row
+    badge "Live" success
+    badge "Late" danger
+    checkbox "Remember me" checked
+    toggle "Alerts" on
+  card "Card"
+    text "Muted text" muted
+</wl:source></metadata><defs><clipPath id="wl-n0-clip"><rect x="0" y="0" width="820" height="1180" rx="12"/></clipPath></defs><rect x="0" y="0" width="820" height="1180" fill="#16181c"/><g id="wl-n0" class="wl-screen" transform="translate(0 0)"><title>Theme sample</title><rect x="0" y="0" width="820" height="1180" rx="12" fill="#1f2228"/><g clip-path="url(#wl-n0-clip)"><g id="wl-n1" class="wl-header"><g aria-hidden="true"><line x1="0" y1="54" x2="820" y2="54" stroke="#5a6270" stroke-width="2"/></g><g id="wl-n2" class="wl-h3"><text x="30" y="36.5" font-family="'Source Serif 4', serif" font-size="18" font-weight="600" fill="#e6e8eb">Brand</text></g></g><g id="wl-n3" class="wl-input"><text x="30" y="100" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="500" fill="#e6e8eb">Email</text><rect x="30" y="107" width="760" height="50" rx="12" fill="#1f2228" stroke="#5a6270" stroke-width="2"/><text x="45" y="140" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="400" fill="#9aa2ae">you@example.com</text></g><g id="wl-n4" class="wl-row"><g id="wl-n5" class="wl-button wl-primary"><rect x="30" y="177" width="76" height="45" rx="12" fill="#8ab4f8" stroke="#8ab4f8" stroke-width="2"/><text x="50" y="207.5" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="600" fill="#16181c">Save</text></g><g id="wl-n6" class="wl-button wl-danger"><rect x="126" y="177" width="94" height="45" rx="12" fill="#f2705f" stroke="#f2705f" stroke-width="2"/><text x="146" y="207.5" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="600" fill="#16181c">Delete</text></g><g id="wl-n7" class="wl-button"><rect x="240" y="177" width="94" height="45" rx="12" fill="#1f2228" stroke="#5a6270" stroke-width="2"/><text x="260" y="207.5" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="600" fill="#e6e8eb">Cancel</text></g></g><g id="wl-n8" class="wl-row"><g id="wl-n9" class="wl-badge wl-success"><rect x="30" y="247" width="51" height="20" rx="10" fill="#4cc38a"/><text x="40" y="264" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="500" fill="#16181c">Live</text></g><g id="wl-n10" class="wl-badge wl-danger"><rect x="101" y="247" width="51" height="20" rx="10" fill="#f2705f"/><text x="111" y="264" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="500" fill="#16181c">Late</text></g><g id="wl-n11" class="wl-checkbox wl-checked"><rect x="172" y="249" width="16" height="16" rx="4" fill="#8ab4f8" stroke="#8ab4f8" stroke-width="2"/><g transform="translate(172 249) scale(0.6667)" fill="none" stroke="#16181c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></g><text x="198" y="265" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="400" fill="#e6e8eb">Remember me</text></g><g id="wl-n12" class="wl-toggle wl-on"><rect x="317" y="247" width="36" height="20" rx="10" fill="#8ab4f8" stroke="#8ab4f8" stroke-width="2"/><circle cx="343" cy="257" r="8" fill="#16181c"/><text x="363" y="265" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="400" fill="#e6e8eb">Alerts</text></g></g><g id="wl-n13" class="wl-card"><rect x="30" y="292" width="760" height="104" rx="12" fill="#1f2228" stroke="#5a6270" stroke-width="2"/><text x="50" y="331" font-family="'Source Serif 4', serif" font-size="15" font-weight="600" fill="#e6e8eb">Card</text><g id="wl-n14" class="wl-text wl-muted"><text x="50" y="373" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="400" fill="#9aa2ae">Muted text</text></g></g></g><rect x="0" y="0" width="820" height="1180" rx="12" fill="none" stroke="#5a6270" stroke-width="2"/></g></svg>

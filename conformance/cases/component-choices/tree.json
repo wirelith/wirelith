@@ -1,0 +1,121 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Choices",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "checkbox",
+          "label": "Unchecked",
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "checkbox",
+          "label": "Checked",
+          "flags": [
+            "checked"
+          ],
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "checkbox",
+          "label": "Disabled",
+          "flags": [
+            "disabled"
+          ],
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "radio",
+          "label": "Size",
+          "items": [
+            "Small",
+            "Medium",
+            "Large"
+          ],
+          "attrs": {
+            "value": "Medium"
+          },
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        },
+        {
+          "type": "radio",
+          "items": [
+            "Yes",
+            "No"
+          ],
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        },
+        {
+          "type": "radio",
+          "label": "Disabled",
+          "items": [
+            "A",
+            "B"
+          ],
+          "flags": [
+            "disabled"
+          ],
+          "loc": {
+            "line": 7,
+            "column": 3
+          }
+        },
+        {
+          "type": "toggle",
+          "label": "Off",
+          "loc": {
+            "line": 8,
+            "column": 3
+          }
+        },
+        {
+          "type": "toggle",
+          "label": "On",
+          "flags": [
+            "on"
+          ],
+          "loc": {
+            "line": 9,
+            "column": 3
+          }
+        },
+        {
+          "type": "toggle",
+          "label": "Disabled",
+          "flags": [
+            "disabled"
+          ],
+          "loc": {
+            "line": 10,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

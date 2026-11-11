@@ -1,0 +1,7 @@
+screen "Characters" desktop
+  text "Latin: café, naïve, Ærøskøbing"
+  text "Punctuation: “quotes” ‘single’ – en — em … ellipsis"
+  text "Currency: € £ ¥ ₹ and arrows → ← ↑ ↓"
+  text "Outside the tables: 中文 日本語 한국어"
+  text "Outside the BMP: 😀 🚀"
+  text "Spaces:    four of them"

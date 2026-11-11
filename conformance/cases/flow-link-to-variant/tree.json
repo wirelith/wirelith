@@ -1,0 +1,56 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "list",
+      "label": "List",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "button",
+          "label": "Show empty",
+          "link": {
+            "to": "list-empty"
+          },
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "list-empty",
+      "label": "List",
+      "attrs": {
+        "of": {
+          "ref": "list"
+        },
+        "state": "Empty"
+      },
+      "children": [
+        {
+          "type": "empty",
+          "label": "Nothing here",
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    }
+  ]
+}

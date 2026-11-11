@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" role="img" aria-labelledby="wl-title wl-desc" xml:space="preserve"><title id="wl-title">Second</title><desc id="wl-desc">Screens: Second. 2 links.</desc><metadata><wl:source xmlns:wl="urn:wirelith:source" version="0.1">screen "First" phone #a
+  button "Next" primary -&gt; #b
+  button "Help" -&gt; #m
+  modal "Help" #m
+    text "Some help"
+  note "Goes to the second screen" for=#a
+screen "Second" phone #b
+  text "Second screen"
+</wl:source></metadata><defs><clipPath id="wl-b-clip"><rect x="0" y="0" width="390" height="844" rx="6"/></clipPath></defs><rect x="0" y="0" width="390" height="844" fill="#f4f5f7"/><g id="wl-b" class="wl-screen" transform="translate(0 0)"><title>Second</title><rect x="0" y="0" width="390" height="844" rx="6" fill="#ffffff"/><g clip-path="url(#wl-b-clip)"><g id="wl-n7" class="wl-text"><text x="16" y="34" font-family="Inter, sans-serif" font-size="15" font-weight="400" fill="#22262b">Second screen</text></g></g><rect x="0" y="0" width="390" height="844" rx="6" fill="none" stroke="#9aa1ab" stroke-width="1.5"/></g></svg>

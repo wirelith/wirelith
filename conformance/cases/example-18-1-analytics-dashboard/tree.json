@@ -1,0 +1,323 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "dashboard",
+      "label": "Juniper Analytics",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "sidebar",
+          "children": [
+            {
+              "type": "h3",
+              "label": "Juniper",
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            },
+            {
+              "type": "nav",
+              "items": [
+                "Overview",
+                "Reports",
+                "Audiences",
+                "Settings"
+              ],
+              "flags": [
+                "vertical"
+              ],
+              "attrs": {
+                "active": "Overview"
+              },
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "header",
+          "children": [
+            {
+              "type": "h2",
+              "label": "Overview",
+              "loc": {
+                "line": 8,
+                "column": 5
+              }
+            },
+            {
+              "type": "spacer",
+              "loc": {
+                "line": 9,
+                "column": 5
+              }
+            },
+            {
+              "type": "select",
+              "items": [
+                "Last 7 days",
+                "Last 30 days",
+                "This year"
+              ],
+              "attrs": {
+                "value": "Last 30 days"
+              },
+              "loc": {
+                "line": 10,
+                "column": 5
+              }
+            },
+            {
+              "type": "avatar",
+              "label": "Sam Rivera",
+              "loc": {
+                "line": 11,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 7,
+            "column": 3
+          }
+        },
+        {
+          "type": "grid",
+          "attrs": {
+            "cols": 4
+          },
+          "children": [
+            {
+              "type": "card",
+              "label": "Visitors",
+              "children": [
+                {
+                  "type": "h2",
+                  "label": "48,210",
+                  "loc": {
+                    "line": 14,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "badge",
+                  "label": "+12%",
+                  "flags": [
+                    "success"
+                  ],
+                  "loc": {
+                    "line": 15,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 13,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "label": "Sign-ups",
+              "children": [
+                {
+                  "type": "h2",
+                  "label": "1,304",
+                  "loc": {
+                    "line": 17,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "badge",
+                  "label": "+4%",
+                  "flags": [
+                    "success"
+                  ],
+                  "loc": {
+                    "line": 18,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 16,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "label": "Conversion",
+              "children": [
+                {
+                  "type": "h2",
+                  "label": "2.7%",
+                  "loc": {
+                    "line": 20,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "badge",
+                  "label": "-0.3%",
+                  "flags": [
+                    "danger"
+                  ],
+                  "loc": {
+                    "line": 21,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 19,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "label": "Revenue",
+              "children": [
+                {
+                  "type": "h2",
+                  "label": "$92,400",
+                  "loc": {
+                    "line": 23,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "badge",
+                  "label": "+9%",
+                  "flags": [
+                    "success"
+                  ],
+                  "loc": {
+                    "line": 24,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 22,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 12,
+            "column": 3
+          }
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "card",
+              "label": "Visitors over time",
+              "flags": [
+                "grow"
+              ],
+              "children": [
+                {
+                  "type": "image",
+                  "label": "Line chart, 30 days",
+                  "attrs": {
+                    "ratio": "16:6"
+                  },
+                  "loc": {
+                    "line": 27,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 26,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "label": "Top pages",
+              "attrs": {
+                "width": 360
+              },
+              "children": [
+                {
+                  "type": "table",
+                  "items": [
+                    "Page",
+                    "Views"
+                  ],
+                  "children": [
+                    {
+                      "type": "table-row",
+                      "items": [
+                        "/pricing",
+                        "12,402"
+                      ],
+                      "loc": {
+                        "line": 30,
+                        "column": 9
+                      }
+                    },
+                    {
+                      "type": "table-row",
+                      "items": [
+                        "/docs",
+                        "9,870"
+                      ],
+                      "loc": {
+                        "line": 31,
+                        "column": 9
+                      }
+                    },
+                    {
+                      "type": "table-row",
+                      "items": [
+                        "/blog",
+                        "7,115"
+                      ],
+                      "loc": {
+                        "line": 32,
+                        "column": 9
+                      }
+                    }
+                  ],
+                  "loc": {
+                    "line": 29,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 28,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 25,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Fixed height",
+      "attrs": {
+        "size": "400x300"
+      },
+      "children": [
+        {
+          "type": "column",
+          "attrs": {
+            "height": 50
+          },
+          "children": [
+            {
+              "type": "button",
+              "label": "One",
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Two",
+              "loc": {
+                "line": 4,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

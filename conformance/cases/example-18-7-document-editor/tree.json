@@ -1,0 +1,423 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "editor",
+      "label": "Pagecraft: Launch plan",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "header",
+          "children": [
+            {
+              "type": "button",
+              "attrs": {
+                "icon": "arrow-left"
+              },
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            },
+            {
+              "type": "h3",
+              "label": "Launch plan",
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            },
+            {
+              "type": "badge",
+              "label": "Saved",
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            },
+            {
+              "type": "spacer",
+              "loc": {
+                "line": 8,
+                "column": 5
+              }
+            },
+            {
+              "type": "avatar",
+              "label": "Ada Park",
+              "flags": [
+                "sm"
+              ],
+              "loc": {
+                "line": 9,
+                "column": 5
+              }
+            },
+            {
+              "type": "avatar",
+              "label": "Luis Ortega",
+              "flags": [
+                "sm"
+              ],
+              "loc": {
+                "line": 10,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Share",
+              "flags": [
+                "primary"
+              ],
+              "link": {
+                "to": "share"
+              },
+              "loc": {
+                "line": 11,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "sidebar",
+          "attrs": {
+            "width": 240
+          },
+          "children": [
+            {
+              "type": "label",
+              "label": "Outline",
+              "flags": [
+                "muted"
+              ],
+              "loc": {
+                "line": 13,
+                "column": 5
+              }
+            },
+            {
+              "type": "list",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "Goals",
+                  "flags": [
+                    "active"
+                  ],
+                  "loc": {
+                    "line": 15,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "item",
+                  "label": "Timeline",
+                  "loc": {
+                    "line": 16,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "item",
+                  "label": "Risks",
+                  "loc": {
+                    "line": 17,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 14,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 12,
+            "column": 3
+          }
+        },
+        {
+          "type": "sidebar",
+          "flags": [
+            "right"
+          ],
+          "attrs": {
+            "width": 300
+          },
+          "children": [
+            {
+              "type": "h3",
+              "label": "Comments",
+              "loc": {
+                "line": 19,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "children": [
+                {
+                  "type": "row",
+                  "children": [
+                    {
+                      "type": "avatar",
+                      "label": "Luis Ortega",
+                      "flags": [
+                        "sm"
+                      ],
+                      "loc": {
+                        "line": 22,
+                        "column": 9
+                      }
+                    },
+                    {
+                      "type": "label",
+                      "label": "Luis Ortega",
+                      "loc": {
+                        "line": 23,
+                        "column": 9
+                      }
+                    }
+                  ],
+                  "loc": {
+                    "line": 21,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "text",
+                  "label": "Can we move the date up a week?",
+                  "loc": {
+                    "line": 24,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "input",
+                  "attrs": {
+                    "placeholder": "Reply"
+                  },
+                  "loc": {
+                    "line": 25,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 20,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 18,
+            "column": 3
+          }
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "button",
+              "flags": [
+                "sm"
+              ],
+              "attrs": {
+                "icon": "bold"
+              },
+              "loc": {
+                "line": 27,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "flags": [
+                "sm"
+              ],
+              "attrs": {
+                "icon": "italic"
+              },
+              "loc": {
+                "line": 28,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "flags": [
+                "sm"
+              ],
+              "attrs": {
+                "icon": "list"
+              },
+              "loc": {
+                "line": 29,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "flags": [
+                "sm"
+              ],
+              "attrs": {
+                "icon": "link"
+              },
+              "loc": {
+                "line": 30,
+                "column": 5
+              }
+            },
+            {
+              "type": "divider",
+              "loc": {
+                "line": 31,
+                "column": 5
+              }
+            },
+            {
+              "type": "select",
+              "items": [
+                "Paragraph",
+                "Heading 1",
+                "Heading 2"
+              ],
+              "attrs": {
+                "value": "Paragraph"
+              },
+              "loc": {
+                "line": 32,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 26,
+            "column": 3
+          }
+        },
+        {
+          "type": "h1",
+          "label": "Launch plan",
+          "loc": {
+            "line": 33,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "attrs": {
+            "lines": 4
+          },
+          "loc": {
+            "line": 34,
+            "column": 3
+          }
+        },
+        {
+          "type": "h2",
+          "label": "Goals",
+          "loc": {
+            "line": 35,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "attrs": {
+            "lines": 3
+          },
+          "loc": {
+            "line": 36,
+            "column": 3
+          }
+        },
+        {
+          "type": "modal",
+          "id": "share",
+          "label": "Share this document",
+          "children": [
+            {
+              "type": "input",
+              "label": "Invite by email",
+              "attrs": {
+                "type": "email"
+              },
+              "loc": {
+                "line": 38,
+                "column": 5
+              }
+            },
+            {
+              "type": "radio",
+              "label": "Access",
+              "items": [
+                "Can view",
+                "Can comment",
+                "Can edit"
+              ],
+              "attrs": {
+                "value": "Can comment"
+              },
+              "loc": {
+                "line": 39,
+                "column": 5
+              }
+            },
+            {
+              "type": "row",
+              "attrs": {
+                "justify": "end"
+              },
+              "children": [
+                {
+                  "type": "button",
+                  "label": "Cancel",
+                  "loc": {
+                    "line": 41,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "button",
+                  "label": "Send invite",
+                  "flags": [
+                    "primary"
+                  ],
+                  "loc": {
+                    "line": 42,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 40,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 37,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    }
+  ]
+}

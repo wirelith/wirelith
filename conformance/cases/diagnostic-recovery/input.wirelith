@@ -1,0 +1,6 @@
+screen "A"
+  textfield
+  text "ok"
+  dropdown
+    text "child of a bad line"
+  button "x" -> #nope

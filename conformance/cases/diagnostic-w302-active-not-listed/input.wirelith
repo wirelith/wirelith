@@ -1,0 +1,2 @@
+screen "A"
+  tabs [One, Two] active="Three"

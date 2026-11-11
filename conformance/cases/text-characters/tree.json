@@ -1,0 +1,67 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Characters",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "text",
+          "label": "Latin: café, naïve, Ærøskøbing",
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "label": "Punctuation: “quotes” ‘single’ – en — em … ellipsis",
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "label": "Currency: € £ ¥ ₹ and arrows → ← ↑ ↓",
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "label": "Outside the tables: 中文 日本語 한국어",
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "label": "Outside the BMP: 😀 🚀",
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        },
+        {
+          "type": "text",
+          "label": "Spaces:    four of them",
+          "loc": {
+            "line": 7,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

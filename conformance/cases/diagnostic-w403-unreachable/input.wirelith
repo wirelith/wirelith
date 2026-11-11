@@ -1,0 +1,3 @@
+screen "A" #a
+  button "x" -> #a
+screen "B" #b

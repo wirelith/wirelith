@@ -1,0 +1,14 @@
+screen "Fields" phone
+  input "Name" placeholder="Ada Park"
+  input "Email" type=email value="ada@example.com" required
+  input "Password" type=password value="secret"
+  input placeholder="Search" type=search
+  input "Date" type=date
+  input "Count" type=number value=3
+  input "Disabled" disabled value="Locked"
+  input "Postcode" error="That postcode doesn't look right"
+  textarea "Bio" placeholder="Tell us about yourself" rows=4
+  textarea "Notes" value="A longer value that wraps inside the text area across several lines of text."
+  select "Plan" [Free, Team, Business] value="Team"
+  select [One, Two] placeholder="Choose"
+  select "Disabled" [A] disabled

@@ -1,0 +1,17 @@
+screen "Regions" desktop
+  header
+    h3 "Brand"
+    spacer
+    avatar "Ada Park" sm
+  sidebar
+    nav [Home, Reports] active="Home" vertical
+  sidebar right width=200
+    label "Right"
+  row
+    sidebar width=160
+      label "Inner sidebar"
+    column grow
+      text "Main"
+  footer justify=between
+    label "Left"
+    label "Right"

@@ -1,0 +1,4 @@
+screen "Fixed height" size=400x300
+  column height=50
+    button "One"
+    button "Two"

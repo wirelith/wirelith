@@ -1,0 +1,120 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Navigation",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "nav",
+          "items": [
+            "Overview",
+            "Reports",
+            "Settings"
+          ],
+          "attrs": {
+            "active": "Reports"
+          },
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "nav",
+          "flags": [
+            "vertical"
+          ],
+          "children": [
+            {
+              "type": "item",
+              "label": "Inbox",
+              "flags": [
+                "active"
+              ],
+              "attrs": {
+                "icon": "inbox"
+              },
+              "loc": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            {
+              "type": "item",
+              "label": "Sent",
+              "attrs": {
+                "icon": "send",
+                "badge": "3"
+              },
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "tabs",
+          "items": [
+            "Profile",
+            "Billing",
+            "Team"
+          ],
+          "attrs": {
+            "active": "Billing"
+          },
+          "children": [
+            {
+              "type": "text",
+              "label": "Billing content",
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        },
+        {
+          "type": "tabs",
+          "items": [
+            "One",
+            "Two"
+          ],
+          "loc": {
+            "line": 8,
+            "column": 3
+          }
+        },
+        {
+          "type": "breadcrumbs",
+          "items": [
+            "Home",
+            "Settings",
+            "Billing"
+          ],
+          "loc": {
+            "line": 9,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

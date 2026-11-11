@@ -1,0 +1,10 @@
+screen "Widths" size=800x400
+  row
+    button "Fixed" width=120
+    input placeholder="Grows" grow
+    button "Fill" width=fill
+  row
+    card "Half" width=50%
+      text "50%"
+    card "Rest" grow
+      text "grow"

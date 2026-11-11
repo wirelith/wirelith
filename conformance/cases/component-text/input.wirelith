@@ -1,0 +1,12 @@
+screen "Text" phone
+  h1 "Heading one"
+  h2 "Heading two" align=center
+  h3 "Heading three" align=end
+  text "A paragraph that is long enough to wrap onto more than one line on a phone screen, so that wrapping is tested."
+  text "Muted and centred" muted align=center
+  text lines=2
+  text
+  label "A label"
+  label "A muted label" muted
+  link "A link"
+  link "A disabled link" disabled

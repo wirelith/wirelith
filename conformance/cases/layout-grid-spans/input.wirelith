@@ -1,0 +1,8 @@
+screen "Grid" size=900x500
+  grid cols=4
+    card "One"
+    card "Two" span=2
+    card "Three"
+    card "Four" span=3
+    card "Five" span=4
+    card "Six" span=12

@@ -1,0 +1,44 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Overflow",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "button",
+              "label": "A very long button label here",
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Another very long button label",
+              "loc": {
+                "line": 4,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

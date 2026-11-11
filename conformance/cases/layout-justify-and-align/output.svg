@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="700" viewBox="0 0 600 700" role="img" aria-labelledby="wl-title wl-desc" xml:space="preserve"><title id="wl-title">Justify</title><desc id="wl-desc">Screens: Justify. 0 links.</desc><metadata><wl:source xmlns:wl="urn:wirelith:source" version="0.1">screen "Justify" size=600x700
+  row justify=start
+    badge "A"
+    badge "B"
+  row justify=center
+    badge "A"
+    badge "B"
+  row justify=end
+    badge "A"
+    badge "B"
+  row justify=between
+    badge "A"
+    badge "B"
+    badge "C"
+  row align=start
+    button "Short"
+    h1 "Tall"
+  row align=end
+    button "Short"
+    h1 "Tall"
+  row align=stretch
+    card "Stretched"
+      text "One"
+    card "Taller"
+      text "One"
+      text "Two"
+  column align=start
+    button "Start"
+  column align=center
+    button "Center"
+  column align=end
+    button "End"
+</wl:source></metadata><defs><clipPath id="wl-n0-clip"><rect x="0" y="0" width="600" height="700" rx="6"/></clipPath></defs><rect x="0" y="0" width="600" height="700" fill="#f4f5f7"/><g id="wl-n0" class="wl-screen" transform="translate(0 0)"><title>Justify</title><rect x="0" y="0" width="600" height="700" rx="6" fill="#ffffff"/><g clip-path="url(#wl-n0-clip)"><g id="wl-n1" class="wl-row"><g id="wl-n2" class="wl-badge"><rect x="24" y="24" width="25" height="20" rx="10" fill="#f4f5f7" stroke="#9aa1ab" stroke-width="1.5"/><text x="32" y="40" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#22262b">A</text></g><g id="wl-n3" class="wl-badge"><rect x="65" y="24" width="24.5" height="20" rx="10" fill="#f4f5f7" stroke="#9aa1ab" stroke-width="1.5"/><text x="73" y="40" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#22262b">B</text></g></g><g id="wl-n4" class="wl-row"><g id="wl-n5" class="wl-badge"><rect x="267.5" y="60" width="25" height="20" rx="10" fill="#f4f5f7" stroke="#9aa1ab" stroke-width="1.5"/><text x="275.5" y="76" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#22262b">A</text></g><g id="wl-n6" class="wl-badge"><rect x="308.5" y="60" width="24.5" height="20" rx="10" fill="#f4f5f7" stroke="#9aa1ab" stroke-width="1.5"/><text x="316.5" y="76" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#22262b">B</text></g></g><g id="wl-n7" class="wl-row"><g id="wl-n8" class="wl-badge"><rect x="510.5" y="96" width="25" height="20" rx="10" fill="#f4f5f7" stroke="#9aa1ab" stroke-width="1.5"/><text x="518.5" y="112" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#22262b">A</text></g><g id="wl-n9" class="wl-badge"><rect x="551.5" y="96" width="24.5" height="20" rx="10" fill="#f4f5f7" stroke="#9aa1ab" stroke-width="1.5"/><text x="559.5" y="112" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#22262b">B</text></g></g><g id="wl-n10" class="wl-row"><g id="wl-n11" class="wl-badge"><rect x="24" y="132" width="25" height="20" rx="10" fill="#f4f5f7" stroke="#9aa1ab" stroke-width="1.5"/><text x="32" y="148" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#22262b">A</text></g><g id="wl-n12" class="wl-badge"><rect x="287.5" y="132" width="24.5" height="20" rx="10" fill="#f4f5f7" stroke="#9aa1ab" stroke-width="1.5"/><text x="295.5" y="148" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#22262b">B</text></g><g id="wl-n13" class="wl-badge"><rect x="550.5" y="132" width="25.5" height="20" rx="10" fill="#f4f5f7" stroke="#9aa1ab" stroke-width="1.5"/><text x="558.5" y="148" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#22262b">C</text></g></g><g id="wl-n14" class="wl-row"><g id="wl-n15" class="wl-button"><rect x="24" y="168" width="71.5" height="36" rx="6" fill="#ffffff" stroke="#9aa1ab" stroke-width="1.5"/><text x="40" y="193" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#22262b">Short</text></g><g id="wl-n16" class="wl-h1"><text x="111.5" y="203" font-family="Inter, sans-serif" font-size="32" font-weight="700" fill="#22262b">Tall</text></g></g><g id="wl-n17" class="wl-row"><g id="wl-n18" class="wl-button"><rect x="24" y="228" width="71.5" height="36" rx="6" fill="#ffffff" stroke="#9aa1ab" stroke-width="1.5"/><text x="40" y="253" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#22262b">Short</text></g><g id="wl-n19" class="wl-h1"><text x="111.5" y="259" font-family="Inter, sans-serif" font-size="32" font-weight="700" fill="#22262b">Tall</text></g></g><g id="wl-n20" class="wl-row"><g id="wl-n21" class="wl-card"><rect x="24" y="280" width="103.5" height="130" rx="6" fill="#ffffff" stroke="#9aa1ab" stroke-width="1.5"/><text x="40" y="314" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#22262b">Stretched</text><g id="wl-n22" class="wl-text"><text x="40" y="352" font-family="Inter, sans-serif" font-size="15" font-weight="400" fill="#22262b">One</text></g></g><g id="wl-n23" class="wl-card"><rect x="143.5" y="280" width="73" height="130" rx="6" fill="#ffffff" stroke="#9aa1ab" stroke-width="1.5"/><text x="159.5" y="314" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#22262b">Taller</text><g id="wl-n24" class="wl-text"><text x="159.5" y="352" font-family="Inter, sans-serif" font-size="15" font-weight="400" fill="#22262b">One</text></g><g id="wl-n25" class="wl-text"><text x="159.5" y="390" font-family="Inter, sans-serif" font-size="15" font-weight="400" fill="#22262b">Two</text></g></g></g><g id="wl-n26" class="wl-column"><g id="wl-n27" class="wl-button"><rect x="24" y="426" width="67" height="36" rx="6" fill="#ffffff" stroke="#9aa1ab" stroke-width="1.5"/><text x="40" y="451" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#22262b">Start</text></g></g><g id="wl-n28" class="wl-column"><g id="wl-n29" class="wl-button"><rect x="259.5" y="478" width="81" height="36" rx="6" fill="#ffffff" stroke="#9aa1ab" stroke-width="1.5"/><text x="275.5" y="503" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#22262b">Center</text></g></g><g id="wl-n30" class="wl-column"><g id="wl-n31" class="wl-button"><rect x="516.5" y="530" width="59.5" height="36" rx="6" fill="#ffffff" stroke="#9aa1ab" stroke-width="1.5"/><text x="532.5" y="555" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#22262b">End</text></g></g></g><rect x="0" y="0" width="600" height="700" rx="6" fill="none" stroke="#9aa1ab" stroke-width="1.5"/></g></svg>

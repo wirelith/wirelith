@@ -1,0 +1,8 @@
+screen "Phone" phone #p
+  text "Phone"
+screen "Tablet" tablet #t
+  text "Tablet"
+screen "Desktop" desktop #d
+  text "Desktop"
+screen "Custom" size=600x400 #c
+  text "Custom"

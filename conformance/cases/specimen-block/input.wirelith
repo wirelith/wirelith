@@ -1,0 +1,3 @@
+wirelith 0.1
+theme "cove" extends=blueprint
+  radius 8

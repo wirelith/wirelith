@@ -1,0 +1,183 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Fields",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "input",
+          "label": "Name",
+          "attrs": {
+            "placeholder": "Ada Park"
+          },
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Email",
+          "flags": [
+            "required"
+          ],
+          "attrs": {
+            "type": "email",
+            "value": "ada@example.com"
+          },
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Password",
+          "attrs": {
+            "type": "password",
+            "value": "secret"
+          },
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "attrs": {
+            "placeholder": "Search",
+            "type": "search"
+          },
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Date",
+          "attrs": {
+            "type": "date"
+          },
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Count",
+          "attrs": {
+            "type": "number",
+            "value": 3
+          },
+          "loc": {
+            "line": 7,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Disabled",
+          "flags": [
+            "disabled"
+          ],
+          "attrs": {
+            "value": "Locked"
+          },
+          "loc": {
+            "line": 8,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Postcode",
+          "attrs": {
+            "error": "That postcode doesn't look right"
+          },
+          "loc": {
+            "line": 9,
+            "column": 3
+          }
+        },
+        {
+          "type": "textarea",
+          "label": "Bio",
+          "attrs": {
+            "placeholder": "Tell us about yourself",
+            "rows": 4
+          },
+          "loc": {
+            "line": 10,
+            "column": 3
+          }
+        },
+        {
+          "type": "textarea",
+          "label": "Notes",
+          "attrs": {
+            "value": "A longer value that wraps inside the text area across several lines of text."
+          },
+          "loc": {
+            "line": 11,
+            "column": 3
+          }
+        },
+        {
+          "type": "select",
+          "label": "Plan",
+          "items": [
+            "Free",
+            "Team",
+            "Business"
+          ],
+          "attrs": {
+            "value": "Team"
+          },
+          "loc": {
+            "line": 12,
+            "column": 3
+          }
+        },
+        {
+          "type": "select",
+          "items": [
+            "One",
+            "Two"
+          ],
+          "attrs": {
+            "placeholder": "Choose"
+          },
+          "loc": {
+            "line": 13,
+            "column": 3
+          }
+        },
+        {
+          "type": "select",
+          "label": "Disabled",
+          "items": [
+            "A"
+          ],
+          "flags": [
+            "disabled"
+          ],
+          "loc": {
+            "line": 14,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

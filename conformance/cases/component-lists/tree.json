@@ -1,0 +1,88 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Lists",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "list",
+          "items": [
+            "Apples",
+            "Pears",
+            "Plums"
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            "First",
+            "Second"
+          ],
+          "flags": [
+            "ordered"
+          ],
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "list",
+          "children": [
+            {
+              "type": "item",
+              "label": "Inbox",
+              "flags": [
+                "active"
+              ],
+              "attrs": {
+                "icon": "inbox",
+                "badge": "12"
+              },
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            },
+            {
+              "type": "item",
+              "label": "Archive",
+              "attrs": {
+                "icon": "archive"
+              },
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            },
+            {
+              "type": "item",
+              "label": "Plain",
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

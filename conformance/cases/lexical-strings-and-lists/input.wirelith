@@ -1,0 +1,4 @@
+screen "Quotes \"and\" a backslash \\ and a\nline break" phone
+  select "Pick" ["Help, docs", "#1042", plain text , "[bracket]"]
+  text "Comment markers // inside a string are text"
+  list [a/b, 50%, c:d, x_y.z]

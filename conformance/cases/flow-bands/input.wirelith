@@ -1,0 +1,15 @@
+screen "S0" desktop #s0
+  button "To the last" primary -> #s12
+screen "S1" desktop #s1
+screen "S2" desktop #s2
+screen "S3" desktop #s3
+screen "S4" desktop #s4
+screen "S5" desktop #s5
+screen "S6" desktop #s6
+screen "S7" desktop #s7
+screen "S8" desktop #s8
+screen "S9" desktop #s9
+screen "S10" desktop #s10
+screen "S11" desktop #s11
+screen "S12" desktop #s12
+  button "Back to the first" -> #s0

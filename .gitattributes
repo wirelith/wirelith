@@ -2,3 +2,6 @@
 *.ttf binary
 *.otf binary
 *.png binary
+
+# Conformance inputs are compared byte for byte, line endings and byte-order marks included.
+conformance/cases/** -text

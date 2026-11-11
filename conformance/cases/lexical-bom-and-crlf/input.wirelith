@@ -1,0 +1,3 @@
+﻿screen "Windows" phone
+  text "CRLF line endings"
+  button "OK"

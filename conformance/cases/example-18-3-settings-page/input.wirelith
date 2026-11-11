@@ -1,0 +1,18 @@
+wirelith 0.1
+
+screen "Settings" desktop #settings
+  header
+    h2 "Settings"
+  tabs [Profile, Notifications, Billing] active="Notifications"
+    card "Email"
+      toggle "Product updates" on
+      toggle "Weekly summary" on
+      toggle "Comments on my work"
+    card "Push"
+      toggle "Mentions" on
+      toggle "Reminders"
+      select "Quiet hours" [Off, Nights, Nights and weekends] value="Nights"
+    row justify=end
+      button "Cancel"
+      button "Save changes" primary #save
+  note "Save stays disabled until something changes" for=#save

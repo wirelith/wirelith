@@ -1,0 +1,25 @@
+wirelith 0.1
+
+screen "Projects" desktop #projects
+  header
+    h2 "Projects"
+    spacer
+    input placeholder="Search" type=search width=240
+    button "New project" primary #add -> #new
+  tabs [Active, Archived] active="Active"
+    table [Name, Owner, Updated]
+      row [Website redesign, Ada Park, 2 days ago]
+      row [Mobile app, Luis Ortega, Last week]
+  modal "New project" #new
+    input "Name" required
+    select "Template" [Blank, Roadmap, Launch plan]
+    row justify=end
+      button "Cancel"
+      button "Create" primary -> #detail
+  note "Only admins see this button" for=#add
+
+screen "Website redesign" desktop #detail
+  breadcrumbs [Projects, Website redesign]
+  h1 "Website redesign"
+  empty "No tasks yet"
+    button "Add a task" primary

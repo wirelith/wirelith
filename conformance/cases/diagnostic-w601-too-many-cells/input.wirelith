@@ -1,0 +1,3 @@
+screen "A"
+  table [a]
+    row [x, y]

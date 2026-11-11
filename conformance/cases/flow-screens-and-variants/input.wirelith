@@ -1,0 +1,11 @@
+screen "Cart" phone #cart
+  button "Checkout" primary -> #ship "Next"
+screen "Shipping" phone #ship
+  input "Postcode"
+  button "Continue" primary -> #done
+  link "Back" -> #cart
+screen "Shipping" #ship-error of=#ship state="Invalid postcode"
+  input "Postcode" error="Enter a valid postcode"
+screen "Done" phone #done
+  h1 "Order placed"
+flow #done -> #cart "Start again"

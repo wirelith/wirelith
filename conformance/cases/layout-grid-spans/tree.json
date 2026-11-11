@@ -1,0 +1,91 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Grid",
+      "attrs": {
+        "size": "900x500"
+      },
+      "children": [
+        {
+          "type": "grid",
+          "attrs": {
+            "cols": 4
+          },
+          "children": [
+            {
+              "type": "card",
+              "label": "One",
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "label": "Two",
+              "attrs": {
+                "span": 2
+              },
+              "loc": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "label": "Three",
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "label": "Four",
+              "attrs": {
+                "span": 3
+              },
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "label": "Five",
+              "attrs": {
+                "span": 4
+              },
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "label": "Six",
+              "attrs": {
+                "span": 12
+              },
+              "loc": {
+                "line": 8,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

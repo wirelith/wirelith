@@ -1,0 +1,4 @@
+screen "Shrink" size=400x400
+  row
+    text "A long sentence that has to wrap when its row shrinks"
+    text "Another sentence that shares the same row"

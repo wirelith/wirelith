@@ -1,0 +1,3 @@
+screen "A" #a
+screen "B" #b of=#a
+screen "C" #c of=#b

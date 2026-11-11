@@ -1,0 +1,160 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Theme sample",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "header",
+          "children": [
+            {
+              "type": "h3",
+              "label": "Brand",
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "input",
+          "label": "Email",
+          "attrs": {
+            "placeholder": "you@example.com"
+          },
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "button",
+              "label": "Save",
+              "flags": [
+                "primary"
+              ],
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Delete",
+              "flags": [
+                "danger"
+              ],
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Cancel",
+              "loc": {
+                "line": 8,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "badge",
+              "label": "Live",
+              "flags": [
+                "success"
+              ],
+              "loc": {
+                "line": 10,
+                "column": 5
+              }
+            },
+            {
+              "type": "badge",
+              "label": "Late",
+              "flags": [
+                "danger"
+              ],
+              "loc": {
+                "line": 11,
+                "column": 5
+              }
+            },
+            {
+              "type": "checkbox",
+              "label": "Remember me",
+              "flags": [
+                "checked"
+              ],
+              "loc": {
+                "line": 12,
+                "column": 5
+              }
+            },
+            {
+              "type": "toggle",
+              "label": "Alerts",
+              "flags": [
+                "on"
+              ],
+              "loc": {
+                "line": 13,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 9,
+            "column": 3
+          }
+        },
+        {
+          "type": "card",
+          "label": "Card",
+          "children": [
+            {
+              "type": "text",
+              "label": "Muted text",
+              "flags": [
+                "muted"
+              ],
+              "loc": {
+                "line": 15,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 14,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

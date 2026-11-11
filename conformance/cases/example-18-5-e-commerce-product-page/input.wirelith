@@ -1,0 +1,38 @@
+wirelith 0.1
+theme "fernway" extends=paper
+  color.primary #1f6f5c
+  radius 10
+
+screen "Fernway: Canvas Tote" desktop #product
+  header
+    h3 "Fernway"
+    nav [New, Bags, Home, Sale]
+    spacer
+    input placeholder="Search" type=search width=240
+    button "Cart" icon=shopping-cart -> #cart
+  breadcrumbs [Home, Bags, Canvas Tote]
+  row gap=xl
+    column width=50%
+      image "Product photo" ratio=1:1
+      row
+        image "Thumbnail 1" width=96 ratio=1:1
+        image "Thumbnail 2" width=96 ratio=1:1
+        image "Thumbnail 3" width=96 ratio=1:1
+    column grow
+      h1 "Canvas Tote"
+      row
+        h2 "$48"
+        badge "In stock" success
+      text "A roomy everyday bag in heavyweight cotton canvas."
+      radio "Colour" [Natural, Olive, Black] value="Olive"
+      select "Quantity" [1, 2, 3, 4] value="1"
+      button "Add to cart" primary lg -> #cart
+      list [Free shipping over $75, 30-day returns, Made to last]
+  drawer "Your cart" #cart
+    list
+      item "Canvas Tote, Olive" badge="1"
+    divider
+    row justify=between
+      label "Subtotal"
+      label "$48"
+    button "Check out" primary

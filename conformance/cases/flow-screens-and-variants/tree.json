@@ -1,0 +1,143 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "cart",
+      "label": "Cart",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "button",
+          "label": "Checkout",
+          "flags": [
+            "primary"
+          ],
+          "link": {
+            "to": "ship",
+            "label": "Next"
+          },
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "ship",
+      "label": "Shipping",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "input",
+          "label": "Postcode",
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "label": "Continue",
+          "flags": [
+            "primary"
+          ],
+          "link": {
+            "to": "done"
+          },
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        },
+        {
+          "type": "link",
+          "label": "Back",
+          "link": {
+            "to": "cart"
+          },
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "ship-error",
+      "label": "Shipping",
+      "attrs": {
+        "of": {
+          "ref": "ship"
+        },
+        "state": "Invalid postcode"
+      },
+      "children": [
+        {
+          "type": "input",
+          "label": "Postcode",
+          "attrs": {
+            "error": "Enter a valid postcode"
+          },
+          "loc": {
+            "line": 8,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 7,
+        "column": 1
+      }
+    },
+    {
+      "type": "screen",
+      "id": "done",
+      "label": "Done",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "h1",
+          "label": "Order placed",
+          "loc": {
+            "line": 10,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 9,
+        "column": 1
+      }
+    }
+  ],
+  "flows": [
+    {
+      "from": "done",
+      "to": "cart",
+      "label": "Start again",
+      "loc": {
+        "line": 11,
+        "column": 1
+      }
+    }
+  ]
+}

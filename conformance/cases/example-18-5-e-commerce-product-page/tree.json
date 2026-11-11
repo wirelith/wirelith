@@ -1,0 +1,380 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "theme": {
+    "name": "fernway",
+    "extends": "paper",
+    "tokens": {
+      "color.primary": "#1f6f5c",
+      "radius": 10
+    },
+    "loc": {
+      "line": 2,
+      "column": 1
+    }
+  },
+  "screens": [
+    {
+      "type": "screen",
+      "id": "product",
+      "label": "Fernway: Canvas Tote",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "header",
+          "children": [
+            {
+              "type": "h3",
+              "label": "Fernway",
+              "loc": {
+                "line": 8,
+                "column": 5
+              }
+            },
+            {
+              "type": "nav",
+              "items": [
+                "New",
+                "Bags",
+                "Home",
+                "Sale"
+              ],
+              "loc": {
+                "line": 9,
+                "column": 5
+              }
+            },
+            {
+              "type": "spacer",
+              "loc": {
+                "line": 10,
+                "column": 5
+              }
+            },
+            {
+              "type": "input",
+              "attrs": {
+                "placeholder": "Search",
+                "type": "search",
+                "width": 240
+              },
+              "loc": {
+                "line": 11,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Cart",
+              "attrs": {
+                "icon": "shopping-cart"
+              },
+              "link": {
+                "to": "cart"
+              },
+              "loc": {
+                "line": 12,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 7,
+            "column": 3
+          }
+        },
+        {
+          "type": "breadcrumbs",
+          "items": [
+            "Home",
+            "Bags",
+            "Canvas Tote"
+          ],
+          "loc": {
+            "line": 13,
+            "column": 3
+          }
+        },
+        {
+          "type": "row",
+          "attrs": {
+            "gap": "xl"
+          },
+          "children": [
+            {
+              "type": "column",
+              "attrs": {
+                "width": "50%"
+              },
+              "children": [
+                {
+                  "type": "image",
+                  "label": "Product photo",
+                  "attrs": {
+                    "ratio": "1:1"
+                  },
+                  "loc": {
+                    "line": 16,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "row",
+                  "children": [
+                    {
+                      "type": "image",
+                      "label": "Thumbnail 1",
+                      "attrs": {
+                        "width": 96,
+                        "ratio": "1:1"
+                      },
+                      "loc": {
+                        "line": 18,
+                        "column": 9
+                      }
+                    },
+                    {
+                      "type": "image",
+                      "label": "Thumbnail 2",
+                      "attrs": {
+                        "width": 96,
+                        "ratio": "1:1"
+                      },
+                      "loc": {
+                        "line": 19,
+                        "column": 9
+                      }
+                    },
+                    {
+                      "type": "image",
+                      "label": "Thumbnail 3",
+                      "attrs": {
+                        "width": 96,
+                        "ratio": "1:1"
+                      },
+                      "loc": {
+                        "line": 20,
+                        "column": 9
+                      }
+                    }
+                  ],
+                  "loc": {
+                    "line": 17,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 15,
+                "column": 5
+              }
+            },
+            {
+              "type": "column",
+              "flags": [
+                "grow"
+              ],
+              "children": [
+                {
+                  "type": "h1",
+                  "label": "Canvas Tote",
+                  "loc": {
+                    "line": 22,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "row",
+                  "children": [
+                    {
+                      "type": "h2",
+                      "label": "$48",
+                      "loc": {
+                        "line": 24,
+                        "column": 9
+                      }
+                    },
+                    {
+                      "type": "badge",
+                      "label": "In stock",
+                      "flags": [
+                        "success"
+                      ],
+                      "loc": {
+                        "line": 25,
+                        "column": 9
+                      }
+                    }
+                  ],
+                  "loc": {
+                    "line": 23,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "text",
+                  "label": "A roomy everyday bag in heavyweight cotton canvas.",
+                  "loc": {
+                    "line": 26,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "radio",
+                  "label": "Colour",
+                  "items": [
+                    "Natural",
+                    "Olive",
+                    "Black"
+                  ],
+                  "attrs": {
+                    "value": "Olive"
+                  },
+                  "loc": {
+                    "line": 27,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "select",
+                  "label": "Quantity",
+                  "items": [
+                    "1",
+                    "2",
+                    "3",
+                    "4"
+                  ],
+                  "attrs": {
+                    "value": "1"
+                  },
+                  "loc": {
+                    "line": 28,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "button",
+                  "label": "Add to cart",
+                  "flags": [
+                    "primary",
+                    "lg"
+                  ],
+                  "link": {
+                    "to": "cart"
+                  },
+                  "loc": {
+                    "line": 29,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "list",
+                  "items": [
+                    "Free shipping over $75",
+                    "30-day returns",
+                    "Made to last"
+                  ],
+                  "loc": {
+                    "line": 30,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 21,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 14,
+            "column": 3
+          }
+        },
+        {
+          "type": "drawer",
+          "id": "cart",
+          "label": "Your cart",
+          "children": [
+            {
+              "type": "list",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "Canvas Tote, Olive",
+                  "attrs": {
+                    "badge": "1"
+                  },
+                  "loc": {
+                    "line": 33,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 32,
+                "column": 5
+              }
+            },
+            {
+              "type": "divider",
+              "loc": {
+                "line": 34,
+                "column": 5
+              }
+            },
+            {
+              "type": "row",
+              "attrs": {
+                "justify": "between"
+              },
+              "children": [
+                {
+                  "type": "label",
+                  "label": "Subtotal",
+                  "loc": {
+                    "line": 36,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "label",
+                  "label": "$48",
+                  "loc": {
+                    "line": 37,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 35,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Check out",
+              "flags": [
+                "primary"
+              ],
+              "loc": {
+                "line": 38,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 31,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 6,
+        "column": 1
+      }
+    }
+  ]
+}

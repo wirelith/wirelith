@@ -1,0 +1,3 @@
+screen "A" #a
+  text "t" #t
+  button "x" -> #t

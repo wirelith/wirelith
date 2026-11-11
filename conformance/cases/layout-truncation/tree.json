@@ -1,0 +1,73 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Truncation",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "button",
+          "label": "A really long label that will be cut short",
+          "attrs": {
+            "width": 120
+          },
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "label",
+          "label": "A label that is far too long to fit in its narrow column at all",
+          "attrs": {
+            "width": 100
+          },
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "badge",
+          "label": "A badge",
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "table",
+          "items": [
+            "A very long column heading",
+            "B"
+          ],
+          "children": [
+            {
+              "type": "table-row",
+              "items": [
+                "A cell with far too much text in it",
+                "short"
+              ],
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

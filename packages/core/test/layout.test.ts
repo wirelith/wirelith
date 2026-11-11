@@ -194,3 +194,11 @@ describe('arrow spacing across bands (10.6)', () => {
     expect(withOther[0]).toBe(1360);
   });
 });
+
+describe('image (10.4)', () => {
+  it('uses a fixed height as the height, without a warning', () => {
+    const L = layout('screen "A"\n  image "Fixed" width=100 height=60 #i\n');
+    expect(L.diagnostics).toEqual([]);
+    expect(L.frames[0]?.elements.find((e) => e.id === 'i')?.height).toBe(60);
+  });
+});

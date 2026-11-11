@@ -1,0 +1,180 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Regions",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "header",
+          "children": [
+            {
+              "type": "h3",
+              "label": "Brand",
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            },
+            {
+              "type": "spacer",
+              "loc": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            {
+              "type": "avatar",
+              "label": "Ada Park",
+              "flags": [
+                "sm"
+              ],
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "sidebar",
+          "children": [
+            {
+              "type": "nav",
+              "items": [
+                "Home",
+                "Reports"
+              ],
+              "flags": [
+                "vertical"
+              ],
+              "attrs": {
+                "active": "Home"
+              },
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        },
+        {
+          "type": "sidebar",
+          "flags": [
+            "right"
+          ],
+          "attrs": {
+            "width": 200
+          },
+          "children": [
+            {
+              "type": "label",
+              "label": "Right",
+              "loc": {
+                "line": 9,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 8,
+            "column": 3
+          }
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "sidebar",
+              "attrs": {
+                "width": 160
+              },
+              "children": [
+                {
+                  "type": "label",
+                  "label": "Inner sidebar",
+                  "loc": {
+                    "line": 12,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 11,
+                "column": 5
+              }
+            },
+            {
+              "type": "column",
+              "flags": [
+                "grow"
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "label": "Main",
+                  "loc": {
+                    "line": 14,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 13,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 10,
+            "column": 3
+          }
+        },
+        {
+          "type": "footer",
+          "attrs": {
+            "justify": "between"
+          },
+          "children": [
+            {
+              "type": "label",
+              "label": "Left",
+              "loc": {
+                "line": 16,
+                "column": 5
+              }
+            },
+            {
+              "type": "label",
+              "label": "Right",
+              "loc": {
+                "line": 17,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 15,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

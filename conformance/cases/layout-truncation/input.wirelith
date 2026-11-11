@@ -1,0 +1,6 @@
+screen "Truncation" phone
+  button "A really long label that will be cut short" width=120
+  label "A label that is far too long to fit in its narrow column at all" width=100
+  badge "A badge"
+  table [A very long column heading, B]
+    row [A cell with far too much text in it, short]

@@ -1,0 +1,4 @@
+screen "Spacer" phone
+  h1 "Top"
+  spacer
+  button "At the bottom" primary

@@ -1,0 +1,2 @@
+screen "A" #a
+  button "x" -> #a "y" primary

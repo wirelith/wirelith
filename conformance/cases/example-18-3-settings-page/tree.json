@@ -1,0 +1,184 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "settings",
+      "label": "Settings",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "header",
+          "children": [
+            {
+              "type": "h2",
+              "label": "Settings",
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "tabs",
+          "items": [
+            "Profile",
+            "Notifications",
+            "Billing"
+          ],
+          "attrs": {
+            "active": "Notifications"
+          },
+          "children": [
+            {
+              "type": "card",
+              "label": "Email",
+              "children": [
+                {
+                  "type": "toggle",
+                  "label": "Product updates",
+                  "flags": [
+                    "on"
+                  ],
+                  "loc": {
+                    "line": 8,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "toggle",
+                  "label": "Weekly summary",
+                  "flags": [
+                    "on"
+                  ],
+                  "loc": {
+                    "line": 9,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "toggle",
+                  "label": "Comments on my work",
+                  "loc": {
+                    "line": 10,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            },
+            {
+              "type": "card",
+              "label": "Push",
+              "children": [
+                {
+                  "type": "toggle",
+                  "label": "Mentions",
+                  "flags": [
+                    "on"
+                  ],
+                  "loc": {
+                    "line": 12,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "toggle",
+                  "label": "Reminders",
+                  "loc": {
+                    "line": 13,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "select",
+                  "label": "Quiet hours",
+                  "items": [
+                    "Off",
+                    "Nights",
+                    "Nights and weekends"
+                  ],
+                  "attrs": {
+                    "value": "Nights"
+                  },
+                  "loc": {
+                    "line": 14,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 11,
+                "column": 5
+              }
+            },
+            {
+              "type": "row",
+              "attrs": {
+                "justify": "end"
+              },
+              "children": [
+                {
+                  "type": "button",
+                  "label": "Cancel",
+                  "loc": {
+                    "line": 16,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "button",
+                  "id": "save",
+                  "label": "Save changes",
+                  "flags": [
+                    "primary"
+                  ],
+                  "loc": {
+                    "line": 17,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 15,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        },
+        {
+          "type": "note",
+          "label": "Save stays disabled until something changes",
+          "attrs": {
+            "for": {
+              "ref": "save"
+            }
+          },
+          "loc": {
+            "line": 18,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    }
+  ]
+}

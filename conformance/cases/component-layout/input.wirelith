@@ -1,0 +1,19 @@
+screen "Layout" desktop
+  row gap=sm pad=xs align=start justify=end
+    button "One"
+    button "Two"
+  column gap=lg pad=md align=center
+    label "Centred"
+    badge "Badge"
+  grid cols=3 gap=xs
+    card "A"
+    card "B" span=2
+    card "C"
+  row
+    text "Left"
+    spacer
+    divider
+    text "Right"
+  divider
+  spacer size=40
+  text "After"

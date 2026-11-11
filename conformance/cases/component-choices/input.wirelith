@@ -1,0 +1,10 @@
+screen "Choices" phone
+  checkbox "Unchecked"
+  checkbox "Checked" checked
+  checkbox "Disabled" disabled
+  radio "Size" [Small, Medium, Large] value="Medium"
+  radio [Yes, No]
+  radio "Disabled" [A, B] disabled
+  toggle "Off"
+  toggle "On" on
+  toggle "Disabled" disabled

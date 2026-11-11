@@ -1,0 +1,14 @@
+[
+  {
+    "code": "W403",
+    "severity": "warning",
+    "line": 3,
+    "column": 1
+  },
+  {
+    "code": "E402",
+    "severity": "error",
+    "line": 4,
+    "column": 3
+  }
+]
