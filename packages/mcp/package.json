@@ -1,0 +1,45 @@
+{
+  "name": "@wirelith/mcp",
+  "version": "0.1.0",
+  "description": "A local Model Context Protocol server for Wirelith: validate, render and convert wireframes, and learn the language.",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wirelith/wirelith.git",
+    "directory": "packages/mcp"
+  },
+  "homepage": "https://github.com/wirelith/wirelith#readme",
+  "bugs": "https://github.com/wirelith/wirelith/issues",
+  "keywords": [
+    "wirelith",
+    "wireframe",
+    "mcp",
+    "model context protocol"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "wirelith-mcp": "./dist/bin.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/server.d.ts",
+      "default": "./dist/server.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@wirelith/core": "workspace:*",
+    "@wirelith/png": "workspace:*"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2"
+  }
+}
