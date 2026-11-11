@@ -58,4 +58,31 @@ describe('lintWorkflow', () => {
     const text = `on: [pull_request_target]\npermissions: {}\njobs:\n  j:\n    runs-on: x\n    steps:\n      - uses: actions/checkout@${SHA}\n`;
     expect(lintWorkflow('w.yml', text)).toEqual(['w.yml: job j, step 1: set persist-credentials: false']);
   });
+
+  it('requires the denylist environment on a job that reads a WIRELITH_ secret', () => {
+    /** @param {string} envLine */
+    const job = (envLine) =>
+      [
+        'on: push',
+        'permissions: {}',
+        'jobs:',
+        '  j:',
+        '    runs-on: x',
+        envLine,
+        '    steps:',
+        '      - run: echo',
+        '        env:',
+        // biome-ignore lint/suspicious/noTemplateCurlyInString: a GitHub Actions expression, written literally
+        '          L: ${{ secrets.WIRELITH_DENYLIST }}',
+        '',
+      ].join('\n');
+    expect(lintWorkflow('w.yml', job('    environment: denylist'))).toEqual([]);
+    expect(lintWorkflow('w.yml', job('    environment:\n      name: denylist'))).toEqual([]);
+    expect(lintWorkflow('w.yml', job('    environment: other'))).toEqual([
+      'w.yml: job j reads a WIRELITH_ secret, so it must set environment: denylist',
+    ]);
+    expect(lintWorkflow('w.yml', job('    timeout-minutes: 5'))).toEqual([
+      'w.yml: job j reads a WIRELITH_ secret, so it must set environment: denylist',
+    ]);
+  });
 });
