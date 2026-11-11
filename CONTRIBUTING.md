@@ -69,14 +69,14 @@ pnpm typecheck
 pnpm test
 pnpm build
 pnpm size             # @wirelith/core: no dependencies, no imports, within its size budget
-pnpm licenses         # every dependency has an allowed license
+pnpm run check-licenses   # every dependency has an allowed license
 pnpm hygiene          # the copyright-holder check, and the denylist if you have it
 ```
 
 ### Dependencies
 
 - `@wirelith/core` has no dependencies, and must stay that way.
-- Every new dependency needs a clear, permissive license and must have been released at least 14 days ago. pnpm enforces the age rule, and `pnpm licenses` checks the license.
+- Every new dependency needs a clear, permissive license and must have been released at least 14 days ago. pnpm enforces the age rule, and `pnpm run check-licenses` checks the license.
 - Versions are exact. No ranges.
 - Nothing may make a network request at runtime, and nothing may use a headless browser.
 

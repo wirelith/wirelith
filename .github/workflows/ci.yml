@@ -32,7 +32,7 @@ jobs:
           node-version: 22
       - run: npm install --global pnpm@${{ env.PNPM_VERSION }}
       - run: pnpm install --frozen-lockfile
-      - run: pnpm lint
+      - run: pnpm run lint
       - run: node scripts/check-spdx.mjs
 
   typecheck:
@@ -46,7 +46,7 @@ jobs:
           node-version: 22
       - run: npm install --global pnpm@${{ env.PNPM_VERSION }}
       - run: pnpm install --frozen-lockfile
-      - run: pnpm typecheck
+      - run: pnpm run typecheck
 
   test:
     strategy:
@@ -64,7 +64,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm install --global pnpm@${{ env.PNPM_VERSION }}
       - run: pnpm install --frozen-lockfile
-      - run: pnpm test
+      - run: pnpm run test
 
   build:
     runs-on: ubuntu-latest
@@ -77,7 +77,7 @@ jobs:
           node-version: 22
       - run: npm install --global pnpm@${{ env.PNPM_VERSION }}
       - run: pnpm install --frozen-lockfile
-      - run: pnpm build
+      - run: pnpm run build
 
   core-size:
     runs-on: ubuntu-latest
@@ -90,7 +90,7 @@ jobs:
           node-version: 22
       - run: npm install --global pnpm@${{ env.PNPM_VERSION }}
       - run: pnpm install --frozen-lockfile
-      - run: pnpm size
+      - run: pnpm run size
 
   licenses:
     runs-on: ubuntu-latest
@@ -103,7 +103,7 @@ jobs:
           node-version: 22
       - run: npm install --global pnpm@${{ env.PNPM_VERSION }}
       - run: pnpm install --frozen-lockfile
-      - run: pnpm licenses
+      - run: pnpm run check-licenses
 
   holder-name-tree:
     runs-on: ubuntu-latest
