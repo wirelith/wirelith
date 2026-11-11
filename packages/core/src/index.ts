@@ -1,9 +1,39 @@
 // SPDX-License-Identifier: MIT
 
 /**
- * The version of the Wirelith specification this package implements.
+ * @wirelith/core: the parser, validator, layout engine and SVG renderer for Wirelith, a
+ * plain-text language for low-fidelity wireframes.
  *
- * The parser, validator and renderer arrive in a later change. This entry point exists so that
- * the size, dependency and import checks run from the first commit.
+ * Every function is pure and synchronous. Core reads no files, makes no network requests,
+ * uses no DOM and has no dependencies.
  */
-export const SPEC_VERSION = '0.1';
+
+export {
+  extractSource,
+  type LaidOutElement,
+  type LayoutResult,
+  layout,
+  outline,
+  parse,
+  type RenderResult,
+  render,
+  SPEC_VERSION,
+  SPECIMEN_SOURCE,
+  validate,
+} from './api.js';
+export type {
+  Diagnostic,
+  Document,
+  Flow,
+  HostTheme,
+  Link,
+  Loc,
+  Node,
+  Options,
+  Outline,
+  OutlineLink,
+  OutlineScreen,
+  Severity,
+  ThemeDecl,
+  Value,
+} from './types.js';

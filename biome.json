@@ -8,7 +8,8 @@
       "!**/dist",
       "!**/*.md",
       "!spec/data",
-      "!spec/generators/lucide-metadata.json"
+      "!spec/generators/lucide-metadata.json",
+      "!packages/core/src/data"
     ]
   },
   "formatter": {
