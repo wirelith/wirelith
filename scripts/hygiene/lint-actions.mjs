@@ -4,7 +4,9 @@
 //
 // - every `uses:` of another repository's action is pinned to a full 40-character commit SHA;
 // - every workflow sets top-level `permissions`, and nothing asks for write-all or read-all;
-// - a workflow that runs on pull_request_target never checks out the pull request's code.
+// - a workflow that runs on pull_request_target never checks out the pull request's code;
+// - a job that reads a WIRELITH_ secret runs in the `denylist` environment, which only
+//   workflows running from main can use.
 
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,6 +14,8 @@ import { parse } from 'yaml';
 
 const DIR = '.github/workflows';
 const PINNED = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_./-]+@[0-9a-f]{40}$/;
+const PROTECTED_SECRET = /secrets\.WIRELITH_/;
+const SECRETS_ENVIRONMENT = 'denylist';
 
 /**
  * @param {string} file
@@ -35,6 +39,12 @@ export function lintWorkflow(file, text) {
 
   for (const [jobName, job] of Object.entries(wf.jobs ?? {})) {
     if (typeof job?.uses === 'string') checkUses(job.uses, `${file}: job ${jobName}`, problems);
+    const env = typeof job?.environment === 'object' ? job?.environment?.name : job?.environment;
+    if (PROTECTED_SECRET.test(JSON.stringify(job ?? {})) && env !== SECRETS_ENVIRONMENT) {
+      problems.push(
+        `${file}: job ${jobName} reads a WIRELITH_ secret, so it must set environment: ${SECRETS_ENVIRONMENT}`,
+      );
+    }
     for (const [i, step] of (job?.steps ?? []).entries()) {
       const where = `${file}: job ${jobName}, step ${i + 1}`;
       if (typeof step?.uses === 'string') {

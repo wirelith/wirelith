@@ -61,6 +61,8 @@ jobs:
 
   denylist:
     runs-on: ubuntu-latest
+    # The secrets live in an environment that only workflows running from main can use.
+    environment: denylist
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
