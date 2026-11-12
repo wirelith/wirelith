@@ -2,7 +2,7 @@
 
 Wirelith is a small plain-text language for low-fidelity wireframes: screens, layout, forms, tables, states, and click-through flows between screens. You write it in a markdown code fence, and a renderer turns it into a clean SVG or PNG.
 
-> **Status: 0.x, unstable.** The language is at version 0.1 (draft). Nothing is published to a package registry yet, and anything may change before 1.0.
+> **Status: 0.x, unstable.** The language is at version 0.1 (draft). Nothing is published to a package registry yet, and anything may change before 1.0. [ROADMAP.md](ROADMAP.md) lists what has to happen before then.
 
 ## An example
 
