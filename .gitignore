@@ -10,3 +10,7 @@ coverage/
 
 # Copied from third-party/fonts at build time.
 packages/png/fonts/
+
+# Python build artifacts in the Python port.
+ports/python/**/__pycache__/
+ports/python/**/*.egg-info/
