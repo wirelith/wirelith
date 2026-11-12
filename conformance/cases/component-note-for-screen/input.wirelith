@@ -1,0 +1,5 @@
+screen "Checkout" phone #checkout
+  h1 "Checkout"
+  button "Pay" primary #pay
+  note "Shown after the cart" for=#checkout
+  note "Disabled until a card is added" for=#pay

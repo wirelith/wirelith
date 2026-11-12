@@ -1,0 +1,66 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "id": "checkout",
+      "label": "Checkout",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "h1",
+          "label": "Checkout",
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "button",
+          "id": "pay",
+          "label": "Pay",
+          "flags": [
+            "primary"
+          ],
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "note",
+          "label": "Shown after the cart",
+          "attrs": {
+            "for": {
+              "ref": "checkout"
+            }
+          },
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "note",
+          "label": "Disabled until a card is added",
+          "attrs": {
+            "for": {
+              "ref": "pay"
+            }
+          },
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

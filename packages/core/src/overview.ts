@@ -165,7 +165,9 @@ export function buildOverview(doc: Document, theme: Theme, opts: Options): Overv
       notes.forEach((note, i) => {
         const number = i + 1;
         const f = note.attrs?.for;
-        const ref = typeof f === 'object' && f !== null && !Array.isArray(f) ? f.ref : undefined;
+        const named = typeof f === 'object' && f !== null && !Array.isArray(f) ? f.ref : undefined;
+        // A note whose for= names its own screen is about the whole screen, like one without for=.
+        const ref = named === s.id ? undefined : named;
         for (const frame of [base, ...overlaysOf(s).map((o) => extraFrame.get(o))]) {
           if (!frame) continue;
           if (ref === undefined) {

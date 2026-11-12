@@ -267,7 +267,7 @@ screen "Checkout" #checkout
 ```
 
 - A `note` is a child of a `screen`. Its label is the note text.
-- `for=#id` points the note at an element in the same screen. Without `for`, the note is about the whole screen. An id that doesn't exist is `E401`; an element in another screen is `E402`.
+- `for=#id` points the note at an element in the same screen. Without `for`, or with `for` naming the note's own screen, the note is about the whole screen. An id that doesn't exist is `E401`; an element in another screen is `E402`.
 - Notes are numbered from 1 in source order, per screen.
 - The renderer draws a numbered marker at the top-right corner of the target (the screen frame's corner for a note without `for`), and a numbered list of the notes beside the screen. Notes never change the layout inside the screen. A note about an element that isn't drawn, such as one inside an overlay that is never shown, is listed but has no marker.
 - A host MAY hide notes (section 8).
