@@ -239,7 +239,7 @@ describe('notes and arrows (7.4)', () => {
    * A source with screens of mixed sizes, variants, linked overlays, notes, links in both
    * directions, and flows.
    */
-  const generate = (seed: number) => {
+  const generate = (seed: number, many = false) => {
     let x = seed;
     // A small 32-bit generator, so every run makes the same sources.
     const rand = (n: number) => {
@@ -248,10 +248,12 @@ describe('notes and arrows (7.4)', () => {
       t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
       return ((t ^ (t >>> 14)) >>> 0) % n;
     };
-    const count = 2 + rand(5);
+    // With many, there are enough wide screens to wrap into three or more bands.
+    const count = many ? 30 + rand(15) : 2 + rand(5);
     const lines: string[] = ['wirelith 0.1'];
     for (let i = 0; i < count; i++) {
-      const device = ['phone', 'tablet', 'desktop', 'size=300x200'][rand(4)];
+      const device =
+        many && rand(3) > 0 ? 'desktop' : ['phone', 'tablet', 'desktop', 'size=300x200'][rand(4)];
       const variant = i > 0 && rand(4) === 0 ? ` of=#s${rand(i)} state="Empty"` : '';
       lines.push(`screen "S${i}" ${device} #s${i}${variant}`);
       if (rand(3) === 0) {
@@ -287,7 +289,11 @@ describe('notes and arrows (7.4)', () => {
       '',
     ].join('\n');
     let checked = 0;
-    for (const src of [readme, ...Array.from({ length: 300 }, (_, i) => generate(i + 1))]) {
+    const generated = [
+      ...Array.from({ length: 300 }, (_, i) => generate(i + 1)),
+      ...Array.from({ length: 40 }, (_, i) => generate(i + 1, true)),
+    ];
+    for (const src of [readme, ...generated]) {
       const notes = noteBoxes(src);
       const segs = segments(src);
       checked += notes.length;
@@ -298,7 +304,15 @@ describe('notes and arrows (7.4)', () => {
 
   it('never draws an arrow through a frame other than the one it leaves', () => {
     let arrows = 0;
-    for (const src of Array.from({ length: 300 }, (_, i) => generate(i + 1))) {
+    const sources = [
+      ...Array.from({ length: 300 }, (_, i) => generate(i + 1)),
+      ...Array.from({ length: 40 }, (_, i) => generate(i + 1, true)),
+    ];
+    // Some of them really do wrap into several bands.
+    expect(
+      sources.filter((src) => new Set(layout(src).frames.map((f) => f.y)).size > 3).length,
+    ).toBeGreaterThan(10);
+    for (const src of sources) {
       const boxes = frameBoxes(src);
       for (const { start, segs } of arrowsOf(src)) {
         arrows++;

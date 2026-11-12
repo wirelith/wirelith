@@ -411,9 +411,23 @@ function route(
   }
 
   // First pass: which gaps each arrow uses.
-  // Gaps in different bands are different gaps, even where their x-ranges line up.
-  const key = (g: Gap) => `${g.band}:${g.a}:${g.b}`;
+  // Gaps in different bands are different gaps, even where their x-ranges line up. The left
+  // margin is one gap for the whole canvas: arrows between bands run in it too.
+  const MARGIN_GAP: Gap = { band: -1, a: 0, b: MARGIN };
+  const key = (g: Gap) => (g.a === 0 ? 'margin' : `${g.band}:${g.a}:${g.b}`);
   const usage = new Map<string, number>();
+  const take = (g: Gap) => {
+    const k = (usage.get(key(g)) ?? 0) + 1;
+    usage.set(key(g), k);
+    return k;
+  };
+  // An arrow to a band more than one band below, or to any band above, leaves its own band by
+  // the lane next to it, runs along the left margin, and joins the lane above the target's band.
+  const viaMargin = (S: PlacedFrame, T: PlacedFrame) => {
+    const bs = bandOf.get(S) ?? 0;
+    const bt = bandOf.get(T) ?? 0;
+    return bt < bs || bt > bs + 1;
+  };
   const routes = plans.map((p) => {
     const S = p.from;
     const T = p.to;
@@ -428,18 +442,18 @@ function route(
     const gs = (dir === 'right' ? rightGap.get(S) : leftGap.get(S)) as Gap;
     const gt = (dir === 'right' || overlap ? leftGap.get(T) : rightGap.get(T)) as Gap;
     const same = key(gs) === key(gt);
-    const slotS = (usage.get(key(gs)) ?? 0) + 1;
-    usage.set(key(gs), slotS);
-    let slotT = slotS;
-    if (!same) {
-      slotT = (usage.get(key(gt)) ?? 0) + 1;
-      usage.set(key(gt), slotT);
-    }
-    return { p, dir, overlap, gs, gt, same, slotS, slotT };
+    const slotS = take(gs);
+    const slotT = same ? slotS : take(gt);
+    const slotM = !same && viaMargin(S, T) ? take(MARGIN_GAP) : 0;
+    return { p, dir, overlap, gs, gt, same, slotS, slotT, slotM };
   });
 
-  // Lanes run above the band that holds the arrow's target, numbered per band in link order.
+  // Lanes run above a band, numbered per band in link order.
   const lanes: number[] = bands.map(() => 0);
+  const lane = (b: number) => {
+    lanes[b] = (lanes[b] ?? 0) + 1;
+    return r((tops[b] ?? 0) - TITLE - LANE * (lanes[b] ?? 0));
+  };
   const arrows: Arrow[] = routes.map((rt) => {
     const { p, dir, overlap, gs, gt, same } = rt;
     const S = p.from;
@@ -458,12 +472,27 @@ function route(
     let points: [number, number][];
     if (same) {
       points = [start, [xs, start[1]], [xs, entryY], [entryX, entryY]];
-    } else {
-      const b = bandOf.get(T) ?? 0;
-      lanes[b] = (lanes[b] ?? 0) + 1;
-      const laneY = r((tops[b] ?? 0) - TITLE - LANE * (lanes[b] ?? 0));
+    } else if (rt.slotM === 0) {
+      const laneY = lane(bandOf.get(T) ?? 0);
       const xt = xIn(gt, rt.slotT);
       points = [start, [xs, start[1]], [xs, laneY], [xt, laneY], [xt, entryY], [entryX, entryY]];
+    } else {
+      const bs = bandOf.get(S) ?? 0;
+      const bt = bandOf.get(T) ?? 0;
+      const outY = lane(bt < bs ? bs : bs + 1);
+      const xm = xIn(MARGIN_GAP, rt.slotM);
+      const inY = lane(bt);
+      const xt = xIn(gt, rt.slotT);
+      points = [
+        start,
+        [xs, start[1]],
+        [xs, outY],
+        [xm, outY],
+        [xm, inY],
+        [xt, inY],
+        [xt, entryY],
+        [entryX, entryY],
+      ];
     }
     points = points.filter(
       (pt, i) => i === 0 || pt[0] !== points[i - 1]?.[0] || pt[1] !== points[i - 1]?.[1],
