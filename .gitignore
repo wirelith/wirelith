@@ -7,3 +7,6 @@ coverage/
 .idea/
 .claude/
 *.log
+
+# Copied from third-party/fonts at build time.
+packages/png/fonts/

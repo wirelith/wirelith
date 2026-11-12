@@ -21,6 +21,7 @@ export {
   SPECIMEN_SOURCE,
   validate,
 } from './api.js';
+export { format } from './format.js';
 export type {
   Diagnostic,
   Document,

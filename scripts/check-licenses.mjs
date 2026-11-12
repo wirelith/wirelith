@@ -22,10 +22,12 @@ const MPL_ALLOWED = [
   { pattern: /^lightningcss(?:-|$)/, why: 'a development-only dependency of the test runner' },
 ];
 
+// --recursive: every workspace package's dependencies, not only the root project's.
+const args = ['licenses', 'list', '--json', '--recursive'];
 const execPath = process.env.npm_execpath;
 const out = execPath
-  ? execFileSync(process.execPath, [execPath, 'licenses', 'list', '--json'], { encoding: 'utf8' })
-  : execFileSync('pnpm', ['licenses', 'list', '--json'], { encoding: 'utf8' });
+  ? execFileSync(process.execPath, [execPath, ...args], { encoding: 'utf8' })
+  : execFileSync('pnpm', args, { encoding: 'utf8' });
 /** @type {Record<string, { name: string, versions: string[] }[]>} */
 const byLicense = JSON.parse(out);
 

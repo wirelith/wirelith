@@ -5,6 +5,12 @@
       "path": "packages/core"
     },
     {
+      "path": "packages/png"
+    },
+    {
+      "path": "packages/cli"
+    },
+    {
       "path": "scripts"
     },
     {
