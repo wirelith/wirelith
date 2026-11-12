@@ -1,0 +1,21 @@
+# Wirelith
+
+> Wirelith is a small plain-text language for low-fidelity wireframes: screens, layout, forms, tables, states and click-through flows. You write it in a markdown code fence whose language is `wirelith`, and a renderer turns it into SVG. It needs no account, service or particular app, and it is MIT licensed.
+
+To write Wirelith, read the one-page AI spec first: it describes the whole language. Then check every source you write, and fix each error it reports before rendering.
+
+## Start here
+
+- [Wirelith in one page](https://github.com/wirelith/wirelith/blob/main/spec/ai-spec.md): the whole language, for writing sources
+- [Agent skill](https://github.com/wirelith/wirelith/blob/main/skills/wirelith/SKILL.md): how to write, check and render Wirelith, step by step
+
+## Tools
+
+- [MCP server](https://github.com/wirelith/wirelith/blob/main/packages/mcp/README.md): validate, render and convert tools, and the one-page spec as a resource and a prompt
+- [Command-line tool](https://github.com/wirelith/wirelith/blob/main/packages/cli/README.md): `wirelith check`, `wirelith render`, `wirelith fmt`, `wirelith prompt`
+- [Core library](https://github.com/wirelith/wirelith/blob/main/packages/core/README.md): parse, validate, layout, render, outline, format, for JavaScript and TypeScript
+
+## Reference
+
+- [Specification](https://github.com/wirelith/wirelith/blob/main/spec/spec.md): the full language, layout and output rules, and every diagnostic code
+- [Conformance suite](https://github.com/wirelith/wirelith/blob/main/conformance/README.md): for implementing Wirelith in another language
