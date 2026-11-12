@@ -206,10 +206,38 @@ describe('notes and arrows (7.4)', () => {
   };
   const meet = (a: Rect, b: Rect) => a.x0 <= b.x1 && b.x0 <= a.x1 && a.y0 <= b.y1 && b.y0 <= a.y1;
 
+  /** Every frame's box, shrunk by 1 px so an arrow that ends on its edge doesn't count. */
+  const frameBoxes = (src: string): Rect[] =>
+    layout(src).frames.map((f) => ({
+      x0: f.x + 1,
+      y0: f.y + 1,
+      x1: f.x + f.width - 1,
+      y1: f.y + f.height - 1,
+    }));
+  /** Each arrow's start point and segments, in order. */
+  const arrowsOf = (src: string): { start: number[]; segs: Rect[] }[] => {
+    const svg = render(src).svg ?? '';
+    return [...svg.matchAll(/<path d="(M[^"]*)"[^>]*marker-end=/g)].map((m) => {
+      const pts = [...(m[1] ?? '').matchAll(/[ML]([0-9.]+) ([0-9.]+)/g)].map((p) => [
+        Number(p[1]),
+        Number(p[2]),
+      ]);
+      const segs = pts.slice(1).map((b, i) => {
+        const a = pts[i] as number[];
+        return {
+          x0: Math.min(a[0] ?? 0, b[0] ?? 0),
+          y0: Math.min(a[1] ?? 0, b[1] ?? 0),
+          x1: Math.max(a[0] ?? 0, b[0] ?? 0),
+          y1: Math.max(a[1] ?? 0, b[1] ?? 0),
+        };
+      });
+      return { start: pts[0] ?? [0, 0], segs };
+    });
+  };
+
   /**
-   * A source with screens of mixed sizes, notes, links in both directions, and flows. It has no
-   * variants: an arrow to a variant narrower than the frame above it can cross that frame, notes
-   * or not, which is a routing problem of its own.
+   * A source with screens of mixed sizes, variants, linked overlays, notes, links in both
+   * directions, and flows.
    */
   const generate = (seed: number) => {
     let x = seed;
@@ -224,7 +252,15 @@ describe('notes and arrows (7.4)', () => {
     const lines: string[] = ['wirelith 0.1'];
     for (let i = 0; i < count; i++) {
       const device = ['phone', 'tablet', 'desktop', 'size=300x200'][rand(4)];
-      lines.push(`screen "S${i}" ${device} #s${i}`);
+      const variant = i > 0 && rand(4) === 0 ? ` of=#s${rand(i)} state="Empty"` : '';
+      lines.push(`screen "S${i}" ${device} #s${i}${variant}`);
+      if (rand(3) === 0) {
+        lines.push(
+          `  button "Open" #o${i} -> #m${i}`,
+          `  modal "Dialog ${i}" #m${i}`,
+          `    button "Done" -> #s${rand(count)}`,
+        );
+      }
       for (let k = 0; k < 1 + rand(4); k++) {
         lines.push(`  button "Go ${k}" #b${i}x${k} -> #s${rand(count)} "Label ${k}"`);
       }
@@ -258,6 +294,26 @@ describe('notes and arrows (7.4)', () => {
       for (const n of notes) for (const s of segs) expect(meet(n, s), src).toBe(false);
     }
     expect(checked).toBeGreaterThan(100);
+  });
+
+  it('never draws an arrow through a frame other than the one it leaves', () => {
+    let arrows = 0;
+    for (const src of Array.from({ length: 300 }, (_, i) => generate(i + 1))) {
+      const boxes = frameBoxes(src);
+      for (const { start, segs } of arrowsOf(src)) {
+        arrows++;
+        const [sx = 0, sy = 0] = start;
+        // The first segment starts inside the frame it leaves, and may cross it.
+        const own = boxes.filter((b) => b.x0 <= sx && sx <= b.x1 && b.y0 <= sy && sy <= b.y1);
+        segs.forEach((seg, i) => {
+          for (const b of boxes) {
+            if (i === 0 && own.includes(b)) continue;
+            expect(meet(b, seg), src).toBe(false);
+          }
+        });
+      }
+    }
+    expect(arrows).toBeGreaterThan(1000);
   });
 
   it('puts the notes list 24 px below its frame, as wide as the frame or 240 px', () => {
