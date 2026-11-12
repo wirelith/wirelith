@@ -1,0 +1,22 @@
+wirelith 0.1
+
+screen "Sign in" phone #signin
+  h1 "Welcome back"
+  input "Email" type=email placeholder="you@example.com"
+  input "Password" type=password
+  row justify=between
+    checkbox "Remember me"
+    link "Forgot password?" -> #reset
+  button "Sign in" primary -> #home
+  note "Disabled until both fields are filled in" for=#signin
+
+screen "Reset password" phone #reset
+  h1 "Reset your password"
+  text "We'll email you a link."
+  input "Email" type=email
+  button "Send link" primary -> #signin
+
+screen "Home" phone #home
+  h1 "Hello, Sam"
+  empty "No messages yet"
+    button "Write one" primary
