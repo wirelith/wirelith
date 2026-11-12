@@ -1,7 +1,7 @@
 # RFC 0000: Arrow labels on lanes
 
 - **Status:** draft
-- **Spec version:** 0.1. The specification is still a draft and no version has been released, so this changes 0.1 rather than starting 0.2.
+- **Spec version:** 0.1, which is still a draft. Section 14 as written would make this a new minor version. This RFC relies on [RFC 0000-spec-releases](https://github.com/wirelith/wirelith/pull/20) (#20), under which a version is a draft until it is released.
 
 ## Summary
 
