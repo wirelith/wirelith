@@ -21,6 +21,7 @@ export default defineConfig({
       'scripts/**/test/**/*.test.mjs',
       'spec/**/test/**/*.test.mjs',
       'conformance/test/**/*.test.mjs',
+      'eval/test/**/*.test.mjs',
     ],
   },
 });

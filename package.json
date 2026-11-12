@@ -26,6 +26,7 @@
     "@biomejs/biome": "2.6.3",
     "@changesets/cli": "3.0.3",
     "@types/node": "22.20.5",
+    "@wirelith/core": "workspace:*",
     "esbuild": "0.28.2",
     "lucide-static": "1.62.0",
     "typescript": "7.0.2",

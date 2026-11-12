@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "outDir": "../node_modules/.cache/eval-types",
+    "types": ["node"]
+  },
+  "include": ["*.mjs", "test/**/*.mjs"],
+  "references": [{ "path": "../packages/core" }]
+}

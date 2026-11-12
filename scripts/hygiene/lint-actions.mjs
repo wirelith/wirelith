@@ -9,7 +9,8 @@
 //   workflows running from main can use.
 
 import { readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
 
 const DIR = '.github/workflows';
@@ -79,7 +80,7 @@ function checkUses(uses, where, problems) {
   if (!PINNED.test(uses)) problems.push(`${where}: pin "${uses}" to a full commit SHA`);
 }
 
-const isMain = process.argv[1]?.endsWith('lint-actions.mjs');
+const isMain = process.argv[1] !== undefined && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {
   const problems = [];
   for (const f of readdirSync(DIR)
