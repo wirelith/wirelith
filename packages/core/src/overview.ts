@@ -253,13 +253,15 @@ export function buildOverview(doc: Document, theme: Theme, opts: Options): Overv
   const frames = groups.flat(2);
   if (alone) {
     const f = frames[0] as PlacedFrame;
+    // A marker on the frame's own corner reaches 9 px past it; leave room so it isn't cut off.
+    const room = f.markers.some((m) => m.x === f.w && m.y === 0) ? 9 : 0;
     f.x = 0;
-    f.y = 0;
+    f.y = room;
     return {
       frames,
       arrows: [],
-      width: r(outer(f)),
-      height: r(tall(f)),
+      width: r(Math.max(outer(f), f.w + room)),
+      height: r(tall(f) + room),
       alone,
       layout,
       linkCount: countLinks(doc),

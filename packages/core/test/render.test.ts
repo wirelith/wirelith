@@ -75,6 +75,48 @@ describe('render', () => {
   });
 });
 
+describe('note markers (6, 7.4)', () => {
+  /**
+   * Every marker circle's centre on the canvas, and the canvas size, for a source with one screen.
+   * Markers inside the frame are drawn in the frame's coordinates, so its translation is added.
+   */
+  const markers = (src: string) => {
+    const svg = render(src).svg ?? '';
+    const [, w = '0', h = '0'] = svg.match(/viewBox="0 0 ([0-9.]+) ([0-9.]+)"/) ?? [];
+    const [, tx = '0', ty = '0'] =
+      svg.match(/class="wl-screen" transform="translate\(([0-9.-]+) ([0-9.-]+)\)"/) ?? [];
+    const at = svg.indexOf('class="wl-notes"');
+    const circles = [...svg.matchAll(/<circle cx="([0-9.-]+)" cy="([0-9.-]+)" r="9"/g)].map((m) => {
+      const inFrame = at < 0 || (m.index ?? 0) < at;
+      return [Number(m[1]) + (inFrame ? Number(tx) : 0), Number(m[2]) + (inFrame ? Number(ty) : 0)];
+    });
+    return { circles, w: Number(w), h: Number(h) };
+  };
+
+  it('puts a note whose for= names its own screen on the screen, like a note without for=', () => {
+    const own = markers('screen "A" phone #a\n  note "About A" for=#a\n');
+    const none = markers('screen "A" phone #a\n  note "About A"\n');
+    expect(own).toEqual(none);
+    // One marker on the frame's corner and one in the notes list.
+    expect(own.circles).toHaveLength(2);
+  });
+
+  it('keeps every marker of a lone screen whole on the canvas', () => {
+    for (const src of [
+      'screen "A" phone #a\n  note "About A"\n',
+      'screen "A" size=200x100 #a\n  button "Go" #go\n  note "About A"\n  note "About Go" for=#go\n',
+    ]) {
+      const { circles, w, h } = markers(src);
+      for (const [x = 0, y = 0] of circles) {
+        expect(x - 9, src).toBeGreaterThanOrEqual(0);
+        expect(y - 9, src).toBeGreaterThanOrEqual(0);
+        expect(x + 9, src).toBeLessThanOrEqual(w);
+        expect(y + 9, src).toBeLessThanOrEqual(h);
+      }
+    }
+  });
+});
+
 describe('extractSource', () => {
   it('returns null when there is no embedded source', () => {
     expect(extractSource('<svg xmlns="http://www.w3.org/2000/svg"/>')).toBeNull();

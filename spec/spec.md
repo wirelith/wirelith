@@ -332,7 +332,7 @@ In detail:
 - **Bands.** Groups are placed in bands. A group that would make the overview wider than 16,000 px (section 16), counting the 32 px margin on each side, starts a new band, below the tallest group of the band before, 96 px further down. The first group of a band is never moved to a new band, so a single group wider than the canvas is still `E701`.
 - **Notes.** A frame with notes has its notes list in a 240 px column, 24 px to its right. The column counts as part of the frame for spacing.
 - **Canvas.** The overview has a 32 px margin on every side. Each frame's title is one line, set 8 px above the frame (Appendix C.9).
-- **One screen alone.** A source with one screen, no links and no linked overlays is drawn as that frame and its notes column, with no title line and no margin.
+- **One screen alone.** A source with one screen, no links and no linked overlays is drawn as that frame and its notes column, with no title line and no margin. When the frame has a note marker on its own top-right corner, the frame starts 9 px down and the canvas reaches at least 9 px past the frame's right edge, so that the marker isn't cut off.
 - **Where an arrow starts.** A link on an element inside an overlay starts from the overlay's frame. A `flow` arrow starts from the middle of its source frame's edge. A link to an overlay that has `open` points at its own screen's frame; it is not drawn.
 - **Options.** With `flows` off, arrows are not drawn, but overlay frames still are. With `notes` off, neither markers nor lists are drawn, and frames close up as if no notes existed.
 - **Errors.** A renderer given a source with errors returns its diagnostics and no SVG. How a host shows the diagnostics is up to the host.
