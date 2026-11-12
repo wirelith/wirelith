@@ -6,7 +6,16 @@
 // Exit codes: 0 when everything worked; 1 when a source has errors, or `fmt --check` found a file
 // to change; 2 for a usage error; 3 when a file can't be read or written.
 
-import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, watch, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  type FSWatcher,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  statSync,
+  watch,
+  writeFileSync,
+} from 'node:fs';
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
 import { type ParseArgsOptionsConfig, parseArgs } from 'node:util';
 import {
@@ -283,19 +292,33 @@ async function renderCommand(inputs: string[], flags: RenderFlags, io: Io): Prom
   if (!flags.watch) return await run();
   if (inputs.length === 0 || inputs.includes('-'))
     throw new UsageError('--watch needs files or folders, not standard input');
-  // Start watching before the first render, so that no change made meanwhile is missed.
+  // Start watching before the first render, so that no change made meanwhile is missed. Only
+  // changes to sources count: the command's own SVG and PNG output must not set it off again.
   let timer: NodeJS.Timeout | undefined;
-  for (const input of inputs) {
-    const path = resolve(io.cwd, input);
-    if (!existsSync(path)) throw new FileError(`${input} does not exist`);
-    watch(path, { recursive: statSync(path).isDirectory() }, () => {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => {
-        run().catch((e: Error) => io.stderr(`${e.message}\n`));
-      }, 100);
-    });
+  const watchers: FSWatcher[] = [];
+  const stop = () => {
+    for (const w of watchers) w.close();
+  };
+  try {
+    for (const input of inputs) {
+      const path = resolve(io.cwd, input);
+      if (!existsSync(path)) throw new FileError(`${input} does not exist`);
+      watchers.push(
+        watch(path, { recursive: statSync(path).isDirectory() }, (_event, filename) => {
+          if (filename && !/\.(wirelith|md)$/.test(String(filename))) return;
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            run().catch((e: Error) => io.stderr(`${e.message}\n`));
+          }, 100);
+        }),
+      );
+    }
+    await run();
+  } catch (e) {
+    // Nothing to watch for after a usage or file error: let the process end.
+    stop();
+    throw e;
   }
-  await run();
   io.stderr('watching for changes; press Ctrl+C to stop\n');
   return new Promise<number>(() => {});
 }

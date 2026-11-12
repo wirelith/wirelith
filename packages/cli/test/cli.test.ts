@@ -203,15 +203,16 @@ describe('extract, prompt, help and errors', () => {
 });
 
 describe('--watch', () => {
-  it('renders again when the input changes', async () => {
+  /** Builds the CLI into one file, so it can run as a real process. */
+  async function bundle(): Promise<string> {
     const { build } = await import('esbuild');
-    const bundle = join(dir, 'cli.mjs');
+    const out = join(dir, 'cli.mjs');
     await build({
       entryPoints: ['packages/cli/src/cli.ts'],
       bundle: true,
       platform: 'node',
       format: 'esm',
-      outfile: bundle,
+      outfile: out,
       logLevel: 'silent',
       external: ['@wirelith/png'],
       alias: {
@@ -219,28 +220,76 @@ describe('--watch', () => {
         '@wirelith/core': resolve('packages/core/src/index.ts'),
       },
     });
-    file('w.wirelith', 'screen "Before"\n');
-    const child = spawn(process.execPath, [bundle, 'render', 'w.wirelith', '--watch'], { cwd: dir });
-    let stderr = '';
+    return out;
+  }
+
+  /** Starts `wirelith <args>`, collecting what it writes to standard error. */
+  async function start(args: string[]) {
+    const child = spawn(process.execPath, [await bundle(), ...args], { cwd: dir });
+    const state = { stderr: '', code: null as number | null };
     child.stderr.on('data', (d) => {
-      stderr += String(d);
+      state.stderr += String(d);
     });
-    const svg = () => (existsSync(join(dir, 'w.svg')) ? readFileSync(join(dir, 'w.svg'), 'utf8') : '');
-    const until = async (f: () => boolean) => {
-      for (let i = 0; i < 100 && !f(); i++) await new Promise((r) => setTimeout(r, 50));
-      return f();
+    const exited = new Promise<void>((r) =>
+      child.once('exit', (code) => {
+        state.code = code;
+        r();
+      }),
+    );
+    const stop = async () => {
+      if (state.code === null) child.kill();
+      await exited;
     };
+    return { state, stop, exited };
+  }
+
+  const until = async (f: () => boolean, ms = 5000) => {
+    for (let t = 0; t < ms && !f(); t += 50) await new Promise((r) => setTimeout(r, 50));
+    return f();
+  };
+  const pause = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  it('renders again when the input changes', async () => {
+    file('w.wirelith', 'screen "Before"\n');
+    const svg = () => (existsSync(join(dir, 'w.svg')) ? readFileSync(join(dir, 'w.svg'), 'utf8') : '');
+    const p = await start(['render', 'w.wirelith', '--watch']);
     try {
-      expect(await until(() => svg().includes('Before') && stderr.includes('watching for changes'))).toBe(
-        true,
-      );
+      expect(
+        await until(() => svg().includes('Before') && p.state.stderr.includes('watching for changes')),
+      ).toBe(true);
       writeFileSync(join(dir, 'w.wirelith'), 'screen "After"\n');
       expect(await until(() => svg().includes('After'))).toBe(true);
     } finally {
-      // Wait for the process to end before the folder is removed.
-      const exited = new Promise((r) => child.once('exit', r));
-      child.kill();
-      await exited;
+      await p.stop();
+    }
+  }, 20000);
+
+  it('is not set off again by its own output in a watched folder', async () => {
+    file('designs/a.wirelith', 'screen "A"\n');
+    const wrote = () => (p.state.stderr.match(/^wrote /gm) ?? []).length;
+    const p = await start(['render', 'designs', '--watch']);
+    try {
+      expect(await until(() => p.state.stderr.includes('watching for changes'))).toBe(true);
+      await pause(800);
+      expect(wrote()).toBe(1);
+      writeFileSync(join(dir, 'designs/a.wirelith'), 'screen "A again"\n');
+      expect(await until(() => wrote() >= 2)).toBe(true);
+      await pause(800);
+      expect(wrote()).toBe(2);
+    } finally {
+      await p.stop();
+    }
+  }, 20000);
+
+  it('exits when the first render fails, instead of waiting forever', async () => {
+    file('a.wirelith', 'screen "A"\n');
+    file('b.wirelith', 'screen "B"\n');
+    const p = await start(['render', 'a.wirelith', 'b.wirelith', '-o', 'one.svg', '--watch']);
+    try {
+      expect(await until(() => p.state.code !== null)).toBe(true);
+      expect(p.state.code).toBe(2);
+    } finally {
+      await p.stop();
     }
   }, 20000);
 });
