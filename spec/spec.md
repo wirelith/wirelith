@@ -323,7 +323,7 @@ A renderer has two modes.
 1. Screens are placed left to right in source order, tops aligned, 96 px apart. Each has its title above it.
 2. A variant is placed directly below its base screen, 64 px apart, with its `state` name after the title, as `Title (State)`.
 3. An overlay that is the target of a link and does not have `open` is drawn as an extra frame after its screen: the screen, dimmed, with the overlay open.
-4. Each link is an arrow from the right edge of its source element to the nearest edge of its target frame, with its label at the midpoint. Arrows are routed around frames with horizontal and vertical segments only (section 10.6).
+4. Each link is an arrow from the right edge of its source element to the nearest edge of its target frame. Its label, if it has one, sits on a lane above the frames (section 10.6). Arrows are routed around frames with horizontal and vertical segments only (section 10.6).
 5. A source with one screen and no links is drawn as that screen alone.
 
 In detail:
@@ -552,11 +552,12 @@ Appendix C gives the complete geometry of every component, including marks, bord
 1. An arrow leaves the middle of its source element's right edge. If the target frame is to the left, it leaves the left edge.
 2. It runs horizontally to the gap between frames, vertically to the height of its entry point, then horizontally into the target frame's nearest vertical edge, entering 48 px below the frame's top.
 3. A gap is the space between two columns of a group (section 7.4), between two groups, or before the first group of a band. It runs the full height of its band, so an arrow in it never crosses a frame. The gap to the right of a frame begins at its column's right edge, not at the frame's. Arrows that share a gap are spread across it at equal spacing, in source order: with n arrows in a gap of width w, the k-th (from 1) runs at w × k ÷ (n + 1) from the gap's left edge. A gap belongs to one band: gaps in different bands are different gaps, even where they line up.
-4. A link to a variant below its base runs down the gap to the left of the variant.
-5. When the target frame is not across the gap next to the source frame, the arrow climbs or drops down its gap to a lane above the band that holds the target, runs along the lane, and drops down the gap beside the target. That covers a target in the same band, or in the band just below. Lanes are 12 px apart, starting 12 px above that band's frame titles, numbered in link order for each band. The space above each band grows by 12 px for each of its lanes.
+4. A link without a label to a variant below its base runs down the gap to the left of the variant.
+5. When the target frame is not across the gap next to the source frame, or the arrow has a label, the arrow climbs or drops down its gap to a lane above the band that holds the target, runs along the lane, and drops down the gap beside the target. That covers a target in the same band, or in the band just below. Lanes are numbered in link order for each band. Each lane is 12 px above the lane below it, or above that band's frame titles for the first lane; a lane that carries a label is 24 px above instead. The space above each band grows by as much.
    - **A target in a band above, or more than one band below.** The arrow climbs to a lane above its own band (or drops to a lane above the band below it), runs along that lane to the left margin, runs up or down the margin to a lane above the target's band, then along that lane and down the gap beside the target. It takes the first lane, then the second, in that order. The left margin is one gap for the whole canvas, so arrows in it are spread across it like arrows in any gap. Arrows that start or end beside the first group of a band use it too.
 6. Links are numbered in source order: elements' links in a depth-first walk of each screen, screens in source order, then `flow` lines.
-7. Arrows are drawn as described in Appendix C.9. Overlapping arrows beyond these rules are allowed.
+7. **Labels.** An arrow's label sits on the lane above the target's band, centred on the arrow's run along it. A label that would reach past the left or right edge of the canvas moves inward until it doesn't. A label never covers a frame, a frame title or another label.
+8. Arrows are drawn as described in Appendix C.9. Overlapping arrows beyond these rules are allowed.
 
 ## 11. Text measurement
 
@@ -594,7 +595,7 @@ The only other element is the `wl:source` element inside `metadata` (section 12.
 - **Ids** are `<idPrefix>-<source id>` for elements that have an id in the source, and `<idPrefix>-n<index>` otherwise, where the index is the element's position in a depth-first, pre-order walk of the syntax tree, from 0. The walk covers the screens, in source order, and everything under them, screens included; themes and `flow` lines are not counted. An extra frame for an overlay is a `g` with the id `<idPrefix>-<overlay's id>-frame`. Elements drawn again inside an extra frame put the frame's name before their own, as `<idPrefix>-<overlay's id>-frame-<element's id>`, so that every id in the document is unique. The notes list below a frame is a `g` with the id `<frame's id>-notes`.
 - Text is drawn as `text` elements, never as outlines. `font-family` is exactly `Inter, sans-serif`, `'Source Serif 4', serif` or `'JetBrains Mono', monospace`.
 - **Numbers** are written with at most one decimal place and no trailing zero: `12`, `12.5`, `-3`. Every position is already a multiple of 0.5 (section 10.1). `-0` is written `0`. There are three exceptions: opacities are written as given in Appendix C; an icon's scale and stroke width are written with up to four decimal places (Appendix C.1); and an icon's drawing is copied exactly as it is in `icons.json`.
-- Attribute order within an element (Appendix D), number formatting and element order (source order, overlays last, notes after those, arrows after those) are fixed, so that outputs can be compared byte for byte after the normalisation the conformance suite defines.
+- Attribute order within an element (Appendix D), number formatting and element order (source order, overlays last, notes after those, arrows after those, and arrow labels after every arrow) are fixed, so that outputs can be compared byte for byte after the normalisation the conformance suite defines.
 
 ### 12.3 Embedded source
 
@@ -1326,7 +1327,7 @@ This appendix completes section 10.5. With it, the layout and the drawing of eve
 | Note marker | A `circle` of radius 9, fill `primary`, centred on the target's top-right corner; its number centred in it (12, weight 600, `on-primary`) |
 | Arrow | A `path` of straight segments, `stroke` = `muted`, width S, no fill, `stroke-linejoin="round"`, ending in the marker below |
 | Arrowhead | A `marker` in `defs` with the id `<idPrefix>-arrow`: `markerWidth` 8, `markerHeight` 8, `refX` 7, `refY` 4, `orient="auto"`, `markerUnits="userSpaceOnUse"`, holding a `path` `M0 0L8 4L0 8Z` with fill `muted` |
-| Arrow label | Centred on the point halfway along the path: a `rect` 18 px tall, 2u wider than the text, `rx` 3, fill `bg`, and the label (13, weight 500, `text`) |
+| Arrow label | A `g` with `class="wl-arrow-label"`, drawn after every arrow, centred where section 10.6 places it: a `rect` 18 px tall, 2u wider than the text, `rx` 3, fill `bg`, and the label (13, weight 500, `text`) |
 
 ### C.10 The theme specimen
 
