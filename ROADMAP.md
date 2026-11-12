@@ -10,7 +10,7 @@ This page lists what has to be true before 1.0. Each item links to the issue or 
   - notes below their screen (#13);
   - arrows never cross frames (#16);
   - arrow labels on lanes (#17).
-- [ ] **Define when a spec version counts as released.** Section 14 says a change that moves a pixel in a conformance output is a new minor version, but not when a version is released and stops changing. Decide how drafts and releases work, and what version the open RFCs land in.
+- [ ] **Define when a spec version counts as released** (#19, RFC #20). Section 14 says a change that moves a pixel in a conformance output is a new minor version, but not when a version is released and stops changing. The RFC makes a version a draft until the maintainers tag it, so the open RFCs land in 0.1.
 - [ ] **Decide what a note's `for=` means when it names its own screen.** Today it's accepted silently and draws no marker on the frame, while a note without `for=` does. Either treat it like a note without `for=`, or report a diagnostic.
 - [ ] **Review every component, flag and attribute for permanence.** Rename or remove anything we wouldn't keep forever, while 0.x still allows it.
 - [ ] **Mark the specification final** for 1.0, not draft.
