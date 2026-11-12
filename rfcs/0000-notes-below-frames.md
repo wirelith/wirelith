@@ -9,7 +9,7 @@ Draw a screen's notes list below the screen instead of beside it, so that no arr
 
 ## Motivation
 
-Today the notes list is a 240 px column 24 px to the right of its screen (spec section 7.4 and Appendix C). Arrows run through the gaps beside screens, so an arrow that leaves a screen with notes, or enters it from the right, crosses the notes column. The text becomes hard to read, and a label on the arrow can land on top of a note.
+Today the notes list is a 240 px column 24 px to the right of its screen (spec section 7.4 and Appendix C.9). Arrows run through the gaps beside screens, so an arrow that leaves a screen with notes, or enters it from the right, crosses the notes column. The text becomes hard to read, and a label on the arrow can land on top of a note.
 
 [This source](0000-notes-below-frames/example.wirelith) has one note on the "Sign in" screen, and three links that pass beside it:
 
@@ -54,7 +54,7 @@ Section 7.4, **Notes**, becomes:
 
 > A frame with notes has its notes list 24 px below it, as wide as the frame or 240 px, whichever is wider. The list counts as part of the frame for spacing. It is below the frame, not beside it, so that no arrow crosses it: arrows run only beside frames and above bands.
 
-Appendix C, **Notes list**, becomes:
+Appendix C.9, **Notes list**, becomes:
 
 > As wide as the frame or 240 px, whichever is wider, starting 24 px below the frame, level with its left edge. A heading `Notes` (13, weight 600, line height 18, `muted`), a 2u gap, then each note: its marker, and its text from 24 px further right (13, weight 400, line height 18, wrapping to the list's width less 24 px), with 2u between notes.
 
@@ -63,7 +63,7 @@ For spacing, a frame with notes takes up:
 - **width:** the frame's width, or the list's width if that is wider (it is only wider for frames narrower than 240 px);
 - **height:** the frame's height, plus 24 px, plus the list's height.
 
-Wording elsewhere in the spec changes from "beside" to "below" (sections 6, 7.4 "One screen alone" and 12.3), with no change in meaning. Markers don't change: they stay on the target's top-right corner. Nothing else in layout or arrow routing changes.
+Wording elsewhere in the spec changes from "beside" to "below" (sections 6, 7.4 "One screen alone" and 12.2), with no change in meaning. Markers don't change: they stay on the target's top-right corner. Nothing else in layout or arrow routing changes.
 
 Why no arrow can cross the list: an arrow's horizontal runs are level with its source or target frame, or in a lane above a band. Its vertical runs are in the gaps beside frames. The list is below its frame, within the frame's spacing width, so none of these reach it.
 
