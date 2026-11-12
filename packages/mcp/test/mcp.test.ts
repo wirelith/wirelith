@@ -111,6 +111,10 @@ describe('with the official client, in process', () => {
     await expect(
       client.callTool({ name: 'render', arguments: { source: GOOD, scale: 100 } }),
     ).rejects.toThrow();
+    // A name every JavaScript object has is still not an argument.
+    await expect(
+      client.callTool({ name: 'validate', arguments: { source: GOOD, constructor: 1 } }),
+    ).rejects.toThrow(/no argument "constructor"/);
     await expect(
       client.callTool({ name: 'convert', arguments: { source: GOOD, to: 'pdf' } }),
     ).rejects.toThrow();

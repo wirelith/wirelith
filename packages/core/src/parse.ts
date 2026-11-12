@@ -4,7 +4,7 @@
 // (section 13). A line with a syntax error is reported, then skipped together with its children,
 // and parsing continues, so that every error can be reported at once.
 
-import { COMPONENTS, closest, SYNONYMS, WRITTEN_NAMES } from './components.js';
+import { COMPONENTS, closest, own, SYNONYMS, setOwn, WRITTEN_NAMES } from './components.js';
 import type { Diagnostic, Document, Flow, Loc, Node, ThemeDecl, Value } from './types.js';
 
 export const SPEC_VERSION = '0.1';
@@ -338,7 +338,7 @@ function buildElement(tokens: Token[], line: number, type: string): Node {
     } else if (t.kind === 'word') {
       if (!flags.includes(t.text)) flags.push(t.text);
     } else if (t.kind === 'attr') {
-      attrs[t.key] = t.value;
+      setOwn(attrs, t.key, t.value);
       attrCount++;
     }
   }
@@ -482,8 +482,8 @@ export function parse(input: string): ParseResult {
       }
       if (theme) {
         theme.tokens ??= {};
-        theme.tokens[token] = NUMBER.test(valueText) ? Number(valueText) : valueText;
-        tokenLines[token] = lineNo;
+        setOwn(theme.tokens, token, NUMBER.test(valueText) ? Number(valueText) : valueText);
+        setOwn(tokenLines, token, lineNo);
       }
       stack.push({ level, kind: 'skip' });
       continue;
@@ -583,11 +583,11 @@ export function parse(input: string): ParseResult {
       continue;
     }
     let type = name;
-    if (!COMPONENTS[type] || type === 'table-row' || (level > 0 && type === 'screen')) {
+    if (!own(COMPONENTS, type) || type === 'table-row' || (level > 0 && type === 'screen')) {
       if (type === 'screen') {
         diagnostics.push(diagnostic('E203', loc, `Line ${lineNo}: "screen" must be at the top level`));
       } else {
-        const guess = SYNONYMS[type.toLowerCase()] ?? closest(type, WRITTEN_NAMES);
+        const guess = own(SYNONYMS, type.toLowerCase()) ?? closest(type, WRITTEN_NAMES);
         diagnostics.push(
           diagnostic(
             'E201',

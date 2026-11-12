@@ -12,6 +12,7 @@ import {
   INPUT_TYPES,
   JUSTIFIES,
   OVERLAYS,
+  own,
   SIZES,
 } from './components.js';
 import { ICON_NAMES } from './data/icons.js';
@@ -284,7 +285,7 @@ export function check(doc: Document): Diagnostic[] {
       continue;
     }
     if (p) {
-      const ps = COMPONENTS[p.type];
+      const ps = own(COMPONENTS, p.type);
       if (ps && !ps.children) {
         if (p.children?.[0] === n) {
           add('E204', n.loc, `Line ${n.loc.line}: "${p.type}" cannot contain other elements`);
@@ -301,11 +302,11 @@ export function check(doc: Document): Diagnostic[] {
   for (const w of all) {
     const n = w.node;
     if (skipped.has(n)) continue;
-    const spec = COMPONENTS[n.type];
+    const spec = own(COMPONENTS, n.type);
     if (!spec) continue;
     // One diagnostic per code per element, listing every problem, because they share a position.
     const name = n.type === 'table-row' ? 'row' : n.type;
-    const own = [...spec.flags, ...spec.attrs];
+    const ownParts = [...spec.flags, ...spec.attrs];
     const unknownParts: string[] = [];
     const badValues: string[] = [];
     for (const f of n.flags ?? []) {
@@ -333,7 +334,7 @@ export function check(doc: Document): Diagnostic[] {
       add(
         'W202',
         n.loc,
-        `Line ${n.loc.line}: "${name}" has no ${unknownParts.join(', ')} (it has: ${own.join(', ') || 'no flags or attributes of its own'})`,
+        `Line ${n.loc.line}: "${name}" has no ${unknownParts.join(', ')} (it has: ${ownParts.join(', ') || 'no flags or attributes of its own'})`,
       );
     }
     if (badValues.length > 0) add('W205', n.loc, `Line ${n.loc.line}: ${badValues.join('; ')}`);

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" role="img" aria-labelledby="wl-title wl-desc" xml:space="preserve"><title id="wl-title">A</title><desc id="wl-desc">Screens: A. 0 links.</desc><metadata><wl:source xmlns:wl="urn:wirelith:source" version="0.1">theme "t"
+  __proto__ 4
+screen "A"
+  button "x" __proto__=#a constructor=1
+</wl:source></metadata><defs><clipPath id="wl-n0-clip"><rect x="0" y="0" width="1280" height="800" rx="6"/></clipPath></defs><rect x="0" y="0" width="1280" height="800" fill="#f4f5f7"/><g id="wl-n0" class="wl-screen" transform="translate(0 0)"><title>A</title><rect x="0" y="0" width="1280" height="800" rx="6" fill="#ffffff"/><g clip-path="url(#wl-n0-clip)"><g id="wl-n1" class="wl-button"><rect x="24" y="24" width="1232" height="36" rx="6" fill="#ffffff" stroke="#9aa1ab" stroke-width="1.5"/><text x="636" y="49" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#22262b">x</text></g></g><rect x="0" y="0" width="1280" height="800" rx="6" fill="none" stroke="#9aa1ab" stroke-width="1.5"/></g></svg>

@@ -4,7 +4,7 @@
 // or a URL, and the output must still pass the strict checker.
 
 import { describe, expect, it } from 'vitest';
-import { extractSource, render, validate } from '../src/index.js';
+import { extractSource, parse, render, validate } from '../src/index.js';
 import { checkSvg } from './svg-check.js';
 
 const PAYLOADS = [
@@ -122,5 +122,38 @@ describe('hostile strings', () => {
     checkSvg(r.svg ?? '');
     // Both problems are at line 1, column 1, so they share one W504 (spec section 15).
     expect(r.diagnostics.map((d) => d.code)).toEqual(['W504']);
+  });
+});
+
+describe('names JavaScript objects carry by default', () => {
+  it('are unknown components, not crashes', () => {
+    for (const name of ['constructor', 'toString', 'hasOwnProperty', 'valueOf', '__proto__']) {
+      expect(
+        validate(`screen "A"\n  ${name}\n`).map((d) => d.code),
+        name,
+      ).toEqual(['E201']);
+    }
+  });
+
+  it('are kept as attributes and theme tokens, and reported as unknown', () => {
+    const attr = parse('screen "A"\n  button "x" __proto__=#a constructor=1\n');
+    const button = attr.tree.screens[0]?.children?.[0];
+    expect(Object.keys(button?.attrs ?? {})).toEqual(['__proto__', 'constructor']);
+    expect(Object.getPrototypeOf(button?.attrs)).toBe(Object.prototype);
+    expect(validate('screen "A"\n  button "x" __proto__=#a\n').map((d) => d.code)).toEqual(['W202']);
+    expect(validate('theme "t"\n  __proto__ 4\nscreen "A"\n').map((d) => d.code)).toEqual(['W503']);
+  });
+
+  it('treat a host theme that is not an object as empty', () => {
+    for (const bad of [null, 'ink', 4, ['x']]) {
+      const themes = { brand: bad } as unknown as Record<string, { tokens?: Record<string, string> }>;
+      expect(validate('screen "A"\n', { themes, defaultTheme: 'brand' })).toEqual([]);
+    }
+  });
+
+  it('are not entities when reading a source back from an SVG', () => {
+    const svg =
+      '<svg><metadata><wl:source xmlns:wl="urn:wirelith:source" version="0.1">&constructor; &toString; &amp;</wl:source></metadata></svg>';
+    expect(extractSource(svg)).toBe('&constructor; &toString; &');
   });
 });

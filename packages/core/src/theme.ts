@@ -168,7 +168,10 @@ export function resolveTheme(
       return s;
     }
     if (Object.hasOwn(hosts, name)) {
-      const h = hosts[name] as HostTheme;
+      // A host theme is untrusted: anything that isn't an object counts as an empty theme.
+      const raw: unknown = hosts[name];
+      const h: HostTheme =
+        typeof raw === 'object' && raw !== null && !Array.isArray(raw) ? (raw as HostTheme) : {};
       const s: Source = { tokens: h.tokens ?? {}, lineOf: () => hostLoc };
       if (h.extends !== undefined) s.extends = h.extends;
       return s;

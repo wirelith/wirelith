@@ -68,6 +68,22 @@ export const COMPONENTS: Record<string, ComponentSpec> = {
   note: C([], ['for'], true, false, false),
 };
 
+/**
+ * Reads a key only if the object has it as its own property. Keys from a source, such as
+ * "constructor" or "toString", must never find something JavaScript objects carry by default.
+ */
+export function own<T>(record: Record<string, T>, key: string): T | undefined {
+  return Object.hasOwn(record, key) ? record[key] : undefined;
+}
+
+/**
+ * Stores a value under a key as a plain own property, even when the key is "__proto__", which an
+ * ordinary assignment would treat as the object's prototype instead.
+ */
+export function setOwn<T>(record: Record<string, T>, key: string, value: T): void {
+  Object.defineProperty(record, key, { value, enumerable: true, writable: true, configurable: true });
+}
+
 /** Flags and attributes every element accepts (spec section 5.10). */
 export const COMMON_FLAGS = ['grow'];
 export const COMMON_ATTRS = ['width', 'height', 'span'];
