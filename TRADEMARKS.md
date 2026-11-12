@@ -5,7 +5,7 @@ The code and the specification are MIT licensed, and anyone may implement the sp
 ## Allowed without asking
 
 - **Saying what your product does.** "Supports Wirelith", "Built with Wirelith", "Renders Wirelith diagrams" and similar factual statements are fine.
-- **Claiming compatibility, for an implementation that passes the conformance suite.** "Compatible with Wirelith 0.1" (or whichever version) is allowed for an implementation that passes the public conformance suite for that version, as long as the statement names the version.
+- **Claiming compatibility, for an implementation that passes the conformance suite.** "Compatible with Wirelith 0.1" (or whichever version) is allowed for an implementation that passes the public conformance suite at that version's release tag (for example `spec-v0.1`), as long as the statement names the version. A draft version can't be claimed (spec section 14).
 - **Naming a plugin or extension `something-wirelith`.** For example `markdown-wirelith` or `myeditor-wirelith`.
 
 ## Reserved

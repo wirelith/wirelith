@@ -1,6 +1,6 @@
 # Wirelith Language Specification, v0.1 (draft)
 
-**Status:** draft, unstable. Anything may change before 1.0.
+**Status:** draft, unstable. A draft may change in any way until it is released (section 14), and anything may change before 1.0.
 
 Wirelith is a small plain-text language for low-fidelity wireframes. A source describes one or more screens and the links between them. A renderer turns it into SVG.
 
@@ -748,11 +748,12 @@ The outline of a source is a summary that tools can use without laying it out: i
 ## 14. Versioning and compatibility
 
 - **Spec versions** are `MAJOR.MINOR`. This is 0.1.
+- **Drafts and releases.** A spec version is a draft until the maintainers release it. A release is a tag of this repository named `spec-v<MAJOR>.<MINOR>`, for example `spec-v0.1`. The specification, its data files and the conformance suite at that tag define the version, and never change. While a version is a draft, accepted RFCs may change it in any way, including changes that move a pixel in its conformance outputs. After a release, the first accepted RFC that changes the language starts the next version, which is a draft until it is released in turn. A mistake found in a released version is fixed in the next version.
 - **Declaring a version.** The first line of a source MAY be `wirelith 0.1`. Tools that write sources SHOULD include it.
 - **While the major version is 0,** any minor version may change or remove syntax. Each release lists its changes, and where a change can be made mechanically the reference tools provide an upgrade command.
 - **From 1.0,** a source that is valid in 1.x stays valid, with the same meaning, in every later 1.y. New components, flags and attributes may be added in minor versions.
 - **A renderer given a newer minor version** than it implements MUST report `W101` and SHOULD still try to render. Given a newer major version, it MUST stop with `E103`. For a 0.1 renderer, `0.2` and later `0.x` versions are newer minor versions, and `1.0` and later are newer major versions.
-- **Rendering changes.** Any change to layout or metrics that moves a pixel in a conformance output is a new minor version.
+- **Rendering changes.** Once a version is released, any change to layout or metrics that would move a pixel in its conformance outputs belongs to a later version.
 - **Implementations** have their own version numbers. Each states which spec versions it implements.
 
 ## 15. Errors and warnings
