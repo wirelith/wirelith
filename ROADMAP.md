@@ -19,7 +19,7 @@ This page lists what has to be true before 1.0. Each item links to the issue or 
 
 - [x] Every diagnostic code in section 15 has a conformance case.
 - [x] Every component is rendered in at least one conformance case.
-- [ ] **Render every flag in at least one case.** `secondary` on a button isn't rendered in any case yet.
+- [x] Every flag is rendered in at least one conformance case (#21).
 - [ ] **Have the normalisation rules in conformance/NORMALISATION.md checked against a second renderer,** so that it is the spec being tested, not one implementation.
 
 ## Implementations
