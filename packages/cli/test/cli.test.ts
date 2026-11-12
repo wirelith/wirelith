@@ -221,13 +221,19 @@ describe('--watch', () => {
     });
     file('w.wirelith', 'screen "Before"\n');
     const child = spawn(process.execPath, [bundle, 'render', 'w.wirelith', '--watch'], { cwd: dir });
+    let stderr = '';
+    child.stderr.on('data', (d) => {
+      stderr += String(d);
+    });
     const svg = () => (existsSync(join(dir, 'w.svg')) ? readFileSync(join(dir, 'w.svg'), 'utf8') : '');
     const until = async (f: () => boolean) => {
       for (let i = 0; i < 100 && !f(); i++) await new Promise((r) => setTimeout(r, 50));
       return f();
     };
     try {
-      expect(await until(() => svg().includes('Before'))).toBe(true);
+      expect(await until(() => svg().includes('Before') && stderr.includes('watching for changes'))).toBe(
+        true,
+      );
       writeFileSync(join(dir, 'w.wirelith'), 'screen "After"\n');
       expect(await until(() => svg().includes('After'))).toBe(true);
     } finally {

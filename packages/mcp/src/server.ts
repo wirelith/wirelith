@@ -353,6 +353,10 @@ export function createServer() {
           error: { code: -32600, message: 'batches are not supported' },
         });
       }
+      // null, numbers, strings and booleans are valid JSON but not messages.
+      if (typeof msg !== 'object' || msg === null) {
+        return reply({ jsonrpc: '2.0', id: null, error: { code: -32600, message: 'invalid request' } });
+      }
       const m = msg as Partial<Request>;
       const id = typeof m.id === 'string' || typeof m.id === 'number' ? m.id : null;
       const isNotification = m.id === undefined;

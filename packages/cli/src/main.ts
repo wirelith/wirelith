@@ -280,23 +280,24 @@ async function renderCommand(inputs: string[], flags: RenderFlags, io: Io): Prom
     return failed > 0 ? 1 : 0;
   };
 
-  const code = await run();
-  if (!flags.watch) return code;
+  if (!flags.watch) return await run();
   if (inputs.length === 0 || inputs.includes('-'))
     throw new UsageError('--watch needs files or folders, not standard input');
+  // Start watching before the first render, so that no change made meanwhile is missed.
+  let timer: NodeJS.Timeout | undefined;
+  for (const input of inputs) {
+    const path = resolve(io.cwd, input);
+    if (!existsSync(path)) throw new FileError(`${input} does not exist`);
+    watch(path, { recursive: statSync(path).isDirectory() }, () => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        run().catch((e: Error) => io.stderr(`${e.message}\n`));
+      }, 100);
+    });
+  }
+  await run();
   io.stderr('watching for changes; press Ctrl+C to stop\n');
-  return new Promise<number>(() => {
-    let timer: NodeJS.Timeout | undefined;
-    for (const input of inputs) {
-      const path = resolve(io.cwd, input);
-      watch(path, { recursive: statSync(path).isDirectory() }, () => {
-        if (timer) clearTimeout(timer);
-        timer = setTimeout(() => {
-          run().catch((e: Error) => io.stderr(`${e.message}\n`));
-        }, 100);
-      });
-    }
-  });
+  return new Promise<number>(() => {});
 }
 
 // ---- check ---------------------------------------------------------------------------------------

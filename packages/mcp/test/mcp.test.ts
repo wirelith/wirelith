@@ -138,6 +138,10 @@ describe('the raw protocol', () => {
     const s = createServer();
     expect(JSON.parse((await s.handle('{not json')) ?? '{}').error.code).toBe(-32700);
     expect(JSON.parse((await s.handle('[]')) ?? '{}').error.code).toBe(-32600);
+    // Valid JSON that is not an object is not a message, and must not crash the server.
+    for (const v of ['null', '5', '"text"', 'true']) {
+      expect(JSON.parse((await s.handle(v)) ?? '{}').error.code, v).toBe(-32600);
+    }
     expect(JSON.parse((await s.handle('{"jsonrpc":"2.0","id":1,"method":"nope"}')) ?? '{}').error.code).toBe(
       -32601,
     );
