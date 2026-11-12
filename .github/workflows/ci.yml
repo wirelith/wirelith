@@ -1,7 +1,8 @@
 # SPDX-License-Identifier: MIT
 
 # Lint, typecheck, tests, build, the core size and dependency checks, the dependency license
-# check, and the copyright-holder check over the whole tree.
+# check, the copyright-holder check over the whole tree, the conformance suite, the Python
+# validator, and the independence acceptance test.
 
 name: CI
 
@@ -153,3 +154,44 @@ jobs:
       - run: node conformance/runner/run.mjs --tree "python3 -m wirelith tree" --diagnostics "python3 -m wirelith diagnostics"
         env:
           PYTHONPATH: ports/python/src
+
+  # The independence acceptance test: the packed packages and the Python validator are installed
+  # in a fresh container, then the container runs again with no network at all.
+  acceptance:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE: node:22.23.3-bookworm@sha256:69a5713e7f4997e96d579aafd78734810e0dac0dd5ee4621d72c27a2891a4088
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.13"
+      - run: npm install --global pnpm@${{ env.PNPM_VERSION }}
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - name: Pack the packages and the Python validator
+        run: |
+          accept="$RUNNER_TEMP/accept"
+          mkdir -p "$accept/tgz" "$accept/whl" "$accept/repo/docs"
+          pnpm -r --filter "./packages/**" pack --pack-destination "$accept/tgz"
+          python3 -m pip wheel --no-deps --wheel-dir "$accept/whl" ports/python
+          cp -R acceptance "$accept/repo/"
+          cp docs/readme-example.wirelith docs/readme-example.png "$accept/repo/docs/"
+          ls -R "$accept/tgz" "$accept/whl"
+      - name: Install them in a fresh container
+        run: >-
+          docker run --rm -v "$RUNNER_TEMP/accept:/work" -w /work "$IMAGE"
+          sh -ec 'python3 --version;
+          npm init -y > /dev/null;
+          npm install --no-audit --no-fund --no-update-notifier ./tgz/*.tgz;
+          python3 -m zipfile -e whl/*.whl pylib'
+      - name: Run the acceptance test with no network
+        run: >-
+          docker run --rm --network none -v "$RUNNER_TEMP/accept:/work" -w /work
+          -e PYTHONPATH=/work/pylib "$IMAGE"
+          node repo/acceptance/run.mjs /work /work/repo

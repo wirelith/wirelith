@@ -20,6 +20,39 @@ describe('lintWorkflow', () => {
     }
   });
 
+  it('requires images to be pinned by digest wherever they are named', () => {
+    const D = `node:22@sha256:${'b'.repeat(64)}`;
+    const ok = [
+      `      - uses: docker://${D}\n`,
+      `      - run: docker run --rm ${D} node -v\n`,
+      `      - run: docker run --rm "$IMAGE" node -v\n        env:\n          IMAGE: ${D}\n`,
+      `      - run: |\n          docker run --rm \\\n            \${{ env.IMAGE }} node -v\n        env:\n          IMAGE: ${D}\n`,
+      '      - run: echo docker is not run here\n',
+    ];
+    for (const body of ok) expect(lintWorkflow('w.yml', wf(body))).toEqual([]);
+    const bad = [
+      '      - uses: docker://node:22\n',
+      '      - run: docker run --rm node:22 node -v\n',
+      '      - run: docker pull node:22\n',
+      '      - run: echo hi && docker create node:22\n',
+      '      - run: docker run --rm "$IMAGE" node -v\n        env:\n          IMAGE: node:22\n',
+      '      - run: docker run --rm "$UNSET" node -v\n',
+    ];
+    for (const body of bad) expect(lintWorkflow('w.yml', wf(body))).toHaveLength(1);
+  });
+
+  it('requires job containers and services to be pinned by digest', () => {
+    const D = `node:22@sha256:${'b'.repeat(64)}`;
+    /** @param {string} extra */
+    const job = (extra) =>
+      `name: t\non: push\npermissions: {}\njobs:\n  j:\n    runs-on: x\n${extra}    steps:\n      - run: echo\n`;
+    expect(
+      lintWorkflow('w.yml', job(`    container: ${D}\n    services:\n      db:\n        image: ${D}\n`)),
+    ).toEqual([]);
+    expect(lintWorkflow('w.yml', job('    container:\n      image: node:22\n'))).toHaveLength(1);
+    expect(lintWorkflow('w.yml', job('    services:\n      db: node:22\n'))).toHaveLength(1);
+  });
+
   it('allows local actions', () => {
     expect(lintWorkflow('w.yml', wf('      - uses: ./.github/actions/x\n'))).toEqual([]);
   });
