@@ -1,0 +1,40 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "theme": {
+    "name": "t",
+    "tokens": {
+      "__proto__": 4
+    },
+    "loc": {
+      "line": 1,
+      "column": 1
+    }
+  },
+  "screens": [
+    {
+      "type": "screen",
+      "label": "A",
+      "children": [
+        {
+          "type": "button",
+          "label": "x",
+          "attrs": {
+            "__proto__": {
+              "ref": "a"
+            },
+            "constructor": 1
+          },
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 3,
+        "column": 1
+      }
+    }
+  ]
+}

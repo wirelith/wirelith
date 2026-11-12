@@ -1,0 +1,20 @@
+[
+  {
+    "code": "E201",
+    "severity": "error",
+    "line": 2,
+    "column": 3
+  },
+  {
+    "code": "E201",
+    "severity": "error",
+    "line": 3,
+    "column": 3
+  },
+  {
+    "code": "E201",
+    "severity": "error",
+    "line": 4,
+    "column": 3
+  }
+]

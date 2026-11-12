@@ -1,0 +1,4 @@
+theme "t"
+  __proto__ 4
+screen "A"
+  button "x" __proto__=#a constructor=1

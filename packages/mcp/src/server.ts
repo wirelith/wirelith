@@ -199,7 +199,8 @@ async function callTool(name: string, rawArgs: unknown): Promise<unknown> {
   const known = TOOLS.find((t) => t.name === name);
   if (!known) throw new RpcError(-32602, `unknown tool "${name}"`);
   for (const k of Object.keys(args)) {
-    if (!(k in known.inputSchema.properties)) throw new RpcError(-32602, `"${name}" has no argument "${k}"`);
+    if (!Object.hasOwn(known.inputSchema.properties, k))
+      throw new RpcError(-32602, `"${name}" has no argument "${k}"`);
   }
 
   if (name === 'validate') {

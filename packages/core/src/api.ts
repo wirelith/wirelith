@@ -274,7 +274,7 @@ export function extractSource(svg: string): string | null {
   return raw.replace(/&(#x[0-9a-fA-F]+|#[0-9]+|[a-zA-Z]+);/g, (whole, ent: string) => {
     if (ent.startsWith('#x')) return safeChar(Number.parseInt(ent.slice(2), 16)) ?? whole;
     if (ent.startsWith('#')) return safeChar(Number.parseInt(ent.slice(1), 10)) ?? whole;
-    return ENTITY[ent] ?? whole;
+    return Object.hasOwn(ENTITY, ent) ? (ENTITY[ent] as string) : whole;
   });
 }
 

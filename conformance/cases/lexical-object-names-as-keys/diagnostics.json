@@ -1,0 +1,14 @@
+[
+  {
+    "code": "W503",
+    "severity": "warning",
+    "line": 2,
+    "column": 3
+  },
+  {
+    "code": "W202",
+    "severity": "warning",
+    "line": 4,
+    "column": 3
+  }
+]
