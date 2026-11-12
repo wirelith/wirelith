@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-// The overview (spec sections 6, 7.4 and 10.6): frames placed in groups, notes beside them, and
+// The overview (spec sections 6, 7.4 and 10.6): frames placed in groups, notes below them, and
 // arrows routed through the gaps between frames.
 
 import { OVERLAYS } from './components.js';
@@ -48,6 +48,7 @@ const TITLE = 32;
 const H_GAP = 96;
 const V_GAP = 64;
 const NOTES_GAP = 24;
+/** The narrowest a notes list may be. It is otherwise as wide as its frame. */
 const NOTES_W = 240;
 const LANE = 12;
 /** The widest the overview may be (spec section 16); groups wrap into a new band beyond it. */
@@ -155,13 +156,16 @@ export function buildOverview(doc: Document, theme: Theme, opts: Options): Overv
     alone = doc.screens.length === 1 && frameCount === 1 && !anyLink;
   }
 
-  // Notes: a list beside each base frame, and markers wherever their target is drawn.
+  // Notes: a list below each base frame, and markers wherever their target is drawn. The list
+  // is below, not beside, so arrows, which only cross the gaps beside and above frames, never
+  // cross it.
   if (showNotes) {
     for (const s of doc.screens) {
       const notes = (s.children ?? []).filter((c) => c.type === 'note');
       if (notes.length === 0) continue;
       const base = baseFrame.get(s);
       const font = layout.body(13, 400);
+      const listW = Math.max(base?.w ?? 0, NOTES_W);
       notes.forEach((note, i) => {
         const number = i + 1;
         const f = note.attrs?.for;
@@ -176,10 +180,10 @@ export function buildOverview(doc: Document, theme: Theme, opts: Options): Overv
           const target = scope.find((l) => l.node.id === ref);
           if (target) frame.markers.push({ number, x: target.box.x + target.box.w, y: target.box.y });
         }
-        if (base) base.notesList.push({ number, lines: wrap(note.label ?? '', font, NOTES_W - 24).lines });
+        if (base) base.notesList.push({ number, lines: wrap(note.label ?? '', font, listW - 24).lines });
       });
       if (base) {
-        base.notesW = NOTES_W;
+        base.notesW = listW;
         base.notesH =
           18 +
           2 * u +
@@ -189,8 +193,8 @@ export function buildOverview(doc: Document, theme: Theme, opts: Options): Overv
     }
   }
 
-  const outer = (f: PlacedFrame) => f.w + (f.notesW > 0 ? NOTES_GAP + f.notesW : 0);
-  const tall = (f: PlacedFrame) => Math.max(f.h, f.notesH);
+  const outer = (f: PlacedFrame) => Math.max(f.w, f.notesW);
+  const tall = (f: PlacedFrame) => (f.notesH > 0 ? f.h + NOTES_GAP + f.notesH : f.h);
 
   // Groups go left to right in bands. A group that would make the canvas wider than allowed
   // starts a new band below (spec section 7.4).
