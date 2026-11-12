@@ -3,6 +3,8 @@
 // Lints the GitHub Actions workflows:
 //
 // - every `uses:` of another repository's action is pinned to a full 40-character commit SHA;
+// - every container image (`docker://`, a job's container or services, `docker run`, `docker pull`
+//   or `docker create` in a script) is pinned by digest, written in place or in an env variable;
 // - every workflow sets top-level `permissions`, and nothing asks for write-all or read-all;
 // - a workflow that runs on pull_request_target never checks out the pull request's code;
 // - a job that reads a WIRELITH_ secret runs in the `denylist` environment, which only
@@ -17,6 +19,8 @@ const DIR = '.github/workflows';
 const PINNED = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_./-]+@[0-9a-f]{40}$/;
 const PROTECTED_SECRET = /secrets\.WIRELITH_/;
 const SECRETS_ENVIRONMENT = 'denylist';
+const DIGEST = /@sha256:[0-9a-f]{64}\b/;
+const DOCKER_COMMAND = /\bdocker\s+(?:run|pull|create)\b/;
 
 /**
  * @param {string} file
@@ -46,8 +50,22 @@ export function lintWorkflow(file, text) {
         `${file}: job ${jobName} reads a WIRELITH_ secret, so it must set environment: ${SECRETS_ENVIRONMENT}`,
       );
     }
+    const image = typeof job?.container === 'string' ? job.container : job?.container?.image;
+    if (typeof image === 'string' && !DIGEST.test(image)) {
+      problems.push(`${file}: job ${jobName}: pin the container image by digest`);
+    }
+    for (const [name, service] of Object.entries(job?.services ?? {})) {
+      const img = typeof service === 'string' ? service : service?.image;
+      if (typeof img === 'string' && !DIGEST.test(img)) {
+        problems.push(`${file}: job ${jobName}: pin the image of service ${name} by digest`);
+      }
+    }
     for (const [i, step] of (job?.steps ?? []).entries()) {
       const where = `${file}: job ${jobName}, step ${i + 1}`;
+      if (typeof step?.run === 'string') {
+        const env = { ...(wf.env ?? {}), ...(job?.env ?? {}), ...(step.env ?? {}) };
+        checkDockerCommands(step.run, env, where, problems);
+      }
       if (typeof step?.uses === 'string') {
         checkUses(step.uses, where, problems);
         if (isTarget && step.uses.startsWith('actions/checkout@')) {
@@ -80,6 +98,26 @@ function checkUses(uses, where, problems) {
   if (!PINNED.test(uses)) problems.push(`${where}: pin "${uses}" to a full commit SHA`);
 }
 
+/**
+ * Every `docker run`, `docker pull` or `docker create` in a script must name an image pinned by
+ * digest, either in place or through an env variable whose value is pinned.
+ *
+ * @param {string} script
+ * @param {Record<string, unknown>} env
+ * @param {string} where
+ * @param {string[]} problems
+ */
+function checkDockerCommands(script, env, where, problems) {
+  const commands = script.replace(/\\\r?\n/g, ' ').split(/\r?\n|;|&&|\|\|/);
+  for (const command of commands) {
+    if (!DOCKER_COMMAND.test(command)) continue;
+    if (DIGEST.test(command)) continue;
+    const vars = [...command.matchAll(/\$\{\{\s*env\.(\w+)\s*\}\}|\$\{?(\w+)\}?/g)].map((m) => m[1] ?? m[2]);
+    if (vars.some((v) => v !== undefined && DIGEST.test(String(env[v] ?? '')))) continue;
+    problems.push(`${where}: pin the image of "${command.trim().slice(0, 60)}" by digest`);
+  }
+}
+
 const isMain = process.argv[1] !== undefined && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {
   const problems = [];
@@ -92,5 +130,5 @@ if (isMain) {
     for (const p of problems) console.error(p);
     process.exit(1);
   }
-  console.log('actions: all workflows pinned by SHA with explicit permissions.');
+  console.log('actions: all workflows pinned by SHA or digest, with explicit permissions.');
 }
