@@ -187,10 +187,13 @@ export const REQUIREMENTS = {
           .of('modal')
           .some((m) => {
             const inner = within(m);
+            const selects = inner.filter((n) => n.type === 'select').length;
+            const radios = inner.filter((n) => n.type === 'radio').length;
+            // The assignee dropdown and the priority choice are two separate controls.
             return (
               inner.filter((n) => n.type === 'input' || n.type === 'textarea').length >= 2 &&
-              inner.some((n) => n.type === 'select') &&
-              inner.some((n) => n.type === 'radio' || n.type === 'select')
+              selects >= 1 &&
+              selects + radios >= 2
             );
           }),
     ],
@@ -204,7 +207,7 @@ export const REQUIREMENTS = {
     ['a Save button', (d) => helpers(d).hasLabel('button', 'save')],
   ],
   B2: [
-    ['a heading', (d) => ['h1', 'h2'].some((t) => helpers(d).count(t) >= 1)],
+    ['a heading', (d) => ['h1', 'h2', 'h3'].some((t) => helpers(d).count(t) >= 1)],
     [
       'a monthly / yearly switch',
       (d) =>
@@ -323,7 +326,7 @@ export const REQUIREMENTS = {
         helpers(d).count('loading') >= 1 &&
         helpers(d)
           .of('error')
-          .some((e) => (e.children ?? []).some((k) => k.type === 'button')),
+          .some((e) => within(e).some((k) => k.type === 'button')),
     ],
     ['two notes', (d) => helpers(d).count('note') >= 2],
   ],

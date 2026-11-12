@@ -55,4 +55,30 @@ describe('score', () => {
       'screen "B"\n',
     ]);
   });
+
+  it('needs a priority choice separate from the assignee dropdown', () => {
+    const noPriority = reference('a').replace(
+      '    radio "Priority" [Low, Medium, High] value="Medium"\n',
+      '',
+    );
+    expect(score(noPriority, 'a').tasks[4]?.missed).toEqual([
+      'the dialog has fields, a dropdown and a priority choice',
+    ]);
+    const twoSelects = reference('a').replace(
+      'radio "Priority" [Low, Medium, High] value="Medium"',
+      'select "Priority" [Low, Medium, High]',
+    );
+    expect(score(twoSelects, 'a').tasks[4]?.missed).toEqual([]);
+  });
+
+  it('counts an h3 as a heading, and a retry button nested in a row', () => {
+    const h3 = reference('b').replace('  h1 "Pricing" align=center', '  h3 "Pricing"');
+    expect(score(h3, 'b').tasks[1]?.missed).toEqual([]);
+    const nested = reference('b').replace(
+      '    button "Try again" primary',
+      '    row\n      button "Try again" primary',
+    );
+    expect(score(nested, 'b').tasks[4]?.valid).toBe(true);
+    expect(score(nested, 'b').tasks[4]?.missed).toEqual([]);
+  });
 });
