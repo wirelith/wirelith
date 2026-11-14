@@ -489,7 +489,8 @@ class Painter {
     const parts: (Markup | undefined)[] = [];
     let markW = 16;
     if (n.type === 'checkbox') {
-      const checked = has(n, 'checked');
+      // `checked` and `on` mean the same on a checkbox and on a toggle (section 5.5).
+      const checked = has(n, 'checked') || has(n, 'on');
       const y = r(b.y + (h - 16) / 2);
       parts.push(
         el('rect', {
@@ -506,7 +507,7 @@ class Painter {
       if (checked) parts.push(this.icon('check', b.x, y, 16, c.onPrimary));
     } else {
       markW = 36;
-      const on = has(n, 'on');
+      const on = has(n, 'on') || has(n, 'checked');
       const y = r(b.y + (h - 20) / 2);
       parts.push(
         el('rect', {

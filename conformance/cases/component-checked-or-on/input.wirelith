@@ -1,0 +1,8 @@
+screen "Settings" phone
+  checkbox "Email me receipts" checked
+  checkbox "Email me offers" on
+  checkbox "Email me news"
+  toggle "Wi-Fi" on
+  toggle "Bluetooth" checked
+  toggle "Airplane mode"
+  toggle "Location" on checked disabled
