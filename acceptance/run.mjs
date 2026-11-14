@@ -8,7 +8,8 @@
 //   2. the MCP server starts over stdio, and a scripted client validates and renders through it;
 //   3. the Python validator validates the same source, with the same diagnostics as core;
 //   4. the built packages contain no network-capable import in core, no reference to a host
-//      application's globals, and no URL other than the SVG namespace.
+//      application's globals, and no URL other than the SVG namespace;
+//   5. every package, npm and Python, carries LICENSE and NOTICE.
 //
 // It also renders the README's picture and checks it matches the committed file byte for byte,
 // so the picture in the README is what the CLI draws.
@@ -16,7 +17,7 @@
 //   node acceptance/run.mjs <folder with node_modules> [<folder with acceptance/ and docs/>]
 
 import { execFileSync, spawn } from 'node:child_process';
-import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const work = process.argv[2] ?? process.cwd();
@@ -209,6 +210,24 @@ await check('4. the built packages are independent', async () => {
     }
   }
   assert(problems.length === 0, problems.join('; '));
+});
+
+await check('5. every package carries the license and the third-party notices', async () => {
+  const missing = [];
+  const places = [
+    ...['core', 'png', 'cli', 'mcp'].map((p) => join(work, 'node_modules', '@wirelith', p)),
+    join(work, 'pylib', 'wirelith'),
+  ];
+  for (const dir of places) {
+    for (const name of ['LICENSE', 'NOTICE']) {
+      const file = join(dir, name);
+      if (!existsSync(file) || statSync(file).size === 0) missing.push(file.slice(work.length + 1));
+    }
+  }
+  // NOTICE is what credits the icon shapes core embeds, under the ISC license they come with.
+  const notice = readFileSync(join(work, 'node_modules', '@wirelith', 'core', 'NOTICE'), 'utf8');
+  assert(/Lucide/.test(notice), 'core NOTICE does not credit the icons');
+  assert(missing.length === 0, `missing: ${missing.join(', ')}`);
 });
 
 await check('the README picture is what the CLI renders', async () => {
