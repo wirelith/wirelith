@@ -106,7 +106,7 @@ wirelith 0.1
 
 screen "Choose a service" tablet #service
   header
-    h3 "Brightleaf Dental"
+    h3 "Quillow Dental"
     spacer
     label "Step 1 of 3"
   column pad=lg gap=md
@@ -118,7 +118,7 @@ screen "Choose a service" tablet #service
 
 screen "Pick a date and time" tablet #datetime
   header
-    h3 "Brightleaf Dental"
+    h3 "Quillow Dental"
     spacer
     label "Step 2 of 3"
   column pad=lg gap=md
@@ -131,7 +131,7 @@ screen "Pick a date and time" tablet #datetime
 
 screen "Your details" tablet #details
   header
-    h3 "Brightleaf Dental"
+    h3 "Quillow Dental"
     spacer
     label "Step 3 of 3"
   column pad=lg gap=md
@@ -159,7 +159,7 @@ theme blueprint
 screen "Files" desktop #files
   row height=fill
     sidebar
-      h3 "Cloudnest"
+      h3 "Stowfern"
       label "Locations"
       nav [My files, Shared with me, Recent, Starred, Trash] vertical active="My files"
     column grow pad=md gap=md
@@ -216,7 +216,7 @@ screen "Files" desktop #files
 screen "Files" desktop #files-loading of=#files state="Loading"
   row height=fill
     sidebar
-      h3 "Cloudnest"
+      h3 "Stowfern"
       label "Locations"
       nav [My files, Shared with me, Recent, Starred, Trash] vertical active="My files"
     column grow pad=md gap=md
@@ -231,7 +231,7 @@ screen "Files" desktop #files-loading of=#files state="Loading"
 screen "Files" desktop #files-error of=#files state="Failed to load"
   row height=fill
     sidebar
-      h3 "Cloudnest"
+      h3 "Stowfern"
       label "Locations"
       nav [My files, Shared with me, Recent, Starred, Trash] vertical active="My files"
     column grow pad=md gap=md

@@ -101,7 +101,7 @@ wirelith 0.1
 
 screen "Choose a service" tablet #service
   header
-    h2 "Brightsmile Dental"
+    h2 "Tollmere Dental"
     spacer
     label "Step 1 of 3"
   column gap=lg pad=lg
@@ -113,7 +113,7 @@ screen "Choose a service" tablet #service
 
 screen "Pick a date and time" tablet #datetime
   header
-    h2 "Brightsmile Dental"
+    h2 "Tollmere Dental"
     spacer
     label "Step 2 of 3"
   column gap=lg pad=lg
@@ -136,7 +136,7 @@ screen "Pick a date and time" tablet #datetime
 
 screen "Your details" tablet #details
   header
-    h2 "Brightsmile Dental"
+    h2 "Tollmere Dental"
     spacer
     label "Step 3 of 3"
   column gap=lg pad=lg
@@ -168,7 +168,7 @@ theme blueprint
 screen "My files" desktop #files
   row height=fill
     sidebar
-      h3 "Cloudnest"
+      h3 "Stowfern"
       list
         item "My files" icon=folder active
         item "Shared with me" icon=users
@@ -239,7 +239,7 @@ screen "My files" desktop #files
 screen "My files" desktop #files-loading of=#files state="Loading"
   row height=fill
     sidebar
-      h3 "Cloudnest"
+      h3 "Stowfern"
       list
         item "My files" icon=folder active
         item "Shared with me" icon=users
@@ -260,7 +260,7 @@ screen "My files" desktop #files-loading of=#files state="Loading"
 screen "My files" desktop #files-error of=#files state="Load failed"
   row height=fill
     sidebar
-      h3 "Cloudnest"
+      h3 "Stowfern"
       list
         item "My files" icon=folder active
         item "Shared with me" icon=users
