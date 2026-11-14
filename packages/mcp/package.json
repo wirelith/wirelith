@@ -30,10 +30,13 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "NOTICE"
   ],
   "scripts": {
-    "build": "tsc -b"
+    "build": "tsc -b",
+    "prepack": "node ../../scripts/copy-legal.mjs"
   },
   "dependencies": {
     "@wirelith/core": "workspace:*",
