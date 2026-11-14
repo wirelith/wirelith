@@ -19,5 +19,15 @@ classifiers = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/wirelith"]
 
+# The repository's LICENSE and NOTICE travel with the package. They aren't copied into this folder,
+# because the copyright holder's name may appear in the repository only in the root files.
+[tool.hatch.build.targets.wheel.force-include]
+"../../LICENSE" = "wirelith/LICENSE"
+"../../NOTICE" = "wirelith/NOTICE"
+
 [tool.hatch.build.targets.sdist]
 include = ["src/wirelith", "tests", "scripts", "README.md"]
+
+[tool.hatch.build.targets.sdist.force-include]
+"../../LICENSE" = "LICENSE"
+"../../NOTICE" = "NOTICE"
