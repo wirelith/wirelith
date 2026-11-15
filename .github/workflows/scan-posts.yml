@@ -1,7 +1,8 @@
 # SPDX-License-Identifier: MIT
 
 # Scans new and edited issues, discussions and comments against the private denylist, and,
-# every hour, recent pull request reviews and review comments. It never comments, and its log
+# on an hourly schedule, every pull request review and review comment since the previous
+# successful sweep (GitHub often runs the schedule late). It never comments, and its log
 # and result never say whether anything matched. On a match it opens a draft security
 # advisory, which only maintainers can see.
 
@@ -25,6 +26,8 @@ on:
 permissions:
   contents: read
   pull-requests: read
+  # To find when the previous successful sweep started, so the next one leaves no gap.
+  actions: read
 
 jobs:
   scan:
