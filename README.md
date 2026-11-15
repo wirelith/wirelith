@@ -34,6 +34,8 @@ screen "Home" phone #home
 
 The picture is drawn by the command-line tool from [docs/readme-example.wirelith](docs/readme-example.wirelith). CI draws it again in a container with no network and fails if it differs by a single byte.
 
+**More examples are in the [gallery](docs/gallery.md):** dashboards, tables, flows with drawers and dialogs, and themes, each with its source.
+
 ## Principles
 
 - **Learnable from one example.** Component names are the ones people guess, and there is one way to write each thing.
