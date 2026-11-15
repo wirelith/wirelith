@@ -1,0 +1,5 @@
+screen "Orders" desktop
+  nav [Home, Orders]
+    item "Settings"
+  list [Ada Park, Luis Ortega]
+    item "Mei Tanaka"

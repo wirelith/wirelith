@@ -252,7 +252,7 @@ A screen has at most one `header`, one `footer`, one left `sidebar` and one righ
 
 - A `text` with a label ignores `lines`.
 - A `tabs` with no `active` shows its first tab as active. A `nav` with no `active` shows nothing as active.
-- A `nav` or `list` with both an item list and child elements draws the list and ignores the children, without a warning.
+- A `nav` or `list` with both an item list and child elements draws the list and ignores the children, with `W206`.
 - An `item` inside a `nav` with `active` is active, whatever the nav's `active` says.
 
 ## 6. Notes (numbered annotations)
@@ -762,7 +762,7 @@ A validator returns a list of diagnostics. Each has a `code`, a `severity` (`err
 - An **error** means the source cannot be drawn as written. A renderer given a source with errors draws nothing from it and shows the diagnostics.
 - A **warning** means the source was drawn, but probably not as the author meant.
 - Codes are stable. A code is never reused for a different meaning, so tools and agents may key on them. Message wording may improve between versions.
-- **Positions.** `line` and `column` are counted from 1, and columns count Unicode code points. A syntax error (`E101` to `E106`, `E201`) points at the start of the part that is wrong. A diagnostic about what an element means (`E203`, `E204`, `E301`, `E401`, `E402`, `W202`, `W205`, `W301`, `W302`, `W403`, `W601`, `W602`) points at the start of the element's line: its component name. Problems of one code on one element are reported as one diagnostic whose message lists them all. A diagnostic about the whole source (the source-size cap) is at line 1, column 1. A diagnostic about a theme the host supplied is at the `theme` line when the source has one, and otherwise at line 1, column 1.
+- **Positions.** `line` and `column` are counted from 1, and columns count Unicode code points. A syntax error (`E101` to `E106`, `E201`) points at the start of the part that is wrong. A diagnostic about what an element means (`E203`, `E204`, `E301`, `E401`, `E402`, `W202`, `W205`, `W206`, `W301`, `W302`, `W403`, `W601`, `W602`) points at the start of the element's line: its component name. Problems of one code on one element are reported as one diagnostic whose message lists them all. A diagnostic about the whole source (the source-size cap) is at line 1, column 1. A diagnostic about a theme the host supplied is at the `theme` line when the source has one, and otherwise at line 1, column 1.
 - **Order.** Diagnostics are sorted by line, then column, then code. The same code is not reported twice at the same position.
 - **Recovery.** A validator reports every problem it can find, not just the first. A line with an error is skipped, together with its children. The size caps are checked first; if one is exceeded, only that `E701` is reported.
 - The conformance suite compares `code`, `severity`, `line` and `column`, never the message.
@@ -787,6 +787,7 @@ A validator returns a list of diagnostics. Each has a `code`, a `severity` (`err
 | `W101` | Warning | Newer minor version than the renderer implements | This source targets 0.3; rendering as 0.1 |
 | `W202` | Warning | Unknown flag or attribute for this component | Line 6: "button" has no "colour" (it has: primary, secondary, danger, disabled, icon, sm, lg) |
 | `W205` | Warning | Value outside the allowed set | Line 8: gap="huge" is not a size; using md |
+| `W206` | Warning | A `nav` or `list` has both a list of entries and child elements; only the list is drawn | Line 4: "nav" has both a list of entries and child elements; only the list is drawn |
 | `W301` | Warning | Unknown icon | Line 9: there is no icon "person". Did you mean "user"? |
 | `W302` | Warning | `active` or `value` names an entry that isn't in the list | Line 4: "Billing" is not one of the tabs |
 | `W403` | Warning | A screen that nothing links to, in a source that has links. The first screen and all variants are exempt; a `flow` counts as a link. | Screen #help is never reached |

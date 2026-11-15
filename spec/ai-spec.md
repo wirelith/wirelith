@@ -53,10 +53,10 @@ screen "Website redesign" desktop #detail
 | --- | --- |
 | Screen | `screen "Title"` with `phone`, `tablet`, `desktop` (default) or `size=WxH` |
 | Layout | `row`, `column`, `grid cols=N`, `spacer`, `divider` |
-| Regions | `header`, `footer`, `sidebar` (add `right`; goes directly inside a screen, or inside a `row` beside the main content), `nav [..]`, `tabs [..]`, `breadcrumbs [..]` |
+| Regions | `header`, `footer`, `sidebar` (add `right`; goes directly inside a screen, or inside a `row` beside the main content), `nav [..]` (or `item` children, not both), `tabs [..]`, `breadcrumbs [..]` |
 | Text | `h1`, `h2`, `h3`, `text` (paragraph), `label` (caption) |
 | Controls | `button`, `link`, `input`, `textarea`, `select "Label" [..]`, `checkbox`, `radio "Label" [..]`, `toggle` |
-| Content | `table [columns]` with `row [cells]` children, `list [..]` or `list` with `item` children, `card "Title"`, `image "description"`, `icon "name"`, `badge`, `avatar "Full name"` |
+| Content | `table [columns]` with `row [cells]` children, `list [..]` or `list` with `item` children (not both), `card "Title"`, `image "description"`, `icon "name"`, `badge`, `avatar "Full name"` |
 | Overlays | `modal "Title"`, `drawer "Title"` (add `left`, `right` or `bottom`). Put them directly inside a screen and link to them. |
 | States | `empty "message"`, `loading`, `error "message"` |
 | Notes | `note "text" for=#id`, directly inside a screen |
