@@ -33,13 +33,17 @@ This page lists what has to be true before 1.0. Each item links to the issue or 
 
 These can't be checked by CI. They were listed as not verified when v0.1 was finished (#11).
 
-- [ ] The rendered examples look right to a person, at 1x and 2x.
-- [ ] A PNG renders identically on macOS, Linux and Windows.
-- [ ] The MCP server works in a desktop MCP client: connect, read the prompt, validate, render.
-- [ ] A model that has only seen the AI spec writes valid sources: the eval is run with at least two model families, and the scores are recorded.
-- [ ] The font and icon attributions and license texts are complete.
-- [ ] The hygiene checks really fail on a pull request with a non-noreply email, an unticked checkbox and a term the private denylist catches.
-- [ ] Nothing in the repository's history, pull requests or logs breaks the ground rules in CONTRIBUTING.md.
+- [x] The rendered examples look right to a person, at 1x and 2x. Every conformance case's reference output and the README picture were reviewed on 2026-11-14. The only problems found are already tracked: #13, #16, #17 and #24.
+- [x] A PNG renders identically on macOS, Linux and Windows. Every case was rendered at 1x and 2x on each system on 2026-11-14, and all the files were byte-identical.
+- [x] The MCP server works in a desktop MCP client: connect, read the prompt, validate, render. Checked on 2026-11-14, along with the spec resource and `convert`.
+- [x] A model that has only seen the AI spec writes valid sources: the eval is run with at least two model families, and the scores are recorded (#26). The second family's errors are evidence for #25.
+- [x] The font and icon attributions and license texts are complete. Packages didn't ship `NOTICE`; #27 fixed that, and the acceptance test now enforces it.
+- [x] The hygiene checks really fail on a pull request with a non-noreply email, an unticked checkbox and a term the private denylist catches (#28, using a made-up test term). The local hooks, the post scanner and the merge block were checked too, and no log showed the term.
+- [x] Nothing in the repository's history, pull requests or logs breaks the ground rules in CONTRIBUTING.md. Swept on 2026-11-14:
+  - every commit, including the branches behind PRs, and every version of every file;
+  - the sources embedded in PNGs;
+  - every PR, issue, comment, review and edit history;
+  - every CI log.
 
 ## Releases
 
