@@ -1,0 +1,8 @@
+screen "Buttons" phone
+  row
+    button "Default"
+    button "Secondary" secondary
+  row
+    button "Small" secondary sm
+    button "Disabled" secondary disabled
+    button "Save" secondary icon=download

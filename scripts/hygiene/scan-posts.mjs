@@ -26,10 +26,14 @@ import {
   reviewCommentPosts,
   reviewPosts,
 } from './lib/events.mjs';
-import { API, ghList, readEvent } from './lib/github.mjs';
+import { API, ghGet, ghList, readEvent } from './lib/github.mjs';
 
-/** How far back a scheduled sweep looks. Longer than the schedule, so runs overlap. */
-const SWEEP_MINUTES = 90;
+/**
+ * A sweep starts this long before the previous successful sweep did, so sweeps overlap. It
+ * doesn't rely on the hourly schedule: GitHub often runs scheduled workflows hours late, and a
+ * fixed window would miss whatever was posted in the gap.
+ */
+const OVERLAP_MINUTES = 15;
 
 /**
  * @param {string} repo
@@ -57,24 +61,47 @@ async function openDraftAdvisory(repo, token, description) {
 }
 
 /**
- * Pull request reviews and review comments created or updated recently. These are read with
- * the workflow's own read-only token, not the triage token, which can touch only advisories.
+ * Where this sweep starts: OVERLAP_MINUTES before the previous successful sweep started, or
+ * null, meaning from the beginning, when there has been none.
  * @param {string} repo
  * @param {string} token the workflow's GITHUB_TOKEN
+ * @returns {Promise<Date | null>}
+ */
+async function sweepStart(repo, token) {
+  const res = await ghGet(`/repos/${repo}/actions/workflows/scan-posts.yml/runs?status=success&per_page=50`, {
+    token,
+  });
+  const body =
+    /** @type {{ workflow_runs?: { id: number, event: string, run_started_at?: string, created_at: string }[] }} */ (
+      await res.json()
+    );
+  const current = process.env.GITHUB_RUN_ID ?? '';
+  const previous = (body.workflow_runs ?? []).find(
+    (r) => String(r.id) !== current && ['schedule', 'workflow_dispatch'].includes(r.event),
+  );
+  if (!previous) return null;
+  return new Date(
+    new Date(previous.run_started_at ?? previous.created_at).getTime() - OVERLAP_MINUTES * 60_000,
+  );
+}
+
+/**
+ * Pull request reviews and review comments created or updated since `since` (all of them when
+ * it is null). These are read with the workflow's own read-only token, not the triage token,
+ * which can touch only advisories.
+ * @param {string} repo
+ * @param {string} token the workflow's GITHUB_TOKEN
+ * @param {Date | null} since
  * @returns {Promise<import('./lib/events.mjs').Post[]>}
  */
-async function recentReviewPosts(repo, token) {
-  const since = new Date(Date.now() - SWEEP_MINUTES * 60_000);
-  const comments = await ghList(
-    `/repos/${repo}/pulls/comments?sort=updated&direction=desc&since=${since.toISOString()}`,
-    token,
-    10,
-  );
+async function reviewPostsSince(repo, token, since) {
+  const after = since ? `&since=${since.toISOString()}` : '';
+  const comments = await ghList(`/repos/${repo}/pulls/comments?sort=updated&direction=desc${after}`, token);
   const posts = reviewCommentPosts(comments);
-  const pulls = await ghList(`/repos/${repo}/pulls?state=all&sort=updated&direction=desc`, token, 1);
+  const pulls = await ghList(`/repos/${repo}/pulls?state=all&sort=updated&direction=desc`, token);
   for (const pr of pulls) {
-    if (new Date(pr.updated_at) < since) break;
-    posts.push(...reviewPosts(await ghList(`/repos/${repo}/pulls/${pr.number}/reviews`, token, 3)));
+    if (since && new Date(pr.updated_at) < since) break;
+    posts.push(...reviewPosts(await ghList(`/repos/${repo}/pulls/${pr.number}/reviews`, token)));
   }
   return posts;
 }
@@ -111,9 +138,9 @@ async function main() {
     // Listing reviews doesn't depend on any match, so a failure here can fail the run openly.
     if (!readToken) notConfigured('no workflow token');
     try {
-      posts = await recentReviewPosts(repo, readToken);
+      posts = await reviewPostsSince(repo, readToken, await sweepStart(repo, readToken));
     } catch {
-      notConfigured('the workflow token cannot list pull request reviews');
+      notConfigured('the workflow token cannot list workflow runs or pull request reviews');
     }
   } else {
     posts = [eventTexts(readEvent())];

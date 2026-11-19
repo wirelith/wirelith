@@ -81,19 +81,49 @@ export function treeDocs() {
 export function rangeDocs(base, head, branch) {
   /** @type {Doc[]} */
   const docs = [{ label: 'branch name', text: branch }];
-  const shas = git(['rev-list', `${base}..${head}`])
+  const shas = git(['rev-list', ...revisions(base, head)])
     .split('\n')
     .filter(Boolean);
   for (const sha of shas) {
     docs.push({ label: `commit ${sha.slice(0, 12)} message`, text: git(['log', '-1', '--format=%B', sha]) });
   }
-  const paths = git(['diff', '-z', '--name-only', '--diff-filter=ACMR', base, head])
-    .split('\0')
-    .filter(Boolean);
-  for (const path of paths.sort()) {
+  for (const path of changedPaths(base, head, shas)) {
     docs.push(...fileDocs(path, gitBuffer(['show', `${head}:${path}`])));
   }
   return docs;
+}
+
+/**
+ * The revisions from `base` to `head`, as git arguments. `base` is one commit, or several joined
+ * by commas: then everything reachable from any of them is left out, which is how the pre-push
+ * hook leaves out what is already published.
+ * @param {string} base
+ * @param {string} head
+ */
+function revisions(base, head) {
+  const bases = base.split(',').filter(Boolean);
+  return bases.length === 1 ? [`${bases[0]}..${head}`] : [head, ...bases.map((b) => `^${b}`)];
+}
+
+/**
+ * The files the range adds or changes that still exist at `head`, sorted.
+ * @param {string} base
+ * @param {string} head
+ * @param {string[]} shas the commits in the range
+ */
+function changedPaths(base, head, shas) {
+  const split = (/** @type {string} */ out) => out.split('\0').filter(Boolean);
+  if (!base.includes(','))
+    return split(git(['diff', '-z', '--name-only', '--diff-filter=ACMR', base, head])).sort();
+  const paths = new Set();
+  for (const sha of shas) {
+    for (const p of split(
+      git(['diff-tree', '-z', '-r', '--root', '--no-commit-id', '--name-only', '--diff-filter=ACMR', sha]),
+    )) {
+      paths.add(p);
+    }
+  }
+  return [...paths].filter((p) => git(['ls-tree', '--name-only', head, '--', p]).trim() !== '').sort();
 }
 
 /**
@@ -102,7 +132,7 @@ export function rangeDocs(base, head, branch) {
  * @param {string} head
  */
 export function rangeCommits(base, head) {
-  const out = git(['log', '--format=%H%x00%ae%x00%ce%x00%B%x1e', `${base}..${head}`]);
+  const out = git(['log', '--format=%H%x00%ae%x00%ce%x00%B%x1e', ...revisions(base, head)]);
   return out
     .split('\x1e')
     .map((s) => s.replace(/^\n/, ''))
