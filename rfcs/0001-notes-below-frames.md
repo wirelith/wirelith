@@ -1,6 +1,6 @@
-# RFC 0000: Notes below their screen
+# RFC 0001: Notes below their screen
 
-- **Status:** draft
+- **Status:** accepted
 - **Spec version:** 0.1, which is still a draft. Section 14 as written would make this a new minor version. This RFC relies on [RFC 0000-spec-releases](https://github.com/wirelith/wirelith/pull/20) (#20), under which a version is a draft until it is released.
 
 ## Summary
@@ -11,7 +11,7 @@ Draw a screen's notes list below the screen instead of beside it, so that no arr
 
 Today the notes list is a 240 px column 24 px to the right of its screen (spec section 7.4 and Appendix C.9). Arrows run through the gaps beside screens, so an arrow that leaves a screen with notes, or enters it from the right, crosses the notes column. The text becomes hard to read, and a label on the arrow can land on top of a note.
 
-[This source](0000-notes-below-frames/example.wirelith) has one note on the "Sign in" screen, and three links that pass beside it:
+[This source](0001-notes-below-frames/example.wirelith) has one note on the "Sign in" screen, and three links that pass beside it:
 
 ```wirelith
 wirelith 0.1
@@ -40,11 +40,11 @@ screen "Home" phone #home
 
 Today, three arrows run through the note:
 
-![Today: the notes list beside "Sign in", with three arrows crossing it](0000-notes-below-frames/before.png)
+![Today: the notes list beside "Sign in", with three arrows crossing it](0001-notes-below-frames/before.png)
 
 With this change, the note is below the screen and the arrows pass it by:
 
-![Proposed: the notes list below "Sign in", with no arrow crossing it](0000-notes-below-frames/after.png)
+![Proposed: the notes list below "Sign in", with no arrow crossing it](0001-notes-below-frames/after.png)
 
 Both pictures were drawn by the `wirelith` command from the source above.
 
