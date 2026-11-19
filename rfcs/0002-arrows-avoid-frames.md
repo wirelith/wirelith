@@ -1,6 +1,6 @@
-# RFC 0000: Arrows never cross frames
+# RFC 0002: Arrows never cross frames
 
-- **Status:** draft
+- **Status:** accepted
 - **Spec version:** 0.1, which is still a draft. Section 14 as written would make this a new minor version. This RFC relies on [RFC 0000-spec-releases](https://github.com/wirelith/wirelith/pull/20) (#20), under which a version is a draft until it is released.
 
 ## Summary
@@ -16,7 +16,7 @@ Sources don't change.
 
 Section 10.6 routes arrows through the gaps beside frames. It assumes those gaps are clear from the lane above the band down to the frame. Two cases break that assumption.
 
-**1. A group whose rows differ in width.** Each row of a group is laid out on its own, so the gap beside a narrow variant can lie under a wider frame above it. An arrow to the variant, or from it, runs straight through the wider frame. [This source](0000-arrows-avoid-frames/example.wirelith) has a desktop screen with a phone variant, and the variant has a drawer:
+**1. A group whose rows differ in width.** Each row of a group is laid out on its own, so the gap beside a narrow variant can lie under a wider frame above it. An arrow to the variant, or from it, runs straight through the wider frame. [This source](0002-arrows-avoid-frames/example.wirelith) has a desktop screen with a phone variant, and the variant has a drawer:
 
 ```wirelith
 screen "Orders" desktop #orders
@@ -31,11 +31,11 @@ screen "New order" phone #new
 
 Today, two arrows run down through "Orders":
 
-![Today: two arrows cross the wide "Orders" frame](0000-arrows-avoid-frames/before.png)
+![Today: two arrows cross the wide "Orders" frame](0002-arrows-avoid-frames/before.png)
 
 With this change, the drawer frame lines up under the second column, and every arrow stays in a clear gap:
 
-![Proposed: the frames line up in columns and no arrow crosses a frame](0000-arrows-avoid-frames/after.png)
+![Proposed: the frames line up in columns and no arrow crosses a frame](0002-arrows-avoid-frames/after.png)
 
 Both pictures were drawn by the `wirelith` command.
 
@@ -84,8 +84,8 @@ None. No new output elements or attributes. Arrow routing stays linear in the nu
 
 - **A new case, `flow-variant-columns`:** the source above.
 - **`flow-bands` changes:** its arrow back to the first band now takes the margin.
-- **New core tests,** each over 340 generated sources with variants, linked overlays, notes, and enough wide screens to wrap into several bands: no arrow crosses a frame other than the one it leaves, and none crosses a notes list (RFC 0000-notes-below-frames).
+- **New core tests,** each over 340 generated sources with variants, linked overlays, notes, and enough wide screens to wrap into several bands: no arrow crosses a frame other than the one it leaves, and none crosses a notes list (RFC 0001, #13).
 
 ## Depends on
 
-[RFC 0000-notes-below-frames](0000-notes-below-frames.md) (#13). The implementation builds on it, because the notes list counts as part of its frame's column.
+[RFC 0001](0001-notes-below-frames.md) (#13). The implementation builds on it, because the notes list counts as part of its frame's column.
