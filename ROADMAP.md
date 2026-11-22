@@ -47,10 +47,12 @@ These can't be checked by CI. They were listed as not verified when v0.1 was fin
 
 ## Releases
 
-- [ ] **Decide when to publish the packages,** to npm and PyPI, during 0.x.
-- [ ] **Write down how a release is cut:**
+- [x] **Decide when to publish the packages,** to npm and PyPI, during 0.x. The npm packages are published at 0.1.0 once spec 0.1 is released, and the Python package once it reports `E701` for the output canvas. [RELEASING.md](RELEASING.md) has the order.
+- [x] **Write down how a release is cut:**
   - versions from changesets;
   - provenance for published packages;
   - tags for spec versions;
   - who may release.
+
+  See [RELEASING.md](RELEASING.md). The packages are published by the Publish workflow, by hand, from `main`.
 - [ ] **Release 1.0** of the spec, the conformance suite and the reference packages together.
