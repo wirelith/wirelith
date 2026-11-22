@@ -1,6 +1,6 @@
-# RFC 0000: Spec versions are drafts until released
+# RFC 0004: Spec versions are drafts until released
 
-- **Status:** draft
+- **Status:** accepted
 - **Spec version:** 0.1, and every version after it. This changes how versions work, not what any source means.
 
 ## Summary
