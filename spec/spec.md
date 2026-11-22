@@ -208,13 +208,15 @@ An icon name is used by `icon "name"`, `button icon=name` and `item icon=name`. 
 
 | Attribute | Values | Applies to |
 | --- | --- | --- |
-| `gap` | `none`, `xs`, `sm`, `md` (default), `lg`, `xl` | Containers |
-| `pad` | The same scale; the default depends on the component | Containers |
-| `align` | `start`, `center`, `end`, `stretch` (cross axis) | Containers and text |
-| `justify` | `start`, `center`, `end`, `between` (main axis) | Containers |
+| `gap` | `none`, `xs`, `sm`, `md` (default), `lg`, `xl` | `row`, `column`, `grid`, `header`, `footer`, `card` |
+| `pad` | The same scale; the default depends on the component | `row`, `column`, `grid`, `header`, `footer`, `card` |
+| `align` | `start`, `center`, `end`, `stretch` (cross axis) | `row`, `column`, `header`, `footer`; and `h1` to `h3` and `text` |
+| `justify` | `start`, `center`, `end`, `between` (main axis) | `row`, `column`, `header`, `footer` |
 | `width`, `height` | A number of pixels, a percentage such as `50%`, or `fill` | Any element |
 | `grow` | Flag: take the remaining room on the main axis | Any element in a row or column |
 | `span` | 1 to 12 | A child of `grid` |
+
+The other components that take children (`sidebar`, `modal`, `drawer` and the rest in section 5.11) take none of these four. Their spacing is fixed (Appendix C).
 
 A flag or attribute that a component doesn't define is a warning (`W202`) and is ignored. So is a flag given a value (`primary=yes`) and an attribute written as a bare flag (`placeholder`).
 
@@ -868,9 +870,9 @@ All products below are made up.
 ```wirelith
 wirelith 0.1
 
-screen "Juniper Analytics" desktop #dashboard
+screen "Vellumcrest Analytics" desktop #dashboard
   sidebar
-    h3 "Juniper"
+    h3 "Vellumcrest"
     nav [Overview, Reports, Audiences, Settings] active="Overview" vertical
   header
     h2 "Overview"

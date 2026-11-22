@@ -53,7 +53,7 @@ screen "Website redesign" desktop #detail
 | --- | --- |
 | Screen | `screen "Title"` with `phone`, `tablet`, `desktop` (default) or `size=WxH` |
 | Layout | `row`, `column`, `grid cols=N`, `spacer`, `divider` |
-| Regions | `header`, `footer`, `sidebar` (add `right`; goes directly inside a screen, or inside a `row` beside the main content), `nav [..]` (or `item` children, not both), `tabs [..]`, `breadcrumbs [..]` |
+| Regions | `header`, `footer` (directly inside a screen), `sidebar` (add `right`; goes directly inside a screen, or inside a `row` beside the main content), `nav [..]` (or `item` children, not both), `tabs [..]`, `breadcrumbs [..]` |
 | Text | `h1`, `h2`, `h3`, `text` (paragraph), `label` (caption) |
 | Controls | `button`, `link`, `input`, `textarea`, `select "Label" [..]`, `checkbox`, `radio "Label" [..]`, `toggle` |
 | Content | `table [columns]` with `row [cells]` children, `list [..]` or `list` with `item` children (not both), `card "Title"`, `image "description"`, `icon "name"`, `badge`, `avatar "Full name"` |
@@ -77,7 +77,9 @@ screen "Website redesign" desktop #detail
 | `badge` | `primary`, `danger`, `success` |
 | `table` | `rows=N` for placeholder rows |
 | `image` | `ratio=16:9`, `width`, `height` |
-| Containers | `gap` and `pad`: `none`, `xs`, `sm`, `md`, `lg` or `xl`. `align`: `start`, `center`, `end` or `stretch`. `justify`: `start`, `center`, `end` or `between`. |
+| `row`, `column`, `header`, `footer` | `gap` and `pad`: `none`, `xs`, `sm`, `md`, `lg` or `xl`. `align`: `start`, `center`, `end` or `stretch`. `justify`: `start`, `center`, `end` or `between`. |
+| `grid`, `card` | `gap` and `pad`, as above |
+| `sidebar` | `right`, `width`. No `gap` or `pad`. |
 | Anything | `width` and `height` = pixels, a percentage or `fill`; `grow` to take the remaining room |
 
 ## Flows and states
@@ -99,5 +101,5 @@ Icon names are from the Lucide set, in lowercase with hyphens: `search`, `menu`,
 - Don't invent components (`textfield`, `dropdown`, `navbar`, `container`). Use `input`, `select`, `nav`, `column`.
 - Don't put a colon after a component, or braces around children.
 - Don't write `options=[..]`, `items=[..]` or `columns=[..]`. Write the list on its own: `select "Size" [S, M, L]`.
-- Don't put `modal` or `drawer` inside a row or card. They go directly inside the screen.
+- Don't put `modal`, `drawer`, `header` or `footer` inside a row, column or card. They go directly inside the screen.
 - Every `-> #id` must point at an id that exists.

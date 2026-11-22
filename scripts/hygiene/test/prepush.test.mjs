@@ -64,7 +64,8 @@ function repo() {
 
 const ZERO = '0'.repeat(40);
 
-describe('pre-push hook', () => {
+// Each test makes a throwaway repository and runs git many times, which is slow on Windows.
+describe('pre-push hook', { timeout: 30_000 }, () => {
   it('ignores commits already published on main after a rebase', () => {
     const r = repo();
     const a = r.commit('README.md', ME);
