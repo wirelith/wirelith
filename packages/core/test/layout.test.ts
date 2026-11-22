@@ -330,6 +330,39 @@ describe('notes and arrows (7.4)', () => {
     expect(arrows).toBeGreaterThan(1000);
   });
 
+  it('never puts an arrow label over a frame, a title or another label, and draws labels last', () => {
+    let labels = 0;
+    const sources = [
+      ...Array.from({ length: 300 }, (_, i) => generate(i + 1)),
+      ...Array.from({ length: 40 }, (_, i) => generate(i + 1, true)),
+    ];
+    for (const src of sources) {
+      const svg = render(src).svg ?? '';
+      const L = layout(src);
+      // Frames, and the 24 px title line above each (Appendix C.9).
+      const blocked = L.frames.map((f) => ({ x0: f.x, y0: f.y - 32, x1: f.x + f.width, y1: f.y + f.height }));
+      const boxes = [
+        ...svg.matchAll(/<g class="wl-arrow-label"><rect x="([0-9.-]+)" y="([0-9.-]+)" width="([0-9.]+)"/g),
+      ].map((m) => ({
+        x0: Number(m[1]),
+        y0: Number(m[2]),
+        x1: Number(m[1]) + Number(m[3]),
+        y1: Number(m[2]) + 18,
+      }));
+      labels += boxes.length;
+      boxes.forEach((b, i) => {
+        expect(b.x0, src).toBeGreaterThanOrEqual(0);
+        expect(b.x1, src).toBeLessThanOrEqual(L.width);
+        for (const f of blocked) expect(meet(b, f), src).toBe(false);
+        for (const other of boxes.slice(i + 1)) expect(meet(b, other), src).toBe(false);
+      });
+      if (boxes.length > 0) {
+        expect(svg.lastIndexOf('class="wl-arrow"'), src).toBeLessThan(svg.indexOf('class="wl-arrow-label"'));
+      }
+    }
+    expect(labels).toBeGreaterThan(1000);
+  });
+
   it('puts the notes list 24 px below its frame, as wide as the frame or 240 px', () => {
     const src = 'screen "A" size=300x200 #a\n  note "One"\nscreen "B" size=100x100 #b\n  note "Two"\n';
     const f = Object.fromEntries(layout(src).frames.map((x) => [x.id, x]));

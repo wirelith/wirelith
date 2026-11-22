@@ -5,7 +5,7 @@
 
 import { OVERLAYS } from './components.js';
 import { type Box, type Frame, type Laid, Layout } from './layout.js';
-import { r, wrap } from './measure.js';
+import { measure, r, wrap } from './measure.js';
 import type { Theme } from './theme.js';
 import type { Document, Node, Options } from './types.js';
 import { walk } from './validate.js';
@@ -51,6 +51,8 @@ const NOTES_GAP = 24;
 /** The narrowest a notes list may be. It is otherwise as wide as its frame. */
 const NOTES_W = 240;
 const LANE = 12;
+/** A lane that carries a label is this far from the lane (or the titles) below it. */
+const LABELLED_LANE = 24;
 /** The widest the overview may be (spec section 16); groups wrap into a new band beyond it. */
 const CANVAS = 16000;
 
@@ -238,12 +240,12 @@ export function buildOverview(doc: Document, theme: Theme, opts: Options): Overv
     for (const g of band) for (const row of g) for (const f of row) bandOf.set(f, b);
   });
 
-  /** Places every frame. `lanes[b]` is how many arrow lanes run above band b. Returns band tops. */
+  /** Places every frame. `lanes[b]` is how tall the lanes above band b are. Returns band tops. */
   const place = (lanes: number[]): number[] => {
     const tops: number[] = [];
-    let top = MARGIN + LANE * (lanes[0] ?? 0) + TITLE;
+    let top = MARGIN + (lanes[0] ?? 0) + TITLE;
     bands.forEach((band, b) => {
-      if (b > 0) top += H_GAP + LANE * (lanes[b] ?? 0);
+      if (b > 0) top += H_GAP + (lanes[b] ?? 0);
       tops.push(top);
       let x = MARGIN;
       let bandH = 0;
@@ -298,10 +300,18 @@ export function buildOverview(doc: Document, theme: Theme, opts: Options): Overv
     width = Math.max(width, f.x + outer(f));
     height = Math.max(height, f.y + tall(f));
   }
+  // A label on a lane near the edge of the canvas moves inward so that it stays on the canvas.
+  const canvasW = r(width + MARGIN);
+  const labelFont = layout.body(13, 500);
+  for (const a of arrows.arrows) {
+    if (a.label === undefined || a.label === '') continue;
+    const half = (measure(a.label.replace(/\n/g, ' '), labelFont) + 2 * u) / 2;
+    a.mid = [r(Math.min(Math.max(a.mid[0], half), canvasW - half)), a.mid[1]];
+  }
   return {
     frames,
     arrows: arrows.arrows,
-    width: r(width + MARGIN),
+    width: canvasW,
     height: r(height + MARGIN),
     alone,
     layout,
@@ -441,21 +451,24 @@ function route(
     }
     const gs = (dir === 'right' ? rightGap.get(S) : leftGap.get(S)) as Gap;
     const gt = (dir === 'right' || overlap ? leftGap.get(T) : rightGap.get(T)) as Gap;
-    const same = key(gs) === key(gt);
+    // An arrow with a label always runs through a lane, and its label sits on the lane, where it
+    // can't cover a frame.
+    const labelled = p.label !== undefined && p.label !== '';
+    const same = key(gs) === key(gt) && !labelled;
     const slotS = take(gs);
     const slotT = same ? slotS : take(gt);
     const slotM = !same && viaMargin(S, T) ? take(MARGIN_GAP) : 0;
-    return { p, dir, overlap, gs, gt, same, slotS, slotT, slotM };
+    return { p, dir, overlap, gs, gt, same, labelled, slotS, slotT, slotM };
   });
 
   // Lanes run above a band, numbered per band in link order.
   const lanes: number[] = bands.map(() => 0);
-  const lane = (b: number) => {
-    lanes[b] = (lanes[b] ?? 0) + 1;
-    return r((tops[b] ?? 0) - TITLE - LANE * (lanes[b] ?? 0));
+  const lane = (b: number, labelled = false) => {
+    lanes[b] = (lanes[b] ?? 0) + (labelled ? LABELLED_LANE : LANE);
+    return r((tops[b] ?? 0) - TITLE - (lanes[b] ?? 0));
   };
   const arrows: Arrow[] = routes.map((rt) => {
-    const { p, dir, overlap, gs, gt, same } = rt;
+    const { p, dir, overlap, gs, gt, same, labelled } = rt;
     const S = p.from;
     const T = p.to;
     const xIn = (g: Gap, k: number) => r(g.a + ((g.b - g.a) * k) / ((usage.get(key(g)) ?? 1) + 1));
@@ -470,19 +483,22 @@ function route(
     const entryX = r(dir === 'right' || overlap ? T.x : T.x + T.w);
     const xs = xIn(gs, rt.slotS);
     let points: [number, number][];
+    let mid: [number, number] | undefined;
     if (same) {
       points = [start, [xs, start[1]], [xs, entryY], [entryX, entryY]];
     } else if (rt.slotM === 0) {
-      const laneY = lane(bandOf.get(T) ?? 0);
+      const laneY = lane(bandOf.get(T) ?? 0, labelled);
       const xt = xIn(gt, rt.slotT);
+      if (labelled) mid = [r((xs + xt) / 2), laneY];
       points = [start, [xs, start[1]], [xs, laneY], [xt, laneY], [xt, entryY], [entryX, entryY]];
     } else {
       const bs = bandOf.get(S) ?? 0;
       const bt = bandOf.get(T) ?? 0;
       const outY = lane(bt < bs ? bs : bs + 1);
       const xm = xIn(MARGIN_GAP, rt.slotM);
-      const inY = lane(bt);
+      const inY = lane(bt, labelled);
       const xt = xIn(gt, rt.slotT);
+      if (labelled) mid = [r((xm + xt) / 2), inY];
       points = [
         start,
         [xs, start[1]],
@@ -497,7 +513,7 @@ function route(
     points = points.filter(
       (pt, i) => i === 0 || pt[0] !== points[i - 1]?.[0] || pt[1] !== points[i - 1]?.[1],
     );
-    const arrow: Arrow = { points, mid: midpoint(points) };
+    const arrow: Arrow = { points, mid: mid ?? midpoint(points) };
     if (p.label !== undefined) arrow.label = p.label;
     return arrow;
   });

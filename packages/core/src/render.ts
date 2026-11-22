@@ -993,6 +993,7 @@ class Painter {
     return el('g', { id: `${this.input.idPrefix}-${f.key}-notes`, class: 'wl-notes' }, ...parts);
   }
 
+  /** An arrow's line. Its label is drawn separately, after every line (see `arrowLabel`). */
   arrow(a: Arrow, markerId: string): Markup {
     const c = this.c;
     const d = a.points.map((p, i) => `${i === 0 ? 'M' : 'L'}${num(p[0])} ${num(p[1])}`).join('');
@@ -1006,16 +1007,23 @@ class Painter {
         'marker-end': `url(#${markerId})`,
       }),
     ];
-    if (a.label !== undefined && a.label !== '') {
-      const f = this.L.body(13, 500);
-      const label = a.label.replace(/\n/g, ' ');
-      const w = measure(label, f) + 2 * this.u;
-      const x = r(a.mid[0] - w / 2);
-      const y = r(a.mid[1] - 9);
-      parts.push(el('rect', { x, y, width: w, height: 18, rx: 3, fill: c.bg }));
-      parts.push(this.text(label, r(x + this.u), y, f, 18, c.text));
-    }
     return el('g', { class: 'wl-arrow' }, ...parts);
+  }
+
+  /** An arrow's label, or nothing. Labels are drawn after every arrow, so no line crosses one. */
+  arrowLabel(a: Arrow): Markup | undefined {
+    if (a.label === undefined || a.label === '') return undefined;
+    const f = this.L.body(13, 500);
+    const label = a.label.replace(/\n/g, ' ');
+    const w = measure(label, f) + 2 * this.u;
+    const x = r(a.mid[0] - w / 2);
+    const y = r(a.mid[1] - 9);
+    return el(
+      'g',
+      { class: 'wl-arrow-label' },
+      el('rect', { x, y, width: w, height: 18, rx: 3, fill: this.c.bg }),
+      this.text(label, r(x + this.u), y, f, 18, this.c.text),
+    );
   }
 }
 
@@ -1058,6 +1066,10 @@ export function paint(input: RenderInput): string {
       ),
     );
     for (const a of ov.arrows) body.push(painter.arrow(a, markerId));
+    for (const a of ov.arrows) {
+      const label = painter.arrowLabel(a);
+      if (label) body.push(label);
+    }
   }
   const head: (Markup | undefined)[] = [
     el('title', { id: `${idPrefix}-title` }, input.title),
