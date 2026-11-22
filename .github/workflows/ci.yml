@@ -132,6 +132,7 @@ jobs:
       - run: pnpm run build
       - run: pnpm run check-conformance
       - run: pnpm run conformance
+      - run: pnpm run check-gallery
 
   python:
     strategy:
