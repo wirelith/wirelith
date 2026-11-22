@@ -163,9 +163,9 @@ v0.1 defines the components below. Any other name is an error (`E201`), and the 
 | `input` | Field label | — | `placeholder`, `value`, `type` (`text`, `password`, `email`, `number`, `search`, `date`), `required`, `disabled`, `error="…"` |
 | `textarea` | Field label | — | `placeholder`, `value`, `rows=N` |
 | `select` | Field label | Options | `value`, `placeholder`, `disabled` |
-| `checkbox` | Option text | — | `checked`, `disabled` |
+| `checkbox` | Option text | — | `checked` (or `on`), `disabled` |
 | `radio` | Group label | Options | `value`, `disabled` |
-| `toggle` | Option text | — | `on`, `disabled` |
+| `toggle` | Option text | — | `on` (or `checked`), `disabled` |
 
 ### 5.6 Content
 
@@ -256,6 +256,7 @@ A screen has at most one `header`, one `footer`, one left `sidebar` and one righ
 - A `tabs` with no `active` shows its first tab as active. A `nav` with no `active` shows nothing as active.
 - A `nav` or `list` with both an item list and child elements draws the list and ignores the children, without a warning.
 - An `item` inside a `nav` with `active` is active, whatever the nav's `active` says.
+- On a `checkbox` or a `toggle`, `checked` and `on` mean the same. Writing both is the same as writing either.
 
 ## 6. Notes (numbered annotations)
 

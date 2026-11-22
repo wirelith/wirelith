@@ -69,8 +69,8 @@ screen "Website redesign" desktop #detail
 | `input` | `placeholder="…"`, `value="…"`, `type=` one of `text`, `password`, `email`, `number`, `search`, `date`, `required`, `disabled`, `error="…"` |
 | `textarea` | `placeholder`, `value`, `rows=N` |
 | `select`, `radio` | `value="…"` (the chosen option) |
-| `checkbox` | `checked` |
-| `toggle` | `on` |
+| `checkbox` | `checked` (`on` works too) |
+| `toggle` | `on` (`checked` works too) |
 | `nav`, `tabs` | `active="…"`; `nav` also takes `vertical` |
 | `item` | `active`, `icon=name`, `badge="…"` |
 | `text` | `muted`, `lines=N` for placeholder lines |
