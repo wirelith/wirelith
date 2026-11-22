@@ -1,0 +1,61 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Orders",
+      "flags": [
+        "desktop"
+      ],
+      "children": [
+        {
+          "type": "nav",
+          "items": [
+            "Home",
+            "Orders"
+          ],
+          "children": [
+            {
+              "type": "item",
+              "label": "Settings",
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            "Ada Park",
+            "Luis Ortega"
+          ],
+          "children": [
+            {
+              "type": "item",
+              "label": "Mei Tanaka",
+              "loc": {
+                "line": 5,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

@@ -412,6 +412,14 @@ def check(doc: dict[str, Any]) -> list[Diagnostic]:
             what = "tabs" if n["type"] == "tabs" else "entries" if n["type"] == "nav" else "options"
             add("W302", n, f'Line {line}: "{named}" is not one of the {what}')
 
+        # A nav or list with a list of entries draws the list and ignores its children (5.12).
+        if n["type"] in ("nav", "list") and "items" in n and n.get("children"):
+            add(
+                "W206",
+                n,
+                f'Line {line}: "{n["type"]}" has both a list of entries and child elements; only the list is drawn',
+            )
+
         # Table rows with more cells than columns.
         if n["type"] == "table-row" and w.parent is not None and w.parent["type"] == "table":
             cols = len(w.parent.get("items", []))
