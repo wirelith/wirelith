@@ -1,6 +1,6 @@
 # Wirelith Language Specification, v0.1 (draft)
 
-**Status:** draft, unstable. Anything may change before 1.0.
+**Status:** draft, unstable. A draft may change in any way until it is released (section 14), and anything may change before 1.0.
 
 Wirelith is a small plain-text language for low-fidelity wireframes. A source describes one or more screens and the links between them. A renderer turns it into SVG.
 
@@ -208,13 +208,15 @@ An icon name is used by `icon "name"`, `button icon=name` and `item icon=name`. 
 
 | Attribute | Values | Applies to |
 | --- | --- | --- |
-| `gap` | `none`, `xs`, `sm`, `md` (default), `lg`, `xl` | Containers |
-| `pad` | The same scale; the default depends on the component | Containers |
-| `align` | `start`, `center`, `end`, `stretch` (cross axis) | Containers and text |
-| `justify` | `start`, `center`, `end`, `between` (main axis) | Containers |
+| `gap` | `none`, `xs`, `sm`, `md` (default), `lg`, `xl` | `row`, `column`, `grid`, `header`, `footer`, `card` |
+| `pad` | The same scale; the default depends on the component | `row`, `column`, `grid`, `header`, `footer`, `card` |
+| `align` | `start`, `center`, `end`, `stretch` (cross axis) | `row`, `column`, `header`, `footer`; and `h1` to `h3` and `text` |
+| `justify` | `start`, `center`, `end`, `between` (main axis) | `row`, `column`, `header`, `footer` |
 | `width`, `height` | A number of pixels, a percentage such as `50%`, or `fill` | Any element |
 | `grow` | Flag: take the remaining room on the main axis | Any element in a row or column |
 | `span` | 1 to 12 | A child of `grid` |
+
+The other components that take children (`sidebar`, `modal`, `drawer` and the rest in section 5.11) take none of these four. Their spacing is fixed (Appendix C).
 
 A flag or attribute that a component doesn't define is a warning (`W202`) and is ignored. So is a flag given a value (`primary=yes`) and an attribute written as a bare flag (`placeholder`).
 
@@ -269,7 +271,7 @@ screen "Checkout" #checkout
 - A `note` is a child of a `screen`. Its label is the note text.
 - `for=#id` points the note at an element in the same screen. Without `for`, or with `for` naming the note's own screen, the note is about the whole screen. An id that doesn't exist is `E401`; an element in another screen is `E402`.
 - Notes are numbered from 1 in source order, per screen.
-- The renderer draws a numbered marker at the top-right corner of the target (the screen frame's corner for a note without `for`), and a numbered list of the notes beside the screen. Notes never change the layout inside the screen. A note about an element that isn't drawn, such as one inside an overlay that is never shown, is listed but has no marker.
+- The renderer draws a numbered marker at the top-right corner of the target (the screen frame's corner for a note without `for`), and a numbered list of the notes below the screen. Notes never change the layout inside the screen. A note about an element that isn't drawn, such as one inside an overlay that is never shown, is listed but has no marker.
 - A host MAY hide notes (section 8).
 
 ## 7. Flows
@@ -323,16 +325,16 @@ A renderer has two modes.
 1. Screens are placed left to right in source order, tops aligned, 96 px apart. Each has its title above it.
 2. A variant is placed directly below its base screen, 64 px apart, with its `state` name after the title, as `Title (State)`.
 3. An overlay that is the target of a link and does not have `open` is drawn as an extra frame after its screen: the screen, dimmed, with the overlay open.
-4. Each link is an arrow from the right edge of its source element to the nearest edge of its target frame, with its label at the midpoint. Arrows are routed around frames with horizontal and vertical segments only (section 10.6).
+4. Each link is an arrow from the right edge of its source element to the nearest edge of its target frame. Its label, if it has one, sits on a lane above the frames (section 10.6). Arrows are routed around frames with horizontal and vertical segments only (section 10.6).
 5. A source with one screen and no links is drawn as that screen alone.
 
 In detail:
 
-- **Groups.** Each screen that is not a variant starts a group. A group's first row is the screen, followed by the extra frames of its linked overlays, in source order. Each of its variants adds a row below, in source order, made of the variant and the extra frames of its own linked overlays. Frames in a row are 96 px apart and rows are 64 px apart. A group is as wide as its widest row. Groups are placed left to right, 96 px apart.
+- **Groups.** Each screen that is not a variant starts a group. A group's first row is the screen, followed by the extra frames of its linked overlays, in source order. Each of its variants adds a row below, in source order, made of the variant and the extra frames of its own linked overlays. Rows are 64 px apart. The frames of a group are aligned in columns: the first frame of every row is in the first column, the second in the second, and so on. Each column is as wide as its widest frame, every frame starts at its column's left edge, and columns are 96 px apart. A group is as wide as its columns. Groups are placed left to right, 96 px apart.
 - **Bands.** Groups are placed in bands. A group that would make the overview wider than 16,000 px (section 16), counting the 32 px margin on each side, starts a new band, below the tallest group of the band before, 96 px further down. The first group of a band is never moved to a new band, so a single group wider than the canvas is still `E701`.
-- **Notes.** A frame with notes has its notes list in a 240 px column, 24 px to its right. The column counts as part of the frame for spacing.
+- **Notes.** A frame with notes has its notes list 24 px below it, as wide as the frame or 240 px, whichever is wider. The list counts as part of the frame for spacing. It is below the frame, not beside it, so that no arrow crosses it: arrows run only beside frames and above bands.
 - **Canvas.** The overview has a 32 px margin on every side. Each frame's title is one line, set 8 px above the frame (Appendix C.9).
-- **One screen alone.** A source with one screen, no links and no linked overlays is drawn as that frame and its notes column, with no title line and no margin. When the frame has a note marker on its own top-right corner, the frame starts 9 px down and the canvas reaches at least 9 px past the frame's right edge, so that the marker isn't cut off.
+- **One screen alone.** A source with one screen, no links and no linked overlays is drawn as that frame and its notes list, with no title line and no margin. When the frame has a note marker on its own top-right corner, the frame starts 9 px down and the canvas reaches at least 9 px past the frame's right edge, so that the marker isn't cut off.
 - **Where an arrow starts.** A link on an element inside an overlay starts from the overlay's frame. A `flow` arrow starts from the middle of its source frame's edge. A link to an overlay that has `open` points at its own screen's frame; it is not drawn.
 - **Options.** With `flows` off, arrows are not drawn, but overlay frames still are. With `notes` off, neither markers nor lists are drawn, and frames close up as if no notes existed.
 - **Errors.** A renderer given a source with errors returns its diagnostics and no SVG. How a host shows the diagnostics is up to the host.
@@ -551,11 +553,13 @@ Appendix C gives the complete geometry of every component, including marks, bord
 
 1. An arrow leaves the middle of its source element's right edge. If the target frame is to the left, it leaves the left edge.
 2. It runs horizontally to the gap between frames, vertically to the height of its entry point, then horizontally into the target frame's nearest vertical edge, entering 48 px below the frame's top.
-3. Arrows that share a gap are spread across it at equal spacing, in source order: with n arrows in a gap of width w, the k-th (from 1) runs at w × k ÷ (n + 1) from the gap's left edge. A gap belongs to one band: gaps in different bands are different gaps, even where they line up.
-4. A link to a variant below its base runs down the gap to the left of the variant.
-5. When the target frame is not across the gap next to the source frame, or is in another band, the arrow climbs or drops down its gap to a lane above the band that holds the target, runs along the lane, and drops down the gap beside the target. Lanes are 12 px apart, starting 12 px above that band's frame titles, numbered in link order for each band. The space above each band grows by 12 px for each of its lanes.
+3. A gap is the space between two columns of a group (section 7.4), between two groups, or before the first group of a band. It runs the full height of its band, so an arrow in it never crosses a frame. The gap to the right of a frame begins at its column's right edge, not at the frame's. Arrows that share a gap are spread across it at equal spacing, in source order: with n arrows in a gap of width w, the k-th (from 1) runs at w × k ÷ (n + 1) from the gap's left edge. A gap belongs to one band: gaps in different bands are different gaps, even where they line up.
+4. A link without a label to a variant below its base runs down the gap to the left of the variant.
+5. When the target frame is not across the gap next to the source frame, or the arrow has a label, the arrow climbs or drops down its gap to a lane above the band that holds the target, runs along the lane, and drops down the gap beside the target. That covers a target in the same band, or in the band just below. Lanes are numbered in link order for each band. Each lane is 12 px above the lane below it, or above that band's frame titles for the first lane; a lane that carries a label is 24 px above instead. The space above each band grows by as much.
+   - **A target in a band above, or more than one band below.** The arrow climbs to a lane above its own band (or drops to a lane above the band below it), runs along that lane to the left margin, runs up or down the margin to a lane above the target's band, then along that lane and down the gap beside the target. It takes the first lane, then the second, in that order. The left margin is one gap for the whole canvas, so arrows in it are spread across it like arrows in any gap. Arrows that start or end beside the first group of a band use it too.
 6. Links are numbered in source order: elements' links in a depth-first walk of each screen, screens in source order, then `flow` lines.
-7. Arrows are drawn as described in Appendix C.9. Overlapping arrows beyond these rules are allowed.
+7. **Labels.** An arrow's label sits on the lane above the target's band, centred on the arrow's run along it. A label that would reach past the left or right edge of the canvas moves inward until it doesn't. A label never covers a frame, a frame title or another label.
+8. Arrows are drawn as described in Appendix C.9. Overlapping arrows beyond these rules are allowed.
 
 ## 11. Text measurement
 
@@ -590,10 +594,10 @@ The only other element is the `wl:source` element inside `metadata` (section 12.
 - **`title`** is the screen's title when the output shows one screen (with or without overlay frames), `Theme: <name>` for a specimen, and otherwise "*N* screens", where N counts every `screen`, variants included. **`desc`** is one sentence: `Screens: <titles, separated by ", ">. <L> links.` (`1 link.` when there is one), for example `Screens: Sign in, Home. 1 link.`
 - Each screen is a `g` with `class="wl-screen"`, an id, and its own `title`.
 - Each element is a `g` with `class="wl-<component>"`. State flags add classes, for example `wl-button wl-primary wl-disabled`.
-- **Ids** are `<idPrefix>-<source id>` for elements that have an id in the source, and `<idPrefix>-n<index>` otherwise, where the index is the element's position in a depth-first, pre-order walk of the syntax tree, from 0. The walk covers the screens, in source order, and everything under them, screens included; themes and `flow` lines are not counted. An extra frame for an overlay is a `g` with the id `<idPrefix>-<overlay's id>-frame`. Elements drawn again inside an extra frame put the frame's name before their own, as `<idPrefix>-<overlay's id>-frame-<element's id>`, so that every id in the document is unique. The notes list beside a frame is a `g` with the id `<frame's id>-notes`.
+- **Ids** are `<idPrefix>-<source id>` for elements that have an id in the source, and `<idPrefix>-n<index>` otherwise, where the index is the element's position in a depth-first, pre-order walk of the syntax tree, from 0. The walk covers the screens, in source order, and everything under them, screens included; themes and `flow` lines are not counted. An extra frame for an overlay is a `g` with the id `<idPrefix>-<overlay's id>-frame`. Elements drawn again inside an extra frame put the frame's name before their own, as `<idPrefix>-<overlay's id>-frame-<element's id>`, so that every id in the document is unique. The notes list below a frame is a `g` with the id `<frame's id>-notes`.
 - Text is drawn as `text` elements, never as outlines. `font-family` is exactly `Inter, sans-serif`, `'Source Serif 4', serif` or `'JetBrains Mono', monospace`.
 - **Numbers** are written with at most one decimal place and no trailing zero: `12`, `12.5`, `-3`. Every position is already a multiple of 0.5 (section 10.1). `-0` is written `0`. There are three exceptions: opacities are written as given in Appendix C; an icon's scale and stroke width are written with up to four decimal places (Appendix C.1); and an icon's drawing is copied exactly as it is in `icons.json`.
-- Attribute order within an element (Appendix D), number formatting and element order (source order, overlays last, notes after those, arrows after those) are fixed, so that outputs can be compared byte for byte after the normalisation the conformance suite defines.
+- Attribute order within an element (Appendix D), number formatting and element order (source order, overlays last, notes after those, arrows after those, and arrow labels after every arrow) are fixed, so that outputs can be compared byte for byte after the normalisation the conformance suite defines.
 
 ### 12.3 Embedded source
 
@@ -748,11 +752,12 @@ The outline of a source is a summary that tools can use without laying it out: i
 ## 14. Versioning and compatibility
 
 - **Spec versions** are `MAJOR.MINOR`. This is 0.1.
+- **Drafts and releases.** A spec version is a draft until the maintainers release it. A release is a tag of this repository named `spec-v<MAJOR>.<MINOR>`, for example `spec-v0.1`. The specification, its data files and the conformance suite at that tag define the version, and never change. While a version is a draft, accepted RFCs may change it in any way, including changes that move a pixel in its conformance outputs. After a release, the first accepted RFC that changes the language starts the next version, which is a draft until it is released in turn. A mistake found in a released version is fixed in the next version.
 - **Declaring a version.** The first line of a source MAY be `wirelith 0.1`. Tools that write sources SHOULD include it.
 - **While the major version is 0,** any minor version may change or remove syntax. Each release lists its changes, and where a change can be made mechanically the reference tools provide an upgrade command.
 - **From 1.0,** a source that is valid in 1.x stays valid, with the same meaning, in every later 1.y. New components, flags and attributes may be added in minor versions.
 - **A renderer given a newer minor version** than it implements MUST report `W101` and SHOULD still try to render. Given a newer major version, it MUST stop with `E103`. For a 0.1 renderer, `0.2` and later `0.x` versions are newer minor versions, and `1.0` and later are newer major versions.
-- **Rendering changes.** Any change to layout or metrics that moves a pixel in a conformance output is a new minor version.
+- **Rendering changes.** Once a version is released, any change to layout or metrics that would move a pixel in its conformance outputs belongs to a later version.
 - **Implementations** have their own version numbers. Each states which spec versions it implements.
 
 ## 15. Errors and warnings
@@ -867,9 +872,9 @@ All products below are made up.
 ```wirelith
 wirelith 0.1
 
-screen "Juniper Analytics" desktop #dashboard
+screen "Vellumcrest Analytics" desktop #dashboard
   sidebar
-    h3 "Juniper"
+    h3 "Vellumcrest"
     nav [Overview, Reports, Audiences, Settings] active="Overview" vertical
   header
     h2 "Overview"
@@ -1321,11 +1326,11 @@ This appendix completes section 10.5. With it, the layout and the drawing of eve
 | --- | --- |
 | Canvas | A `rect` covering the whole canvas, fill `bg`, drawn first |
 | Screen title | 15, weight 600, line height 24, `text`, starting at the frame's left edge, with its line box ending 8 px above the frame; truncated to the frame's width |
-| Notes list | 240 px wide, 24 px to the right of the frame, starting level with its top. A heading `Notes` (13, weight 600, line height 18, `muted`), a 2u gap, then each note: its marker, and its text from 24 px further right (13, weight 400, line height 18, wrapping to the column), with 2u between notes |
+| Notes list | As wide as the frame or 240 px, whichever is wider, starting 24 px below the frame, level with its left edge. A heading `Notes` (13, weight 600, line height 18, `muted`), a 2u gap, then each note: its marker, and its text from 24 px further right (13, weight 400, line height 18, wrapping to the list's width less 24 px), with 2u between notes |
 | Note marker | A `circle` of radius 9, fill `primary`, centred on the target's top-right corner; its number centred in it (12, weight 600, `on-primary`) |
 | Arrow | A `path` of straight segments, `stroke` = `muted`, width S, no fill, `stroke-linejoin="round"`, ending in the marker below |
 | Arrowhead | A `marker` in `defs` with the id `<idPrefix>-arrow`: `markerWidth` 8, `markerHeight` 8, `refX` 7, `refY` 4, `orient="auto"`, `markerUnits="userSpaceOnUse"`, holding a `path` `M0 0L8 4L0 8Z` with fill `muted` |
-| Arrow label | Centred on the point halfway along the path: a `rect` 18 px tall, 2u wider than the text, `rx` 3, fill `bg`, and the label (13, weight 500, `text`) |
+| Arrow label | A `g` with `class="wl-arrow-label"`, drawn after every arrow, centred where section 10.6 places it: a `rect` 18 px tall, 2u wider than the text, `rx` 3, fill `bg`, and the label (13, weight 500, `text`) |
 
 ### C.10 The theme specimen
 

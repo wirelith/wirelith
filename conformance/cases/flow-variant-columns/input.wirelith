@@ -1,0 +1,8 @@
+screen "Orders" desktop #orders
+  button "New order" primary -> #new
+screen "Orders" phone #orders-empty of=#orders state="Empty"
+  button "Open filters" -> #filters
+  drawer "Filters" #filters
+    button "Apply" -> #new
+screen "New order" phone #new
+  button "Save" primary -> #orders-empty

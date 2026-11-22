@@ -168,6 +168,213 @@ describe('overview (7.4)', () => {
   });
 });
 
+describe('notes and arrows (7.4)', () => {
+  type Rect = { x0: number; y0: number; x1: number; y1: number };
+  /** The box each notes list takes, from its frame and the baselines of its text. */
+  const noteBoxes = (src: string): Rect[] => {
+    const svg = render(src).svg ?? '';
+    return layout(src).frames.flatMap((f) => {
+      const g = svg.match(
+        new RegExp(`<g id="wl-${f.id}-notes"[^>]*>(.*?)</g></g>|<g id="wl-${f.id}-notes"[^>]*>(.*?)</g>`),
+      );
+      if (!g) return [];
+      const ys = [...(g[0] ?? '').matchAll(/<text x="[0-9.]+" y="([0-9.]+)"/g)].map((m) => Number(m[1]));
+      // A line's top is 15 px above its baseline and its bottom 3 px below (18 px line).
+      return [
+        { x0: f.x, y0: Math.min(...ys) - 15, x1: f.x + Math.max(f.width, 240), y1: Math.max(...ys) + 3 },
+      ];
+    });
+  };
+  /** Every straight segment of every arrow. */
+  const segments = (src: string): Rect[] => {
+    const svg = render(src).svg ?? '';
+    return [...svg.matchAll(/<path d="(M[^"]*)"[^>]*marker-end=/g)].flatMap((m) => {
+      const pts = [...(m[1] ?? '').matchAll(/[ML]([0-9.]+) ([0-9.]+)/g)].map((p) => [
+        Number(p[1]),
+        Number(p[2]),
+      ]);
+      return pts.slice(1).map((b, i) => {
+        const a = pts[i] as number[];
+        return {
+          x0: Math.min(a[0] ?? 0, b[0] ?? 0),
+          y0: Math.min(a[1] ?? 0, b[1] ?? 0),
+          x1: Math.max(a[0] ?? 0, b[0] ?? 0),
+          y1: Math.max(a[1] ?? 0, b[1] ?? 0),
+        };
+      });
+    });
+  };
+  const meet = (a: Rect, b: Rect) => a.x0 <= b.x1 && b.x0 <= a.x1 && a.y0 <= b.y1 && b.y0 <= a.y1;
+
+  /** Every frame's box, shrunk by 1 px so an arrow that ends on its edge doesn't count. */
+  const frameBoxes = (src: string): Rect[] =>
+    layout(src).frames.map((f) => ({
+      x0: f.x + 1,
+      y0: f.y + 1,
+      x1: f.x + f.width - 1,
+      y1: f.y + f.height - 1,
+    }));
+  /** Each arrow's start point and segments, in order. */
+  const arrowsOf = (src: string): { start: number[]; segs: Rect[] }[] => {
+    const svg = render(src).svg ?? '';
+    return [...svg.matchAll(/<path d="(M[^"]*)"[^>]*marker-end=/g)].map((m) => {
+      const pts = [...(m[1] ?? '').matchAll(/[ML]([0-9.]+) ([0-9.]+)/g)].map((p) => [
+        Number(p[1]),
+        Number(p[2]),
+      ]);
+      const segs = pts.slice(1).map((b, i) => {
+        const a = pts[i] as number[];
+        return {
+          x0: Math.min(a[0] ?? 0, b[0] ?? 0),
+          y0: Math.min(a[1] ?? 0, b[1] ?? 0),
+          x1: Math.max(a[0] ?? 0, b[0] ?? 0),
+          y1: Math.max(a[1] ?? 0, b[1] ?? 0),
+        };
+      });
+      return { start: pts[0] ?? [0, 0], segs };
+    });
+  };
+
+  /**
+   * A source with screens of mixed sizes, variants, linked overlays, notes, links in both
+   * directions, and flows.
+   */
+  const generate = (seed: number, many = false) => {
+    let x = seed;
+    // A small 32-bit generator, so every run makes the same sources.
+    const rand = (n: number) => {
+      x = (x + 0x6d2b79f5) | 0;
+      let t = Math.imul(x ^ (x >>> 15), 1 | x);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) % n;
+    };
+    // With many, there are enough wide screens to wrap into three or more bands.
+    const count = many ? 30 + rand(15) : 2 + rand(5);
+    const lines: string[] = ['wirelith 0.1'];
+    for (let i = 0; i < count; i++) {
+      const device =
+        many && rand(3) > 0 ? 'desktop' : ['phone', 'tablet', 'desktop', 'size=300x200'][rand(4)];
+      const variant = i > 0 && rand(4) === 0 ? ` of=#s${rand(i)} state="Empty"` : '';
+      lines.push(`screen "S${i}" ${device} #s${i}${variant}`);
+      if (rand(3) === 0) {
+        lines.push(
+          `  button "Open" #o${i} -> #m${i}`,
+          `  modal "Dialog ${i}" #m${i}`,
+          `    button "Done" -> #s${rand(count)}`,
+        );
+      }
+      for (let k = 0; k < 1 + rand(4); k++) {
+        lines.push(`  button "Go ${k}" #b${i}x${k} -> #s${rand(count)} "Label ${k}"`);
+      }
+      for (let k = 0; k < rand(4); k++) {
+        const target = rand(2) === 0 ? ` for=#b${i}x0` : '';
+        lines.push(
+          `  note "${'Something worth knowing about this screen. '.repeat(1 + rand(3)).trim()}"${target}`,
+        );
+      }
+    }
+    for (let k = 0; k < rand(3); k++) lines.push(`flow #s${rand(count)} -> #s${rand(count)} "Flow ${k}"`);
+    return `${lines.join('\n')}\n`;
+  };
+
+  it('never draws an arrow through a notes list', () => {
+    const readme = [
+      'screen "Sign in" phone #signin',
+      '  link "Forgot password?" -> #reset',
+      '  button "Sign in" primary -> #home',
+      '  note "Disabled until both fields are filled in" for=#signin',
+      'screen "Reset password" phone #reset',
+      '  button "Send link" primary -> #signin "Back to sign in"',
+      'screen "Home" phone #home',
+      '',
+    ].join('\n');
+    let checked = 0;
+    const generated = [
+      ...Array.from({ length: 300 }, (_, i) => generate(i + 1)),
+      ...Array.from({ length: 40 }, (_, i) => generate(i + 1, true)),
+    ];
+    for (const src of [readme, ...generated]) {
+      const notes = noteBoxes(src);
+      const segs = segments(src);
+      checked += notes.length;
+      for (const n of notes) for (const s of segs) expect(meet(n, s), src).toBe(false);
+    }
+    expect(checked).toBeGreaterThan(100);
+  });
+
+  it('never draws an arrow through a frame other than the one it leaves', () => {
+    let arrows = 0;
+    const sources = [
+      ...Array.from({ length: 300 }, (_, i) => generate(i + 1)),
+      ...Array.from({ length: 40 }, (_, i) => generate(i + 1, true)),
+    ];
+    // Some of them really do wrap into several bands.
+    expect(
+      sources.filter((src) => new Set(layout(src).frames.map((f) => f.y)).size > 3).length,
+    ).toBeGreaterThan(10);
+    for (const src of sources) {
+      const boxes = frameBoxes(src);
+      for (const { start, segs } of arrowsOf(src)) {
+        arrows++;
+        const [sx = 0, sy = 0] = start;
+        // The first segment starts inside the frame it leaves, and may cross it.
+        const own = boxes.filter((b) => b.x0 <= sx && sx <= b.x1 && b.y0 <= sy && sy <= b.y1);
+        segs.forEach((seg, i) => {
+          for (const b of boxes) {
+            if (i === 0 && own.includes(b)) continue;
+            expect(meet(b, seg), src).toBe(false);
+          }
+        });
+      }
+    }
+    expect(arrows).toBeGreaterThan(1000);
+  });
+
+  it('never puts an arrow label over a frame, a title or another label, and draws labels last', () => {
+    let labels = 0;
+    const sources = [
+      ...Array.from({ length: 300 }, (_, i) => generate(i + 1)),
+      ...Array.from({ length: 40 }, (_, i) => generate(i + 1, true)),
+    ];
+    for (const src of sources) {
+      const svg = render(src).svg ?? '';
+      const L = layout(src);
+      // Frames, and the 24 px title line above each (Appendix C.9).
+      const blocked = L.frames.map((f) => ({ x0: f.x, y0: f.y - 32, x1: f.x + f.width, y1: f.y + f.height }));
+      const boxes = [
+        ...svg.matchAll(/<g class="wl-arrow-label"><rect x="([0-9.-]+)" y="([0-9.-]+)" width="([0-9.]+)"/g),
+      ].map((m) => ({
+        x0: Number(m[1]),
+        y0: Number(m[2]),
+        x1: Number(m[1]) + Number(m[3]),
+        y1: Number(m[2]) + 18,
+      }));
+      labels += boxes.length;
+      boxes.forEach((b, i) => {
+        expect(b.x0, src).toBeGreaterThanOrEqual(0);
+        expect(b.x1, src).toBeLessThanOrEqual(L.width);
+        for (const f of blocked) expect(meet(b, f), src).toBe(false);
+        for (const other of boxes.slice(i + 1)) expect(meet(b, other), src).toBe(false);
+      });
+      if (boxes.length > 0) {
+        expect(svg.lastIndexOf('class="wl-arrow"'), src).toBeLessThan(svg.indexOf('class="wl-arrow-label"'));
+      }
+    }
+    expect(labels).toBeGreaterThan(1000);
+  });
+
+  it('puts the notes list 24 px below its frame, as wide as the frame or 240 px', () => {
+    const src = 'screen "A" size=300x200 #a\n  note "One"\nscreen "B" size=100x100 #b\n  note "Two"\n';
+    const f = Object.fromEntries(layout(src).frames.map((x) => [x.id, x]));
+    const svg = render(src).svg ?? '';
+    // The heading's baseline is 15 px below the list's top.
+    expect(svg).toContain(`<text x="${f.a?.x}" y="${(f.a?.y ?? 0) + 200 + 24 + 15}"`);
+    // B is narrower than 240 px, so the list makes its group 240 px wide.
+    expect(f.b?.x).toBe((f.a?.x ?? 0) + 300 + 96);
+    expect(layout(src).width).toBe((f.b?.x ?? 0) + 240 + 32);
+  });
+});
+
 describe('arrow spacing across bands (10.6)', () => {
   /** The x of each arrow's vertical run, in drawing order. */
   const runs = (src: string) => {

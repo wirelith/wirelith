@@ -27,10 +27,13 @@
   },
   "files": [
     "dist",
-    "fonts"
+    "fonts",
+    "LICENSE",
+    "NOTICE"
   ],
   "scripts": {
-    "build": "node scripts/copy-fonts.mjs && tsc -b"
+    "build": "node scripts/copy-fonts.mjs && tsc -b",
+    "prepack": "node ../../scripts/copy-legal.mjs"
   },
   "dependencies": {
     "@resvg/resvg-js": "2.6.2"
