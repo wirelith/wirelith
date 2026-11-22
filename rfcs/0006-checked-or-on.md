@@ -1,7 +1,7 @@
-# RFC 0000: `checked` and `on` on both checkbox and toggle
+# RFC 0006: `checked` and `on` on both checkbox and toggle
 
-- **Status:** draft
-- **Spec version:** 0.1, which is still a draft. This RFC relies on [RFC 0000-spec-releases](https://github.com/wirelith/wirelith/pull/20) (#20), under which a version is a draft until it is released.
+- **Status:** accepted
+- **Spec version:** 0.1, which is still a draft. This RFC relies on [RFC 0004](0004-spec-releases.md) (#20), under which a version is a draft until it is released.
 - **Discussed in:** #25, item 1.
 
 ## Summary
