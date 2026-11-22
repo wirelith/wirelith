@@ -1,6 +1,6 @@
-# RFC 0000: Arrow labels on lanes
+# RFC 0003: Arrow labels on lanes
 
-- **Status:** draft
+- **Status:** accepted
 - **Spec version:** 0.1, which is still a draft. Section 14 as written would make this a new minor version. This RFC relies on [RFC 0000-spec-releases](https://github.com/wirelith/wirelith/pull/20) (#20), under which a version is a draft until it is released.
 
 ## Summary
@@ -13,11 +13,11 @@ Today a label is centred on the point halfway along its arrow (Appendix C.9). Th
 
 This is the example from section 18.2 of the spec, which is also a conformance case. Today, "Back to sign in" covers the "Email" field label inside "Reset password":
 
-![Today: the label "Back to sign in" covers part of the Reset password screen](0000-labels-on-lanes/before.png)
+![Today: the label "Back to sign in" covers part of the Reset password screen](0003-labels-on-lanes/before.png)
 
 With this change, both labels sit on lanes above the frames:
 
-![Proposed: both labels sit on lanes above the screens](0000-labels-on-lanes/after.png)
+![Proposed: both labels sit on lanes above the screens](0003-labels-on-lanes/after.png)
 
 Both pictures were drawn by the `wirelith` command from the case `example-18-2-sign-in-flow`.
 
@@ -83,4 +83,4 @@ None. One new class name on a `g`. No new elements, attributes or limits.
 
 ## Depends on
 
-[RFC 0000-arrows-avoid-frames](0000-arrows-avoid-frames.md). The implementation builds on it, because labels on the margin route sit on the lane above the target's band.
+[RFC 0002](0002-arrows-avoid-frames.md) (#16). The implementation builds on it, because labels on the margin route sit on the lane above the target's band.
