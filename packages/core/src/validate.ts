@@ -370,6 +370,15 @@ export function check(doc: Document): Diagnostic[] {
       add('W302', n.loc, `Line ${n.loc.line}: "${named}" is not one of the ${what}`);
     }
 
+    // A nav or list with a list of entries draws the list and ignores its children (5.12).
+    if ((n.type === 'nav' || n.type === 'list') && n.items !== undefined && (n.children?.length ?? 0) > 0) {
+      add(
+        'W206',
+        n.loc,
+        `Line ${n.loc.line}: "${n.type}" has both a list of entries and child elements; only the list is drawn`,
+      );
+    }
+
     // Table rows with more cells than columns.
     if (n.type === 'table-row' && w.parent?.type === 'table') {
       const cols = w.parent.items?.length ?? 0;
