@@ -1,0 +1,92 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Settings",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "checkbox",
+          "label": "Email me receipts",
+          "flags": [
+            "checked"
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "checkbox",
+          "label": "Email me offers",
+          "flags": [
+            "on"
+          ],
+          "loc": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        {
+          "type": "checkbox",
+          "label": "Email me news",
+          "loc": {
+            "line": 4,
+            "column": 3
+          }
+        },
+        {
+          "type": "toggle",
+          "label": "Wi-Fi",
+          "flags": [
+            "on"
+          ],
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        },
+        {
+          "type": "toggle",
+          "label": "Bluetooth",
+          "flags": [
+            "checked"
+          ],
+          "loc": {
+            "line": 6,
+            "column": 3
+          }
+        },
+        {
+          "type": "toggle",
+          "label": "Airplane mode",
+          "loc": {
+            "line": 7,
+            "column": 3
+          }
+        },
+        {
+          "type": "toggle",
+          "label": "Location",
+          "flags": [
+            "on",
+            "checked",
+            "disabled"
+          ],
+          "loc": {
+            "line": 8,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Conformance suite
 
-The conformance suite tests any implementation of the Wirelith specification, in any language, against reference cases. An implementation that passes every case for a version may describe itself as compatible with that version (see [TRADEMARKS.md](../TRADEMARKS.md)).
+The conformance suite tests any implementation of the Wirelith specification, in any language, against reference cases. An implementation that passes every case at a version's release tag, such as `spec-v0.1`, may describe itself as compatible with that version (see [TRADEMARKS.md](../TRADEMARKS.md)). The cases on the main branch are for the current draft, and may change.
 
 ## Cases
 
