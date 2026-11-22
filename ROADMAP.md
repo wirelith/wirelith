@@ -6,13 +6,15 @@ This page lists what has to be true before 1.0. Each item links to the issue or 
 
 ## The language
 
-- [ ] **Decide the three open rendering RFCs.** Accept, change or decline them, in this order:
+- [x] **Decide the three open rendering RFCs.** Accept, change or decline them, in this order:
   - notes below their screen (#13);
   - arrows never cross frames (#16);
   - arrow labels on lanes (#17).
-- [ ] **Define when a spec version counts as released** (#19, RFC #20). Section 14 says a change that moves a pixel in a conformance output is a new minor version, but not when a version is released and stops changing. The RFC makes a version a draft until the maintainers tag it, so the open RFCs land in 0.1.
-- [ ] **Decide what a note's `for=` means when it names its own screen** (#23, RFC #24). Today it's accepted silently and draws no marker on the frame, while a note without `for=` does. Either treat it like a note without `for=`, or report a diagnostic.
-- [ ] **Review every component, flag and attribute for permanence** (#25). Rename or remove anything we wouldn't keep forever, while 0.x still allows it.
+
+  All three were accepted, as RFCs 0001, 0002 and 0003, and implemented in #42, #43 and #44.
+- [x] **Define when a spec version counts as released** (#19, RFC #20). Section 14 says a change that moves a pixel in a conformance output is a new minor version, but not when a version is released and stops changing. The RFC makes a version a draft until the maintainers tag it, so the open RFCs land in 0.1. Accepted as RFC 0004 and implemented in #45: a version is released by the tag `spec-v<MAJOR>.<MINOR>`.
+- [x] **Decide what a note's `for=` means when it names its own screen** (#23, RFC #24). Today it's accepted silently and draws no marker on the frame, while a note without `for=` does. Either treat it like a note without `for=`, or report a diagnostic. Accepted as RFC 0005, which treats it like a note without `for=`, and implemented in #46.
+- [x] **Review every component, flag and attribute for permanence** (#25). Rename or remove anything we wouldn't keep forever, while 0.x still allows it. Nothing was renamed or removed. The review led to RFC 0006 (`checked` and `on` on both controls, #47) and RFC 0007 (the `W206` warning, #48), and the eval it drew on led to RFC 0008 (a header inside a card or column, #37), whose implementation is #41.
 - [ ] **Mark the specification final** for 1.0, not draft.
 
 ## Conformance
