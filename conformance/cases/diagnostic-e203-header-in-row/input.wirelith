@@ -1,0 +1,7 @@
+screen "A"
+  row
+    header
+  modal "M"
+    header
+  sidebar
+    header

@@ -1,0 +1,10 @@
+screen "A" phone
+  card "A card title long enough to crowd its header"
+    header
+      button "One long button label"
+      button "Another long button label"
+    text "The card's title moved into its header, so the header's row is too wide."
+  column height=60 pad=sm
+    header
+      h2 "Tall"
+    text "The header counts towards the column's fixed height."

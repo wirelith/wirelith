@@ -1,0 +1,7 @@
+screen "A"
+  column
+    text "First"
+    header
+  card "B"
+    text "First"
+    header

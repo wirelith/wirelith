@@ -1,0 +1,15 @@
+wirelith 0.1
+
+screen "Dashboard" desktop
+  grid cols=2
+    card "Recent orders"
+      header
+        spacer
+        button "View all" sm
+      table [Order, Total] rows=3
+    card
+      header
+        h3 "Team"
+        spacer
+        badge "4 people"
+      text lines=2

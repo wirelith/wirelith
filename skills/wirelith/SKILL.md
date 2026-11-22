@@ -40,7 +40,7 @@ Each diagnostic has a code, a line and a column, a message, and often a hint. Fi
 | `E105` | A component is outside a screen | Indent it under a `screen` |
 | `E106` | A part is malformed | Read the message: often a missing value after `=`, or text that needs quotes |
 | `E201` | Unknown component | Use the name the hint suggests |
-| `E203` | Component in the wrong place | `modal`, `drawer`, `note`, `header` and `footer` go directly inside a screen |
+| `E203` | Component in the wrong place | `modal`, `drawer`, `note` and `footer` go directly inside a screen; `header` goes there too, or first inside a card or column |
 | `E204` | Children under a component that takes none | Move them out, or use a container |
 | `E301` | The same id twice | Rename one |
 | `E401`, `E402` | A link points at nothing, or at the wrong thing | Point it at an existing screen, or a modal or drawer in the same screen |

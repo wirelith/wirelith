@@ -516,7 +516,13 @@ def _placement_problem(n: Node, p: Node) -> str | None:
     t = n["type"]
     if t == "item":
         return None if p["type"] in ("list", "nav") else '"item" must be directly inside a list or a nav'
-    if t in ("note", "modal", "drawer", "header", "footer"):
+    if t == "header":
+        # A screen's header, or a bar at the top of a card or column (RFC 0008).
+        first = p.get("children", [None])[0]
+        if p["type"] == "screen" or (p["type"] in ("card", "column") and first is n):
+            return None
+        return '"header" must be directly inside a screen, or first inside a card or column'
+    if t in ("note", "modal", "drawer", "footer"):
         return None if p["type"] == "screen" else f'"{t}" must be directly inside a screen'
     if t == "sidebar":
         return (

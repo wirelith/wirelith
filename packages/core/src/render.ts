@@ -4,6 +4,7 @@
 
 import { ICON_DRAWINGS, ICON_NAMES } from './data/icons.js';
 import type { Box, Laid, Layout } from './layout.js';
+import { CARD_TITLE } from './layout.js';
 import { baseline, type Font, measure, r, truncate } from './measure.js';
 import type { Arrow, Overview, PlacedFrame } from './overview.js';
 import { SPEC_VERSION } from './parse.js';
@@ -317,7 +318,8 @@ class Painter {
       case 'card': {
         const p = L.pad(n);
         const parts: (Markup | undefined)[] = [this.outlined(b, c.surface)];
-        if (n.label !== undefined) {
+        // With a leading header, the title is drawn in the header instead (Appendix C.7).
+        if (n.label !== undefined && L.leadHeader(n) === undefined) {
           const f = L.heading(15, 600);
           const shown = truncate(label, f, b.w - 2 * p);
           if (shown) parts.push(this.text(shown, b.x + p, b.y + p, f, 22, c.text));
@@ -331,7 +333,13 @@ class Painter {
       case 'header':
       case 'footer': {
         const y = n.type === 'header' ? b.y + b.h : b.y;
-        return this.group(n, [el('g', { 'aria-hidden': 'true' }, this.hline(b.x, b.x + b.w, y)), ...kids()]);
+        const entries = l.children.map((k) => {
+          if (k.node.type !== CARD_TITLE) return this.draw(k);
+          const f = L.heading(15, 600);
+          const shown = truncate(k.node.label ?? '', f, k.box.w);
+          return shown ? this.text(shown, k.box.x, k.box.y, f, 22, c.text) : undefined;
+        });
+        return this.group(n, [el('g', { 'aria-hidden': 'true' }, this.hline(b.x, b.x + b.w, y)), ...entries]);
       }
       case 'sidebar': {
         const parts: Markup[] = [el('rect', { x: b.x, y: b.y, width: b.w, height: b.h, fill: c.bg })];

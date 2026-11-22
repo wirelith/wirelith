@@ -139,7 +139,7 @@ v0.1 defines the components below. Any other name is an error (`E201`), and the 
 
 | Component | Label | Items | Flags and attributes | Notes |
 | --- | --- | --- | --- | --- |
-| `header` | — | — | `gap`, `pad`, `align`, `justify` | A bar at the top of a screen; children in a row |
+| `header` | — | — | `gap`, `pad`, `align`, `justify` | A bar at the top of a screen, or of a `card` or `column` when it is the container's first child; children in a row |
 | `footer` | — | — | `gap`, `pad`, `align`, `justify` | A bar at the bottom of a screen; children in a row |
 | `sidebar` | — | — | `right`, `width` | A column of navigation or supporting content, 240 px wide by default. Directly inside a `screen` it is full height, at most one on each side. Inside a `row` it is a fixed-width column beside the row's other children. Anywhere else is an error (`E203`). |
 | `nav` | — | Entries | `active="…"`, `vertical` | A list overrides children. Children are `item` elements. |
@@ -245,10 +245,11 @@ Some components may appear only in certain places. Anywhere else is an error (`E
 | --- | --- |
 | `item` | Directly inside `list` or `nav` |
 | `row` with cell values, as a table row | Directly inside `table`. A `table` takes no other children. |
-| `note`, `modal`, `drawer`, `header`, `footer` | Directly inside a `screen` |
+| `note`, `modal`, `drawer`, `footer` | Directly inside a `screen` |
+| `header` | Directly inside a `screen`, or the first child of a `card` or a `column` |
 | `sidebar` | Directly inside a `screen`, or directly inside a `row` |
 
-A screen has at most one `header`, one `footer`, one left `sidebar` and one right `sidebar`. A second one is `E203`.
+A screen has at most one `header`, one `footer`, one left `sidebar` and one right `sidebar`. A second one is `E203`. The limit counts only headers directly inside the screen, so a screen may also have headers inside its cards and columns.
 
 ### 5.12 When parts disagree
 
@@ -516,7 +517,7 @@ Layout runs top-down for widths, then bottom-up for heights.
 5. **Cross-axis alignment** follows `align`. `stretch` is the default in vertical containers, and `center` in horizontal ones. In a horizontal container, `stretch` makes every container child (and every `divider` and `sidebar`, whatever the alignment) as tall as the row; leaves keep their own height and sit at the top.
 6. **Main-axis placement** follows `justify` when no child grows.
 7. **`grid`.** The column width is (content width − gaps) ÷ `cols`, shared as in section 10.1. A child with `span=N` takes N columns and the gaps between them. Children fill rows left to right, and a child that doesn't fit starts a new row. Each row is as tall as its tallest child, and every child in the row is stretched to that height.
-8. **`sidebar`, `header`, `footer`.** A screen first sets aside its `header` (top, full width), `footer` (bottom, full width) and `sidebar` (left, or right, between the header and the footer) children, in that order. Its other children, in source order, are its **body**: a column, with the screen's padding, in the area that remains. The frame is as tall as the device, or as tall as its content needs if that is more, and the footer sits at the bottom of the frame. A `sidebar` inside a `row` is an ordinary child of that row with a fixed width (its `width`, or 240 px), stretched to the row's height.
+8. **`sidebar`, `header`, `footer`.** A screen first sets aside its `header` (top, full width), `footer` (bottom, full width) and `sidebar` (left, or right, between the header and the footer) children, in that order. Its other children, in source order, are its **body**: a column, with the screen's padding, in the area that remains. The frame is as tall as the device, or as tall as its content needs if that is more, and the footer sits at the bottom of the frame. A `sidebar` inside a `row` is an ordinary child of that row with a fixed width (its `width`, or 240 px), stretched to the row's height. A `card` or `column` whose first child is a `header` first sets it aside at its top, across the container's full width, ignoring the container's padding. Its other children are laid out below the header as before, inside the container's padding. The container's height is the header's height plus the height it would otherwise have.
 9. **Overlays.** A `modal` is centred on the screen, 480 px wide by default and no wider than the screen minus 8u. It is centred vertically within the device height, and no higher than 4u from the top. A `drawer` is 360 px wide (or 50% of the screen height for `bottom`) and fills the screen along its edge. While an overlay is open, the rest of the frame is dimmed (Appendix C.8).
 
 ### 10.4 Intrinsic and minimum widths
@@ -1219,6 +1220,7 @@ This appendix completes section 10.5. With it, the layout and the drawing of eve
 | Body | A column inside the area left by the header, footer and sidebars, with padding P, gap `md`, align `stretch` |
 | `header` | Full frame width. Padding 3u top and bottom, P left and right. Its children are a row: gap `md`, align `center`, justify `start`. A `line` along its bottom edge, `stroke` = `border`, width S. Height: its content height plus 6u. |
 | `footer` | As `header`, with the line along its top edge, at the bottom of the frame |
+| `header` (in a card or column) | As a screen's `header`, with these differences. Its width is the container's full width. Its left and right padding is the container's own padding (`pad`, or the default: 4u for a card, none for a column) instead of P. Inside a card, it sits inside the card's outline, and its bottom `line` runs from the outline's left edge to its right edge. |
 | `sidebar` (in a screen) | Width 240, or its `width`; from the bottom of the header to the top of the footer. Fill `bg` (a `rect`). Padding 4u. Its children are a column: gap `md`, align `stretch`. A `line` along its inner edge. |
 | `sidebar` (in a row) | As above, with the row's height |
 
@@ -1304,7 +1306,7 @@ This appendix completes section 10.5. With it, the layout and the drawing of eve
 | `list` (from a list) | One entry per item, each 9u tall, with no gap. Text is 15, weight 400, starting 5u from the left. Unordered: a `circle` of radius 2.5, fill `text`, centred 2u from the left. `ordered`: the number and a full stop (`1.`) in `muted`, starting at the left. |
 | `list` (with `item` children) | The items, stacked with no gap and no markers. `ordered` has no effect. |
 | `item` | 9u tall, padding 3u left and right. An optional 16 px icon and a 2u gap, then the label (15, weight 400). `active`: a `rect` behind it with `rx` = R, fill `bg`, and weight 600. `badge="…"`: a badge (below) at the right, inside the padding. |
-| `card` | An outlined box with fill `surface`. Padding 4u. With a title: the title (15, weight 600, line height 22), then a gap of `md`. Then the children as a column: gap `md`, align `stretch`. |
+| `card` | An outlined box with fill `surface`. Padding 4u. With a title: the title (15, weight 600, line height 22), then a gap of `md`. Then the children as a column: gap `md`, align `stretch`. When a card's first child is a `header`, the card's title, if it has one, is drawn as the header's first child (15, weight 600, line height 22), and the card draws no separate title row or the gap after it. |
 | `table` | An optional caption (15, weight 600, line height 22) and a 2u gap, then an outlined box with fill `surface`, whose contents are clipped to it (a `clipPath`). The header row is 10u tall with fill `bg`; each further row is 10u tall, with a `line` between rows in `border`. Columns share the width equally. Cells have 3u padding left and right; header text is 14, weight 600; cell text is 14, weight 400; both truncate. A `selected` row has fill `bg` and a `rect` 3 px wide at its left edge in `primary`. Placeholder rows (`rows=N`, or 3 when a table has neither child rows nor `rows`) put a placeholder bar 60% of the cell's inner width in each cell. Intrinsic width: 120 per column; minimum: 64 per column. |
 | `image` | An outlined box with fill `bg`, and two `line`s from corner to corner in `border`, width S. The description is centred on one line (13, weight 400, `muted`), truncated to the box width minus 4u, on a `rect` of fill `bg` that is 2u wider than the text and 18 px tall. |
 | `icon` | 16, 20 or 24 px (`sm`, default, `lg`), in `text` |

@@ -57,6 +57,8 @@ export interface Frame {
 }
 
 const MAIN_H = new Set(['row', 'header', 'footer']);
+/** A layout-only node: a card's title, drawn as the first entry of the card's header (Appendix C.7). */
+export const CARD_TITLE = 'card-title';
 /** Leaves drawn at their own width at the start of a wider box (Appendix C.1). */
 const OWN_WIDTH = new Set(['badge', 'avatar', 'icon', 'checkbox', 'toggle', 'radio']);
 const CONTAINERS = new Set([
@@ -82,6 +84,8 @@ export class Layout {
   readonly u: number;
   readonly warnings: Diagnostic[] = [];
   readonly index = new Map<Node, number>();
+  /** The title nodes of cards whose title moved into their header, keyed by the header. */
+  readonly barTitles = new Map<Node, Node>();
 
   constructor(
     readonly doc: Document,
@@ -277,6 +281,11 @@ export class Layout {
       }
       case 'card': {
         const p = this.pad(n);
+        const lead = this.leadHeader(n);
+        if (lead) {
+          this.cardTitleInHeader(n, lead);
+          return this.leadIntrinsic(n, lead, p);
+        }
         const c = this.columnIntrinsic(n.children ?? [], 0);
         const t = n.label !== undefined ? measure(n.label, this.heading(15, 600)) : 0;
         return { pref: Math.max(c.pref, t) + 2 * p, min: Math.max(c.min, Math.min(t, 96)) + 2 * p };
@@ -293,12 +302,21 @@ export class Layout {
         const w = num(n.attrs?.width) ?? 240;
         return { pref: w, min: w };
       }
+      case 'column': {
+        const lead = this.leadHeader(n);
+        if (lead) return this.leadIntrinsic(n, lead, this.pad(n));
+        return this.columnIntrinsic(n.children ?? [], this.pad(n));
+      }
+      case CARD_TITLE: {
+        const w = measure(label, this.heading(15, 600));
+        return { pref: w, min: Math.min(w, 96) };
+      }
       case 'swatches':
         return { pref: 3 * 200 + 2 * 4 * u, min: 3 * 200 + 2 * 4 * u };
       case 'row':
       case 'header':
       case 'footer': {
-        const kids = this.flowChildren(n);
+        const kids = this.barChildren(n);
         const p = this.pad(n);
         const g = this.gap(n);
         let pref = 0;
@@ -375,6 +393,49 @@ export class Layout {
   /** The children that are laid out in a container's flow (notes and overlays are not). */
   flowChildren(n: Node): Node[] {
     return (n.children ?? []).filter((c) => c.type !== 'note' && !OVERLAYS.has(c.type));
+  }
+
+  /** A card's or column's header, when it is the container's first child (section 5.11). */
+  leadHeader(n: Node): Node | undefined {
+    if (n.type !== 'card' && n.type !== 'column') return undefined;
+    const first = n.children?.[0];
+    return first?.type === 'header' ? first : undefined;
+  }
+
+  /** A header's entries in its row: its children, led by its card's title if that moved into it. */
+  barChildren(n: Node): Node[] {
+    const t = this.barTitles.get(n);
+    return t ? [t, ...this.flowChildren(n)] : this.flowChildren(n);
+  }
+
+  /** Moves a card's title into its leading header (Appendix C.7). */
+  cardTitleInHeader(card: Node, header: Node): void {
+    if (card.label === undefined || this.barTitles.has(header)) return;
+    this.barTitles.set(header, { type: CARD_TITLE, label: card.label, loc: card.loc });
+  }
+
+  /** Intrinsic widths of a card or column that leads with a header: the bar, or the rest. */
+  leadIntrinsic(n: Node, header: Node, p: number): { pref: number; min: number } {
+    const kids = this.barChildren(header);
+    let pref = 0;
+    let min = 0;
+    for (const c of kids) {
+      const i = this.intrinsic(c);
+      pref += i.pref;
+      min += i.min;
+    }
+    const gaps = Math.max(0, kids.length - 1) * this.gap(header);
+    const rest = this.columnIntrinsic((n.children ?? []).slice(1), p);
+    return { pref: Math.max(pref + gaps + 2 * p, rest.pref), min: Math.max(min + gaps + 2 * p, rest.min) };
+  }
+
+  /** Places a card's or column's leading header across its full width, with the container's side padding. */
+  placeLeadHeader(header: Node, x: number, y: number, w: number, padH: number): Laid {
+    const prev = this.barPad;
+    this.barPad = padH;
+    const l = this.place(header, x, y, w);
+    this.barPad = prev;
+    return l;
   }
 
   navEntries(n: Node): { text: string; active: boolean; icon?: string; node?: Node }[] {
@@ -523,21 +584,28 @@ export class Layout {
         break;
       case 'card': {
         const p = this.pad(n);
-        const titleH = n.label !== undefined ? 22 + this.gap(n) : 0;
+        const lead = this.leadHeader(n);
+        if (lead) this.cardTitleInHeader(n, lead);
+        const bar = lead ? this.placeLeadHeader(lead, x, y, w, p) : undefined;
+        const barH = bar?.box.h ?? 0;
+        const titleH = !lead && n.label !== undefined ? 22 + this.gap(n) : 0;
         const inner = this.placeColumn(
           n,
-          this.flowChildren(n),
+          this.flowChildren(n).filter((c) => c !== lead),
           x + p,
-          y + p + titleH,
+          y + barH + p + titleH,
           w - 2 * p,
           this.gap(n),
           'stretch',
           undefined,
         );
-        out = this.laid(n, x, y, w, 2 * p + titleH + inner.h);
-        out.children = inner.children;
+        out = this.laid(n, x, y, w, barH + 2 * p + titleH + inner.h);
+        out.children = bar ? [bar, ...inner.children] : inner.children;
         break;
       }
+      case CARD_TITLE:
+        out = this.laid(n, x, y, w, 22);
+        break;
       case 'empty':
       case 'error':
       case 'loading': {
@@ -576,18 +644,21 @@ export class Layout {
       case 'sidebar':
       case 'column': {
         const p = this.pad(n);
+        const lead = this.leadHeader(n);
+        const bar = lead ? this.placeLeadHeader(lead, x, y, w, p) : undefined;
+        const barH = bar?.box.h ?? 0;
         const inner = this.placeColumn(
           n,
-          this.flowChildren(n),
+          this.flowChildren(n).filter((c) => c !== lead),
           x + p,
-          y + p,
+          y + barH + p,
           w - 2 * p,
           this.gap(n),
           this.align(n),
-          fixedH !== undefined ? fixedH - 2 * p : undefined,
+          fixedH !== undefined ? fixedH - barH - 2 * p : undefined,
         );
-        out = this.laid(n, x, y, w, inner.h + 2 * p);
-        out.children = inner.children;
+        out = this.laid(n, x, y, w, barH + inner.h + 2 * p);
+        out.children = bar ? [bar, ...inner.children] : inner.children;
         break;
       }
       default:
@@ -676,7 +747,7 @@ export class Layout {
     const padH = isBar ? (this.barPad ?? this.pad(n)) : this.pad(n);
     const gap = this.gap(n);
     const W = w - 2 * padH;
-    const kids = this.flowChildren(n);
+    const kids = this.barChildren(n);
     const lines: Node[][] = [];
     if (has(n, 'wrap')) {
       let line: Node[] = [];

@@ -22,6 +22,8 @@ from .theme import Theme
 from .validate import attr, has, is_ref, text_of
 
 _MAIN_H = frozenset(["row", "header", "footer"])
+# A layout-only node: a card's title, drawn as the first entry of the card's header (Appendix C.7).
+CARD_TITLE = "card-title"
 # Leaves drawn at their own width at the start of a wider box (Appendix C.1).
 _OWN_WIDTH = frozenset(["badge", "avatar", "icon", "checkbox", "toggle", "radio"])
 _CONTAINERS = frozenset(
@@ -145,6 +147,8 @@ class Layout:
         self.warnings: list[Diagnostic] = []
         # Set while laying out a screen's header and footer, whose side padding is the screen's.
         self.bar_pad: float | None = None
+        # The title nodes of cards whose title moved into their header, keyed by the header's id().
+        self.bar_titles: dict[int, Node] = {}
 
     # ---- fonts ------------------------------------------------------------------------------
 
@@ -288,6 +292,10 @@ class Layout:
             return 120 * cols, 64 * cols
         if t == "card":
             p = self.pad(n)
+            lead = self.lead_header(n)
+            if lead is not None:
+                self.card_title_in_header(n, lead)
+                return self.lead_intrinsic(n, lead, p)
             c_pref, c_min = self.column_intrinsic(n.get("children", []), 0)
             tw = measure(n["label"], self.heading(15, 600)) if "label" in n else 0.0
             return max_(c_pref, tw) + 2 * p, max_(c_min, min_(tw, 96)) + 2 * p
@@ -301,11 +309,19 @@ class Layout:
             sw = _num(attr(n, "width"))
             w = sw if sw is not None else 240.0
             return w, w
+        if t == "column":
+            lead = self.lead_header(n)
+            if lead is not None:
+                return self.lead_intrinsic(n, lead, self.pad(n))
+            return self.column_intrinsic(n.get("children", []), self.pad(n))
+        if t == CARD_TITLE:
+            tw = measure(label, self.heading(15, 600))
+            return tw, min_(tw, 96)
         if t == "swatches":
             w = 3 * 200 + 2 * 4 * u
             return w, w
         if t in ("row", "header", "footer"):
-            kids = self.flow_children(n)
+            kids = self.bar_children(n)
             p = self.pad(n)
             g = self.gap(n)
             pref = 0.0
@@ -370,6 +386,45 @@ class Layout:
     def flow_children(self, n: Node) -> list[Node]:
         """The children laid out in a container's flow (notes and overlays are not)."""
         return [c for c in n.get("children", []) if c["type"] != "note" and c["type"] not in OVERLAYS]
+
+    def lead_header(self, n: Node) -> Node | None:
+        """A card's or column's header, when it is the container's first child (section 5.11)."""
+        if n["type"] not in ("card", "column"):
+            return None
+        kids = n.get("children", [])
+        return kids[0] if kids and kids[0]["type"] == "header" else None
+
+    def bar_children(self, n: Node) -> list[Node]:
+        """A header's entries in its row: its children, led by its card's title if that moved into it."""
+        t = self.bar_titles.get(id(n))
+        return [t, *self.flow_children(n)] if t is not None else self.flow_children(n)
+
+    def card_title_in_header(self, card: Node, header: Node) -> None:
+        """Moves a card's title into its leading header (Appendix C.7)."""
+        if "label" not in card or id(header) in self.bar_titles:
+            return
+        self.bar_titles[id(header)] = {"type": CARD_TITLE, "label": card["label"], "loc": card["loc"]}
+
+    def lead_intrinsic(self, n: Node, header: Node, p: float) -> tuple[float, float]:
+        """Intrinsic widths of a card or column that leads with a header: the bar, or the rest."""
+        kids = self.bar_children(header)
+        pref = 0.0
+        mn = 0.0
+        for c in kids:
+            c_pref, c_min = self.intrinsic(c)
+            pref += c_pref
+            mn += c_min
+        gaps = max_(0, len(kids) - 1) * self.gap(header)
+        r_pref, r_min = self.column_intrinsic(n.get("children", [])[1:], p)
+        return max_(pref + gaps + 2 * p, r_pref), max_(mn + gaps + 2 * p, r_min)
+
+    def place_lead_header(self, header: Node, x: float, y: float, w: float, pad_h: float) -> Laid:
+        """Places a card's or column's leading header across its full width, with its side padding."""
+        prev = self.bar_pad
+        self.bar_pad = pad_h
+        lay = self.place(header, x, y, w)
+        self.bar_pad = prev
+        return lay
 
     def nav_entries(self, n: Node) -> list[tuple[str, bool, str | None]]:
         """The entries of a nav: text, whether active, and icon."""
@@ -483,12 +538,26 @@ class Layout:
             out = self.place_table(n, x, y, w)
         elif t == "card":
             p = self.pad(n)
-            title_h = 22 + self.gap(n) if "label" in n else 0.0
+            lead = self.lead_header(n)
+            if lead is not None:
+                self.card_title_in_header(n, lead)
+            bar = self.place_lead_header(lead, x, y, w, p) if lead is not None else None
+            bar_h = bar.box.h if bar is not None else 0.0
+            title_h = 22 + self.gap(n) if lead is None and "label" in n else 0.0
             inner, inner_h = self.place_column(
-                n, self.flow_children(n), x + p, y + p + title_h, w - 2 * p, self.gap(n), "stretch", None
+                n,
+                [c for c in self.flow_children(n) if c is not lead],
+                x + p,
+                y + bar_h + p + title_h,
+                w - 2 * p,
+                self.gap(n),
+                "stretch",
+                None,
             )
-            out = self.laid(n, x, y, w, 2 * p + title_h + inner_h)
-            out.children = inner
+            out = self.laid(n, x, y, w, bar_h + 2 * p + title_h + inner_h)
+            out.children = [bar, *inner] if bar is not None else inner
+        elif t == CARD_TITLE:
+            out = self.laid(n, x, y, w, 22)
         elif t in ("empty", "error", "loading"):
             f = self.body(15, 400)
             h = 8 * u + (24 if t == "loading" else 32)
@@ -512,18 +581,21 @@ class Layout:
             out = self.place_grid(n, x, y, w)
         elif t in ("sidebar", "column"):
             p = self.pad(n)
+            lead = self.lead_header(n)
+            bar = self.place_lead_header(lead, x, y, w, p) if lead is not None else None
+            bar_h = bar.box.h if bar is not None else 0.0
             inner, inner_h = self.place_column(
                 n,
-                self.flow_children(n),
+                [c for c in self.flow_children(n) if c is not lead],
                 x + p,
-                y + p,
+                y + bar_h + p,
                 w - 2 * p,
                 self.gap(n),
                 self.align(n),
-                fixed_h - 2 * p if fixed_h is not None else None,
+                fixed_h - bar_h - 2 * p if fixed_h is not None else None,
             )
-            out = self.laid(n, x, y, w, inner_h + 2 * p)
-            out.children = inner
+            out = self.laid(n, x, y, w, bar_h + inner_h + 2 * p)
+            out.children = [bar, *inner] if bar is not None else inner
         else:
             out = self.laid(n, x, y, w, 0)
         if fixed_h is not None:
@@ -611,7 +683,7 @@ class Layout:
             pad_h = self.pad(n)
         gap = self.gap(n)
         inner_w = w - 2 * pad_h
-        kids = self.flow_children(n)
+        kids = self.bar_children(n)
         lines: list[list[Node]] = []
         if has(n, "wrap"):
             line: list[Node] = []
