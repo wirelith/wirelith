@@ -4,6 +4,8 @@ PNG output for Wirelith. It rasterises the SVG that `@wirelith/core` renders, us
 
 **Status: 0.x, unstable, not yet published.**
 
+Try Wirelith in your browser at [play.wirelith.dev](https://play.wirelith.dev).
+
 ```js
 import { render } from '@wirelith/core';
 import { extractPngSource, svgToPng } from '@wirelith/png';

@@ -4,6 +4,8 @@ Wirelith is a small plain-text language for low-fidelity wireframes: screens, la
 
 > **Status: 0.x, unstable.** The language is at version 0.1 (draft). Nothing is published to a package registry yet, and anything may change before 1.0. [ROADMAP.md](ROADMAP.md) lists what has to happen before then.
 
+**Try it in your browser** at [play.wirelith.dev](https://play.wirelith.dev): write a source and see its problems and its rendering as you type. Everything runs in the page, and nothing you type is sent anywhere. The playground runs `@wirelith/core` from a recent commit of this repository, so it can be a little behind `main`.
+
 ## An example
 
 ```wirelith

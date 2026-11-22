@@ -4,6 +4,8 @@ The `wirelith` command: renders Wirelith sources to SVG and PNG, and checks, for
 
 **Status: 0.x, unstable, not yet published.**
 
+Try Wirelith in your browser at [play.wirelith.dev](https://play.wirelith.dev).
+
 ```sh
 wirelith render flows.md                 # every wirelith fence in a markdown file, as SVG
 wirelith render screen.wirelith -o screen.png --scale 2

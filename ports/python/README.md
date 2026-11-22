@@ -6,6 +6,8 @@ It does not render. There is no SVG output.
 
 **Status:** 0.x and unstable. The API may change in any release. The package is not published; use it from this repository.
 
+Try Wirelith in your browser at [play.wirelith.dev](https://play.wirelith.dev). The playground renders with the JavaScript implementation, `@wirelith/core`.
+
 ## Requirements
 
 Python 3.11 or newer. It uses only the standard library, has no runtime dependencies, and reads no files except its own data (font metrics and icon names, in `src/wirelith/data`).

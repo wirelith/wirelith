@@ -4,6 +4,8 @@ A local [Model Context Protocol](https://modelcontextprotocol.io) server for Wir
 
 **Status: 0.x, unstable, not yet published.**
 
+Try Wirelith in your browser at [play.wirelith.dev](https://play.wirelith.dev).
+
 It runs on your machine over standard input and output. It opens no network connection, sends no telemetry, and reads no files: every tool works on the text it is given.
 
 ## What it offers
