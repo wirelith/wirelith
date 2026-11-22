@@ -71,8 +71,9 @@ afterEach(async () => {
  * Starts a stub of the GitHub API that enforces the real permission split: advisory endpoints
  * accept only the triage token, and pull request endpoints accept only the workflow token.
  * `advisories` is the status for listing drafts; `create` for opening one. `reviews` and
- * `comments` are what the sweep finds.
- * @param {{ advisories: number, create: number, reviews?: any[], comments?: any[] }} opts
+ * `comments` are what the sweep can find; comments are filtered by `since`, as GitHub does.
+ * `runs` are the scanner's own successful workflow runs.
+ * @param {{ advisories: number, create: number, reviews?: any[], comments?: any[], runs?: any[] }} opts
  * @returns {Promise<{ url: string, created: string[] }>}
  */
 async function stub(opts) {
@@ -87,6 +88,7 @@ async function stub(opts) {
     req.on('end', () => {
       const auth = req.headers.authorization ?? '';
       const path = (req.url ?? '').split('?')[0] ?? '';
+      const query = new URL(req.url ?? '/', 'http://stub').searchParams;
       /** @param {number} status @param {unknown} json */
       const send = (status, json) => {
         res.writeHead(status, { 'content-type': 'application/json' });
@@ -100,9 +102,17 @@ async function stub(opts) {
       }
       if (path.startsWith('/repos/o/r/pulls')) {
         if (auth !== 'Bearer workflow-token') return send(403, {});
-        if (path === '/repos/o/r/pulls/comments') return send(200, opts.comments ?? []);
+        if (path === '/repos/o/r/pulls/comments') {
+          const since = query.get('since');
+          const all = opts.comments ?? [];
+          return send(200, since ? all.filter((c) => (c.updated_at ?? recent) >= since) : all);
+        }
         if (path === '/repos/o/r/pulls') return send(200, [{ number: 1, updated_at: recent }]);
         if (path === '/repos/o/r/pulls/1/reviews') return send(200, opts.reviews ?? []);
+      }
+      if (path === '/repos/o/r/actions/workflows/scan-posts.yml/runs') {
+        if (auth !== 'Bearer workflow-token') return send(403, {});
+        return send(200, { workflow_runs: opts.runs ?? [] });
       }
       return send(404, {});
     });
@@ -198,6 +208,49 @@ describe('scan-posts end to end', () => {
     expect(api.created.join('\n')).toContain('https://example.test/c/1');
     expect(api.created.join('\n')).toContain('https://example.test/r/2');
     expect(api.created.join('\n').toLowerCase()).not.toContain(TERM);
+  });
+
+  it('sweeps everything since the previous successful sweep, however late it ran', async () => {
+    const hoursAgo = (/** @type {number} */ h) => new Date(Date.now() - h * 3_600_000).toISOString();
+    const api = await stub({
+      advisories: 200,
+      create: 201,
+      // The previous sweep ran 8 hours ago; this run's own entry is ignored.
+      runs: [
+        { id: 99, event: 'schedule', run_started_at: hoursAgo(0) },
+        { id: 7, event: 'issue_comment', run_started_at: hoursAgo(1) },
+        { id: 6, event: 'schedule', run_started_at: hoursAgo(8) },
+      ],
+      comments: [
+        {
+          html_url: 'https://example.test/c/5h',
+          body: `posted in the gap: ${TERM}`,
+          updated_at: hoursAgo(5),
+        },
+        { html_url: 'https://example.test/c/9h', body: `swept last time: ${TERM}`, updated_at: hoursAgo(9) },
+      ],
+    });
+    const r = await scan(api.url, null, { GITHUB_RUN_ID: '99' });
+    expect(r).toEqual({ status: 0, out: 'scan: complete.\n' });
+    expect(api.created.join('\n')).toContain('https://example.test/c/5h');
+    expect(api.created.join('\n')).not.toContain('https://example.test/c/9h');
+  });
+
+  it('sweeps everything when there has been no successful sweep yet', async () => {
+    const api = await stub({
+      advisories: 200,
+      create: 201,
+      comments: [
+        {
+          html_url: 'https://example.test/c/old',
+          body: `long ago: ${TERM}`,
+          updated_at: '2026-01-01T00:00:00Z',
+        },
+      ],
+    });
+    const r = await scan(api.url, null);
+    expect(r).toEqual({ status: 0, out: 'scan: complete.\n' });
+    expect(api.created.join('\n')).toContain('https://example.test/c/old');
   });
 
   it('fails the sweep openly when the workflow token is missing', async () => {
