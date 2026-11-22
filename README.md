@@ -2,7 +2,7 @@
 
 Wirelith is a small plain-text language for low-fidelity wireframes: screens, layout, forms, tables, states, and click-through flows between screens. You write it in a markdown code fence, and a renderer turns it into a clean SVG or PNG.
 
-> **Status: 0.x, unstable.** The language is at version 0.1 (draft). Nothing is published to a package registry yet, and anything may change before 1.0.
+> **Status: 0.x, unstable.** The language is at version 0.1 (draft). Nothing is published to a package registry yet, and anything may change before 1.0. [ROADMAP.md](ROADMAP.md) lists what has to happen before then.
 
 ## An example
 
@@ -33,6 +33,8 @@ screen "Home" phone #home
 ![Three phone screens: Sign in, Reset password and Home, with arrows from "Forgot password?" to Reset password and from "Sign in" to Home](docs/readme-example.png)
 
 The picture is drawn by the command-line tool from [docs/readme-example.wirelith](docs/readme-example.wirelith). CI draws it again in a container with no network and fails if it differs by a single byte.
+
+**More examples are in the [gallery](docs/gallery.md):** dashboards, tables, flows with drawers and dialogs, and themes, each with its source.
 
 ## Principles
 

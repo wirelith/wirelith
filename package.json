@@ -20,7 +20,9 @@
     "changeset": "changeset",
     "check-spec-data": "node spec/generators/font-metrics.mjs --check && node spec/generators/icons.mjs --check && node packages/core/scripts/gen-data.mjs --check",
     "conformance": "node conformance/runner/run.mjs --tree \"node conformance/adapters/core.mjs tree\" --diagnostics \"node conformance/adapters/core.mjs diagnostics\" --svg \"node conformance/adapters/core.mjs svg\"",
-    "check-conformance": "node conformance/generate.mjs --check"
+    "check-conformance": "node conformance/generate.mjs --check",
+    "gallery": "node scripts/gallery.mjs",
+    "check-gallery": "node scripts/gallery.mjs --check"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.3",
