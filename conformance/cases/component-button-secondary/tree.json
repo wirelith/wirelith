@@ -1,0 +1,94 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "Buttons",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "button",
+              "label": "Default",
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Secondary",
+              "flags": [
+                "secondary"
+              ],
+              "loc": {
+                "line": 4,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "button",
+              "label": "Small",
+              "flags": [
+                "secondary",
+                "sm"
+              ],
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Disabled",
+              "flags": [
+                "secondary",
+                "disabled"
+              ],
+              "loc": {
+                "line": 7,
+                "column": 5
+              }
+            },
+            {
+              "type": "button",
+              "label": "Save",
+              "flags": [
+                "secondary"
+              ],
+              "attrs": {
+                "icon": "download"
+              },
+              "loc": {
+                "line": 8,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 5,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}
