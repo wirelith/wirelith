@@ -9,7 +9,7 @@ Fixes to the tools, docs and tests don't need an RFC.
 1. Open an issue with the "Language proposal" form to check the idea is worth writing up.
 2. Copy `0000-template.md` to `rfcs/0000-short-name.md` and fill it in. Open a pull request.
 3. The RFC stays open for comment for at least 7 days. The maintainers then accept it, ask for changes, or decline it.
-4. When accepted, it gets a number and is merged. A separate pull request then implements it: it updates `spec/`, the one-page AI spec and the conformance cases together.
+4. When accepted, it gets a number and is merged. A separate pull request then implements it: it updates `spec/`, the one-page AI spec and the conformance cases together. The change goes into the current draft version, or starts the next version if the latest one is released (spec section 14).
 
 Before 1.0, any minor version may change or remove syntax. From 1.0, a source valid in 1.x stays valid, with the same meaning, in every later 1.y.
 
