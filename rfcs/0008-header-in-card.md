@@ -1,6 +1,6 @@
-# RFC 0000: A header inside a card or a column
+# RFC 0008: A header inside a card or a column
 
-- **Status:** draft
+- **Status:** accepted
 - **Spec version:** 0.1, which is still a draft. This RFC relies on [RFC 0004](0004-spec-releases.md) (#20), under which a version is a draft until it is released.
 - **Discussed in:** #25, and its comment on the eval results from #26.
 
