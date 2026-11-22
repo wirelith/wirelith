@@ -4,6 +4,8 @@ The parser, validator, layout engine and SVG renderer for Wirelith, a plain-text
 
 **Status: 0.x, unstable, not yet published.** It implements the [Wirelith specification](https://github.com/wirelith/wirelith/blob/main/spec/spec.md), version 0.1.
 
+Try Wirelith in your browser at [play.wirelith.dev](https://play.wirelith.dev).
+
 - No dependencies. No network requests. No DOM. No file access.
 - Every function is pure and synchronous: the same input gives the same bytes.
 - Every string from a source is escaped. The output contains only the SVG elements and attributes the specification allows.

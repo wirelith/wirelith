@@ -16,6 +16,12 @@ classifiers = [
   "Typing :: Typed",
 ]
 
+[project.urls]
+Homepage = "https://github.com/wirelith/wirelith"
+Source = "https://github.com/wirelith/wirelith/tree/main/ports/python"
+Issues = "https://github.com/wirelith/wirelith/issues"
+Playground = "https://play.wirelith.dev"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/wirelith"]
 
