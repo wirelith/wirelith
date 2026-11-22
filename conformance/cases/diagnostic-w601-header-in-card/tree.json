@@ -1,0 +1,100 @@
+{
+  "type": "document",
+  "version": "0.1",
+  "screens": [
+    {
+      "type": "screen",
+      "label": "A",
+      "flags": [
+        "phone"
+      ],
+      "children": [
+        {
+          "type": "card",
+          "label": "A card title long enough to crowd its header",
+          "children": [
+            {
+              "type": "header",
+              "children": [
+                {
+                  "type": "button",
+                  "label": "One long button label",
+                  "loc": {
+                    "line": 4,
+                    "column": 7
+                  }
+                },
+                {
+                  "type": "button",
+                  "label": "Another long button label",
+                  "loc": {
+                    "line": 5,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 3,
+                "column": 5
+              }
+            },
+            {
+              "type": "text",
+              "label": "The card's title moved into its header, so the header's row is too wide.",
+              "loc": {
+                "line": 6,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 2,
+            "column": 3
+          }
+        },
+        {
+          "type": "column",
+          "attrs": {
+            "height": 60,
+            "pad": "sm"
+          },
+          "children": [
+            {
+              "type": "header",
+              "children": [
+                {
+                  "type": "h2",
+                  "label": "Tall",
+                  "loc": {
+                    "line": 9,
+                    "column": 7
+                  }
+                }
+              ],
+              "loc": {
+                "line": 8,
+                "column": 5
+              }
+            },
+            {
+              "type": "text",
+              "label": "The header counts towards the column's fixed height.",
+              "loc": {
+                "line": 10,
+                "column": 5
+              }
+            }
+          ],
+          "loc": {
+            "line": 7,
+            "column": 3
+          }
+        }
+      ],
+      "loc": {
+        "line": 1,
+        "column": 1
+      }
+    }
+  ]
+}

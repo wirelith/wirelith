@@ -1,0 +1,14 @@
+[
+  {
+    "code": "W601",
+    "severity": "warning",
+    "line": 3,
+    "column": 5
+  },
+  {
+    "code": "W601",
+    "severity": "warning",
+    "line": 7,
+    "column": 3
+  }
+]

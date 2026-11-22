@@ -466,10 +466,14 @@ function placementProblem(n: Node, p: Node): string | undefined {
       return p.type === 'list' || p.type === 'nav'
         ? undefined
         : '"item" must be directly inside a list or a nav';
+    case 'header':
+      // A screen's header, or a bar at the top of a card or column (RFC 0008).
+      return p.type === 'screen' || ((p.type === 'card' || p.type === 'column') && p.children?.[0] === n)
+        ? undefined
+        : '"header" must be directly inside a screen, or first inside a card or column';
     case 'note':
     case 'modal':
     case 'drawer':
-    case 'header':
     case 'footer':
       return p.type === 'screen' ? undefined : `"${n.type}" must be directly inside a screen`;
     case 'sidebar':

@@ -1,0 +1,24 @@
+wirelith 0.1
+
+screen "Inbox" desktop
+  row grow
+    sidebar
+      nav [Inbox, Sent, Drafts] vertical active="Inbox"
+    column grow pad=lg
+      header
+        h2 "Inbox"
+        spacer
+        input placeholder="Search" type=search width=240
+        button "Compose" primary
+      table [From, Subject, Received]
+        row [Ada Park, Quarterly plan, Today]
+        row [Luis Ortega, Room booking, Yesterday]
+
+screen "Shipping" phone
+  column pad=md gap=md
+    header gap=sm
+      button icon=arrow-left
+      h3 "Shipping"
+    input "Full name"
+    input "Postcode"
+    button "Continue" primary width=fill
