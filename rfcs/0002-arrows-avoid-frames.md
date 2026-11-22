@@ -1,7 +1,7 @@
 # RFC 0002: Arrows never cross frames
 
 - **Status:** accepted
-- **Spec version:** 0.1, which is still a draft. Section 14 as written would make this a new minor version. This RFC relies on [RFC 0000-spec-releases](https://github.com/wirelith/wirelith/pull/20) (#20), under which a version is a draft until it is released.
+- **Spec version:** 0.1, which is still a draft. Section 14 as written would make this a new minor version. This RFC relies on [RFC 0004](0004-spec-releases.md) (#20), under which a version is a draft until it is released.
 
 ## Summary
 
