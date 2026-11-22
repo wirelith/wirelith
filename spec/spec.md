@@ -867,9 +867,9 @@ All products below are made up.
 ```wirelith
 wirelith 0.1
 
-screen "Juniper Analytics" desktop #dashboard
+screen "Vellumcrest Analytics" desktop #dashboard
   sidebar
-    h3 "Juniper"
+    h3 "Vellumcrest"
     nav [Overview, Reports, Audiences, Settings] active="Overview" vertical
   header
     h2 "Overview"
