@@ -1,0 +1,70 @@
+# SPDX-License-Identifier: MIT
+
+# Publishes the npm packages. Nothing runs it automatically: a maintainer starts it by hand from
+# main (Actions, Publish, Run workflow) after a release pull request has merged. It runs the
+# checks again, then publishes every package whose version isn't on npm yet, in dependency order,
+# with provenance. Unless "publish" is ticked, it is a dry run that only shows what it would do.
+# See RELEASING.md.
+
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish for real. Leave unticked for a dry run.
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+env:
+  PNPM_VERSION: 11.28.9
+  # Trusted publishing needs npm 11.5.1 or newer.
+  NPM_VERSION: 11.6.2
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    # Only maintainers can approve a run in this environment, and only from main (RELEASING.md).
+    environment: npm
+    permissions:
+      contents: read
+      # Trusted publishing (OIDC) and provenance.
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - run: npm install --global npm@${{ env.NPM_VERSION }} pnpm@${{ env.PNPM_VERSION }}
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint
+      - run: pnpm run typecheck
+      - run: pnpm test
+      - run: pnpm run build
+      - run: pnpm run size
+      - run: pnpm run check-licenses
+      - run: pnpm run check-spec-data
+      - run: pnpm run check-conformance
+      - name: Publish (or a dry run)
+        env:
+          PUBLISH: ${{ inputs.publish }}
+          # Only for a first publish, before a package can have a trusted publisher (RELEASING.md).
+          # Empty otherwise, and npm then uses trusted publishing.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ "$PUBLISH" = "true" ]; then
+            node scripts/release/publish.mjs --publish
+          else
+            node scripts/release/publish.mjs
+          fi
