@@ -1,7 +1,7 @@
-# RFC 0000: A note can point at its own screen
+# RFC 0005: A note can point at its own screen
 
-- **Status:** draft
-- **Spec version:** 0.1, which is still a draft. This RFC relies on [RFC 0000-spec-releases](https://github.com/wirelith/wirelith/pull/20) (#20), under which a version is a draft until it is released.
+- **Status:** accepted
+- **Spec version:** 0.1, which is still a draft. This RFC relies on [RFC 0004](0004-spec-releases.md) (#20), under which a version is a draft until it is released.
 
 ## Summary
 
@@ -25,11 +25,11 @@ screen "Checkout" phone #checkout
 
 Today, note 1 has no marker:
 
-![Today: note 1 is listed but has no marker](0000-note-for-screen/before.png)
+![Today: note 1 is listed but has no marker](0005-note-for-screen/before.png)
 
 With this change, note 1's marker is on the screen's corner, and shows in full:
 
-![Proposed: note 1's marker is on the screen's corner, whole](0000-note-for-screen/after.png)
+![Proposed: note 1's marker is on the screen's corner, whole](0005-note-for-screen/after.png)
 
 Both pictures were drawn by the `wirelith` command.
 
