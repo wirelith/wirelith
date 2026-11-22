@@ -979,8 +979,8 @@ class Painter {
     if (f.notesList.length === 0) return undefined;
     const u = this.u;
     const c = this.c;
-    const x = f.x + f.w + 24;
-    let y = f.y;
+    const x = f.x;
+    let y = f.y + f.h + 24;
     const parts: Markup[] = [this.text('Notes', x, y, this.L.body(13, 600), 18, c.muted)];
     y += 18 + 2 * u;
     const font = this.L.body(13, 400);
