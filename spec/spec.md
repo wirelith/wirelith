@@ -269,7 +269,7 @@ screen "Checkout" #checkout
 ```
 
 - A `note` is a child of a `screen`. Its label is the note text.
-- `for=#id` points the note at an element in the same screen. Without `for`, the note is about the whole screen. An id that doesn't exist is `E401`; an element in another screen is `E402`.
+- `for=#id` points the note at an element in the same screen. Without `for`, or with `for` naming the note's own screen, the note is about the whole screen. An id that doesn't exist is `E401`; an element in another screen is `E402`.
 - Notes are numbered from 1 in source order, per screen.
 - The renderer draws a numbered marker at the top-right corner of the target (the screen frame's corner for a note without `for`), and a numbered list of the notes below the screen. Notes never change the layout inside the screen. A note about an element that isn't drawn, such as one inside an overlay that is never shown, is listed but has no marker.
 - A host MAY hide notes (section 8).
@@ -334,7 +334,7 @@ In detail:
 - **Bands.** Groups are placed in bands. A group that would make the overview wider than 16,000 px (section 16), counting the 32 px margin on each side, starts a new band, below the tallest group of the band before, 96 px further down. The first group of a band is never moved to a new band, so a single group wider than the canvas is still `E701`.
 - **Notes.** A frame with notes has its notes list 24 px below it, as wide as the frame or 240 px, whichever is wider. The list counts as part of the frame for spacing. It is below the frame, not beside it, so that no arrow crosses it: arrows run only beside frames and above bands.
 - **Canvas.** The overview has a 32 px margin on every side. Each frame's title is one line, set 8 px above the frame (Appendix C.9).
-- **One screen alone.** A source with one screen, no links and no linked overlays is drawn as that frame and its notes list, with no title line and no margin.
+- **One screen alone.** A source with one screen, no links and no linked overlays is drawn as that frame and its notes list, with no title line and no margin. When the frame has a note marker on its own top-right corner, the frame starts 9 px down and the canvas reaches at least 9 px past the frame's right edge, so that the marker isn't cut off.
 - **Where an arrow starts.** A link on an element inside an overlay starts from the overlay's frame. A `flow` arrow starts from the middle of its source frame's edge. A link to an overlay that has `open` points at its own screen's frame; it is not drawn.
 - **Options.** With `flows` off, arrows are not drawn, but overlay frames still are. With `notes` off, neither markers nor lists are drawn, and frames close up as if no notes existed.
 - **Errors.** A renderer given a source with errors returns its diagnostics and no SVG. How a host shows the diagnostics is up to the host.
